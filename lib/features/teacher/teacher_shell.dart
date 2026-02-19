@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/theme_provider.dart';
+import '../../core/constants/app_strings.dart';
 
 /// Teacher dashboard shell with navigation
 class TeacherShell extends StatefulWidget {
@@ -69,7 +70,7 @@ class _TeacherShellState extends State<TeacherShell> {
                     style: const TextStyle(fontWeight: FontWeight.w600)),
               ),
               const PopupMenuDivider(),
-              const PopupMenuItem(value: 'logout', child: Text('Log Out')),
+              const PopupMenuItem(value: 'logout', child: Text('Çıxış')),
             ],
           ),
         ],
@@ -80,24 +81,24 @@ class _TeacherShellState extends State<TeacherShell> {
         onDestinationSelected: _onDestinationSelected,
         destinations: const [
           NavigationDestination(
-            icon: Icon(Icons.menu_book_outlined),
-            selectedIcon: Icon(Icons.menu_book),
-            label: 'Courses',
+            icon: Icon(Icons.home_outlined),
+            selectedIcon: Icon(Icons.home),
+            label: AppStrings.navHome,
           ),
           NavigationDestination(
             icon: Icon(Icons.analytics_outlined),
             selectedIcon: Icon(Icons.analytics),
-            label: 'Analytics',
+            label: AppStrings.navAnalytics,
           ),
           NavigationDestination(
             icon: Icon(Icons.assignment_add),
             selectedIcon: Icon(Icons.assignment),
-            label: 'Assign',
+            label: 'Tapşırıq',
           ),
           NavigationDestination(
             icon: Icon(Icons.quiz_outlined),
             selectedIcon: Icon(Icons.quiz),
-            label: 'Exams',
+            label: AppStrings.exams,
           ),
         ],
       ),
@@ -106,11 +107,11 @@ class _TeacherShellState extends State<TeacherShell> {
 
   String _getTitle() {
     switch (_currentIndex) {
-      case 0: return 'My Courses';
-      case 1: return 'Analytics';
-      case 2: return 'Create Assignment';
-      case 3: return 'Create Exam';
-      default: return 'Teacher';
+      case 0: return AppStrings.myCourses;
+      case 1: return AppStrings.navAnalytics;
+      case 2: return 'Tapşırıq yarat';
+      case 3: return 'İmtahan yarat';
+      default: return AppStrings.appName;
     }
   }
 }

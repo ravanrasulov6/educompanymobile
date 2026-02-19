@@ -6,6 +6,7 @@ import '../../models/user_model.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_text_styles.dart';
 import '../../core/widgets/premium_button.dart';
+import '../../core/constants/app_strings.dart';
 
 /// Sign up screen
 class SignupScreen extends StatefulWidget {
@@ -63,10 +64,10 @@ class _SignupScreenState extends State<SignupScreen> {
                   children: [
                     const SizedBox(height: 24),
 
-                    Text('Create Account', style: AppTextStyles.displayMedium),
+                    Text('Hesab Yaradın', style: AppTextStyles.displayMedium),
                     const SizedBox(height: 8),
                     Text(
-                      'Start your learning journey today',
+                      'Təhsil yolculuğunuza bugün başlayın',
                       style: AppTextStyles.bodyLarge.copyWith(
                         color: Theme.of(context)
                             .colorScheme
@@ -77,45 +78,45 @@ class _SignupScreenState extends State<SignupScreen> {
                     const SizedBox(height: 36),
 
                     // Name
-                    Text('Full Name', style: AppTextStyles.labelLarge),
+                    Text(AppStrings.name, style: AppTextStyles.labelLarge),
                     const SizedBox(height: 8),
                     TextFormField(
                       controller: _nameController,
                       decoration: const InputDecoration(
-                        hintText: 'Enter your full name',
+                        hintText: 'Adınız və Soyadınız',
                         prefixIcon: Icon(Icons.person_outline),
                       ),
                       validator: (v) =>
-                          v == null || v.isEmpty ? 'Name is required' : null,
+                          v == null || v.isEmpty ? 'Ad tələb olunur' : null,
                     ),
                     const SizedBox(height: 20),
 
                     // Email
-                    Text('Email', style: AppTextStyles.labelLarge),
+                    Text(AppStrings.email, style: AppTextStyles.labelLarge),
                     const SizedBox(height: 8),
                     TextFormField(
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       decoration: const InputDecoration(
-                        hintText: 'Enter your email',
+                        hintText: 'nümunə@edu.com',
                         prefixIcon: Icon(Icons.email_outlined),
                       ),
                       validator: (v) {
-                        if (v == null || v.isEmpty) return 'Email is required';
-                        if (!v.contains('@')) return 'Enter a valid email';
+                        if (v == null || v.isEmpty) return 'E-poçt tələb olunur';
+                        if (!v.contains('@')) return 'E-poçt formatı düzgün deyil';
                         return null;
                       },
                     ),
                     const SizedBox(height: 20),
 
                     // Password
-                    Text('Password', style: AppTextStyles.labelLarge),
+                    Text(AppStrings.password, style: AppTextStyles.labelLarge),
                     const SizedBox(height: 8),
                     TextFormField(
                       controller: _passwordController,
                       obscureText: _obscurePassword,
                       decoration: InputDecoration(
-                        hintText: 'Create a password',
+                        hintText: 'Şifrə yaradın',
                         prefixIcon: const Icon(Icons.lock_outline),
                         suffixIcon: IconButton(
                           icon: Icon(_obscurePassword
@@ -126,20 +127,20 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                       ),
                       validator: (v) {
-                        if (v == null || v.isEmpty) return 'Password is required';
-                        if (v.length < 6) return 'Minimum 6 characters';
+                        if (v == null || v.isEmpty) return 'Şifrə tələb olunur';
+                        if (v.length < 6) return 'Minimum 6 simvol';
                         return null;
                       },
                     ),
                     const SizedBox(height: 24),
 
                     // Role selection
-                    Text('I am a', style: AppTextStyles.labelLarge),
+                    Text('Mən bir ...', style: AppTextStyles.labelLarge),
                     const SizedBox(height: 12),
                     Row(
                       children: [
                         _RoleChip(
-                          label: 'Student',
+                          label: 'Tələbəyəm',
                           icon: Icons.school_outlined,
                           isSelected: _selectedRole == UserRole.student,
                           onTap: () =>
@@ -147,7 +148,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                         const SizedBox(width: 12),
                         _RoleChip(
-                          label: 'Teacher',
+                          label: 'Müəlliməm',
                           icon: Icons.cast_for_education_outlined,
                           isSelected: _selectedRole == UserRole.teacher,
                           onTap: () =>
@@ -183,7 +184,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     const SizedBox(height: 28),
 
                     PremiumButton(
-                      label: 'Create Account',
+                      label: AppStrings.signUp,
                       onPressed: _submit,
                       isGradient: true,
                       isLoading: auth.status == AuthStatus.loading,
@@ -196,11 +197,11 @@ class _SignupScreenState extends State<SignupScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Already have an account? ',
+                        Text('Artıq hesabınız var? ',
                             style: AppTextStyles.bodyMedium),
                         GestureDetector(
                           onTap: () => context.go('/login'),
-                          child: Text('Log In',
+                          child: Text(AppStrings.login,
                               style: AppTextStyles.titleMedium
                                   .copyWith(color: AppColors.primary)),
                         ),

@@ -5,6 +5,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../../../core/widgets/premium_button.dart';
 import '../../../models/course_model.dart';
+import '../../../core/constants/app_strings.dart';
 
 /// Course detail screen with sections and lessons
 class CourseDetailScreen extends StatelessWidget {
@@ -66,7 +67,7 @@ class CourseDetailScreen extends StatelessWidget {
                       const SizedBox(width: 16),
                       const Icon(Icons.people_outline, size: 16),
                       const SizedBox(width: 4),
-                      Text('${course.studentsCount} students',
+                      Text('${course.studentsCount} tələbə',
                           style: AppTextStyles.bodySmall),
                     ],
                   ),
@@ -90,17 +91,17 @@ class CourseDetailScreen extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('${(course.progress * 100).round()}% Complete',
+                                Text('${(course.progress * 100).round()}% Tamamlanıb',
                                     style: AppTextStyles.titleLarge),
                                 const SizedBox(height: 4),
                                 Text(
-                                    '${course.completedLessons}/${course.totalLessons} lessons',
+                                    '${course.completedLessons}/${course.totalLessons} dərs',
                                     style: AppTextStyles.bodySmall),
                               ],
                             ),
                           ),
                           PremiumButton(
-                            label: 'Continue',
+                            label: 'Davam et',
                             onPressed: () {},
                             icon: Icons.play_arrow,
                           ),
@@ -109,14 +110,14 @@ class CourseDetailScreen extends StatelessWidget {
                     ),
 
                   const SizedBox(height: 24),
-                  Text('Curriculum', style: AppTextStyles.headlineMedium),
+                  Text('Kurikulum', style: AppTextStyles.headlineMedium),
                   const SizedBox(height: 8),
 
                   // Notes feature button
                   OutlinedButton.icon(
                     onPressed: () {},
                     icon: const Icon(Icons.note_add_outlined, size: 18),
-                    label: const Text('My Notes'),
+                    label: const Text('Qeydlərim'),
                   ),
                   const SizedBox(height: 12),
                 ],
@@ -155,7 +156,7 @@ class _SectionTile extends StatelessWidget {
           tilePadding: const EdgeInsets.symmetric(horizontal: 16),
           title: Text(section.title, style: AppTextStyles.titleLarge),
           subtitle: Text(
-            '${section.lessons.length} lessons',
+            '${section.lessons.length} dərs',
             style: AppTextStyles.bodySmall,
           ),
           children: section.lessons.map((lesson) {

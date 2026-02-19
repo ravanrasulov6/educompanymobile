@@ -22,9 +22,9 @@ class AdminCoursesScreen extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _QuickStat(label: 'Published', value: '120', color: AppColors.success),
-              _QuickStat(label: 'Draft', value: '23', color: AppColors.warning),
-              _QuickStat(label: 'Flagged', value: '4', color: AppColors.error),
+              _QuickStat(label: 'Dərc edilib', value: '120', color: AppColors.success),
+              _QuickStat(label: 'Qaralama', value: '23', color: AppColors.warning),
+              _QuickStat(label: 'Şikayət', value: '4', color: AppColors.error),
             ],
           ),
         ),
@@ -49,7 +49,7 @@ class AdminCoursesScreen extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis),
                 subtitle: Text(
-                    '${course.instructor} • ${course.studentsCount} students'),
+                    '${course.instructor} • ${course.studentsCount} tələbə'),
                 trailing: Switch(value: true, onChanged: (_) {}),
               ),
             )),

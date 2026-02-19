@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html lang="az"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EduCompany Admin Analytics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5048e5",
+                        "background-light": "#ffffff",
+                        "background-dark": "#0f111a",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-rail-item {
+            background: rgba(80, 72, 229, 0.08);
+            color: #5048e5;
+            border-right: 3px solid #5048e5;
+        }
+        .premium-shadow {
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.04);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased overflow-x-hidden">
+<div class="flex h-screen w-full overflow-hidden">
+<!-- Subtle Navigation Rail (Left) -->
+<aside class="w-16 flex flex-col items-center py-8 border-r border-slate-100 dark:border-slate-800 bg-background-light/50 dark:bg-background-dark/50 backdrop-blur-md z-20">
+<div class="mb-10 text-primary">
+<span class="material-symbols-outlined text-3xl font-bold">school</span>
+</div>
+<nav class="flex flex-col gap-6 w-full">
+<a class="flex flex-col items-center justify-center py-3 active-rail-item transition-all duration-300" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center py-3 text-slate-400 hover:text-primary transition-all duration-300" href="#">
+<span class="material-symbols-outlined">group</span>
+</a>
+<a class="flex flex-col items-center justify-center py-3 text-slate-400 hover:text-primary transition-all duration-300" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</a>
+<a class="flex flex-col items-center justify-center py-3 text-slate-400 hover:text-primary transition-all duration-300" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+</a>
+<a class="flex flex-col items-center justify-center py-3 text-slate-400 hover:text-primary transition-all duration-300" href="#">
+<span class="material-symbols-outlined">settings</span>
+</a>
+</nav>
+<div class="mt-auto">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-slate-200 dark:border-slate-700">
+<img class="w-full h-full object-cover" data-alt="User profile avatar of the admin" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAewXNFb6se55SUy70IQLu9ynIhfkZtzK_YqZNRxS5nSudDPzBIu9REcmRNTkTSdJWSDYbX4oZx_Vm1hk--cWWVaZjZ6aB8vJwrCKif9o53j0Zs2lWNjszHVKPXk_Rw6TNj9-Hw_d4D-sGEiDU4J6Ei6OBHrdBpG8GjaAM6mbZ27cCHYumkZX6nqF9iu8uBsLBxwSbAT49j395IMv0PygLwxtnMvv_RJeJRoY4Iv1-vYV9aQ9m-BBXm24sbYy4M6BLk039FVroujU"/>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-full overflow-y-auto bg-slate-50/30 dark:bg-slate-900/10">
+<!-- Header -->
+<header class="sticky top-0 px-6 py-5 flex items-center justify-between bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-xl z-10 border-b border-slate-100 dark:border-slate-800">
+<div>
+<h1 class="text-xl font-bold tracking-tight">İdarəetmə Paneli</h1>
+<p class="text-[10px] uppercase tracking-widest text-slate-400 font-semibold mt-0.5">EduCompany Premium</p>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</button>
+</div>
+</header>
+<div class="p-6 flex flex-col gap-8 pb-32">
+<!-- Section Label -->
+<div class="flex items-center justify-between">
+<h2 class="text-xs uppercase tracking-[0.2em] font-bold text-slate-400">Platforma Analitikası</h2>
+<span class="text-[11px] font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">Bu Ay</span>
+</div>
+<!-- Premium Data Cards -->
+<div class="grid grid-cols-1 gap-4">
+<!-- Total Revenue Card -->
+<div class="bg-background-light dark:bg-slate-800/50 p-6 rounded-xl premium-shadow border border-slate-100 dark:border-slate-800 relative overflow-hidden">
+<div class="relative z-10">
+<p class="text-sm font-medium text-slate-500 mb-1">Ümumi Gəlir</p>
+<div class="flex items-baseline gap-2">
+<h3 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">₼ 12,450</h3>
+<span class="text-xs font-bold text-emerald-500">+12.5%</span>
+</div>
+</div>
+<!-- Simple Sparkline -->
+<div class="absolute bottom-0 left-0 w-full h-12 opacity-30">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 400 100">
+<path d="M0 80 Q 50 20, 100 70 T 200 30 T 300 60 T 400 10" fill="none" stroke="#5048e5" stroke-linecap="round" stroke-width="3"></path>
+<path d="M0 80 Q 50 20, 100 70 T 200 30 T 300 60 T 400 10 L 400 100 L 0 100 Z" fill="url(#grad1)"></path>
+<defs>
+<lineargradient id="grad1" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#5048e5;stop-opacity:0.2"></stop>
+<stop offset="100%" style="stop-color:#5048e5;stop-opacity:0"></stop>
+</lineargradient>
+</defs>
+</svg>
+</div>
+</div>
+<!-- New Users Card -->
+<div class="bg-background-light dark:bg-slate-800/50 p-6 rounded-xl premium-shadow border border-slate-100 dark:border-slate-800 relative overflow-hidden">
+<div class="relative z-10 flex justify-between items-start">
+<div>
+<p class="text-sm font-medium text-slate-500 mb-1">Yeni İstifadəçilər</p>
+<h3 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">+142</h3>
+</div>
+<div class="w-12 h-12 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">person_add</span>
+</div>
+</div>
+<div class="mt-4 flex items-center gap-1.5">
+<div class="flex -space-x-2">
+<img class="w-6 h-6 rounded-full border-2 border-white dark:border-slate-800" data-alt="New female user avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2TC0YBesu98MU8U7WRbeTAE14DPTwIPvIkCvqZss7kfyyrTRACWBlRFK5AAnyCBnoygWIF5HhQCNq9qzaKjypBbJP6Fd-SK5lMPVvzAt58IF4KKU3nqoAj3NQ-6wJIs8UVVWuNIjMcPa80ze_nHEPxYqT8hpwfK9fBCpQ4C5US30bfu2SGc7Vq-nnbTPrIzu9hRr9CU-klhbMZjA8dFql-Jk6sNKVlHMbLt0wTvYeqHJhTVSEgj32NjKrHORa6EZ8QUipjH_5tCs"/>
+<img class="w-6 h-6 rounded-full border-2 border-white dark:border-slate-800" data-alt="New male user avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKD6mPs4fNwtGQu0ty-B0cu0p-MtJkPjNqypDsoKFx3uDKSnYbwcoby2AXvN9VMY3UosDK8NVvLgDpHxP5fiWSCK-9d2ZJ1uoBbMnb4f7OwJ-rNMYdJQKC9ZOtmiM1kgSlRphIEFL-mTkfHrSNfu0dWSWI-tPwIGKkIQ67MF823ED3cabi3T9yzTGUkT2A9oTu95u2D4xrR72Sb-Mm5qOeEVooeT3PeVLbYEv2l-yyRf4BPRhRZgQl8GI2o_WeNvRzwULqjBVT_1A"/>
+<img class="w-6 h-6 rounded-full border-2 border-white dark:border-slate-800" data-alt="New professional user avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARs0HRwjdOUk-6MNjTED-35THJ50cY3EIP3LYbxqEWJ8RM1YJvGFhlPB8uRrhsqpSpZBcAnSpd-ybP1gSZrAOLKt-IYo_6fGynBa2lgl14USk3AN11-0Qq3HYL6gY1mLXteRUlzuJlpR6wu-cF08rjLS-W94tw31vLWyYJ_C53zfCEHt3Aod-nRC8cFrWm0ChIoQtdjT4TNeaUj7Cx_ZFQuxQSQhKtazI1yphzxt5cl9AAX24WjGctxJXAHD1CM4bTSe9tZ1jn6TI"/>
+</div>
+<span class="text-[11px] text-slate-400 font-medium">Son 24 saatda qoşulanlar</span>
+</div>
+</div>
+</div>
+<!-- Recent Activity List -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h2 class="text-xs uppercase tracking-[0.2em] font-bold text-slate-400">Son Fəaliyyətlər</h2>
+<button class="text-xs font-bold text-primary">Hamısına Bax</button>
+</div>
+<div class="flex flex-col gap-1">
+<!-- Activity Item 1 -->
+<div class="flex items-center gap-4 py-3 border-b border-slate-50 dark:border-slate-800/50">
+<div class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="User profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAirAqEiJx-a4zl6qkNiTD993tbrOsSTGz-XijAwAb-WW4-cJVDL-Q7qrccPDhF8sfeI4A1lNMSHAs-BVvPzSgc2UAmh-4cqSWwWiCnXFqK0ScD5BuaU1n0f7Tm9rrCIAk6YmMI3x9XkMfQKQ8dUjKscCiNez1v1bVAaPLJRj8HdZ2r3ag15oLt3oFNDh4U7cmB01IgmBER-RYghgh8tCDiqxBXq6kET0mtrlPHFtQiss3DUScA849YhvSBBbqGdUbFd9wrWn4j0_4"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-semibold truncate text-slate-900 dark:text-slate-100">Leyla Əliyeva</p>
+<p class="text-[11px] text-slate-500">UX Design kursuna abunə oldu</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-bold text-slate-400">2 dər.</p>
+<div class="w-2 h-2 rounded-full bg-primary ml-auto mt-1"></div>
+</div>
+</div>
+<!-- Activity Item 2 -->
+<div class="flex items-center gap-4 py-3 border-b border-slate-50 dark:border-slate-800/50">
+<div class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Male user profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzrwv6Ew_3XpgU1DrzVt-vMvwzJh_-bw279ZvhS_AZ79W6NTOpBCYCGzKrUISYQ1WMDl0ij99hqpvCpcwalF7etpyaX-y_70v_y89dnsICx35gDzg8QyCCMxPDgtgNSmZAjF9QZNy_Q5UDGjNQDVyiytvge1YM76pAl0YOAh6NIivXyH1EcyDRiytlC0ABBt5k09_Ma9SoaC_P4pcd3PsHo4nsyOjsFMiu_VGFrk8aA_fo2g-mY1BrLKbCPgvIfDWSrrRT7hn7FiI"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-semibold truncate text-slate-900 dark:text-slate-100">Anar Məmmədov</p>
+<p class="text-[11px] text-slate-500">Premium paketini yenilədi</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-bold text-slate-400">15 dər.</p>
+</div>
+</div>
+<!-- Activity Item 3 -->
+<div class="flex items-center gap-4 py-3 border-b border-slate-50 dark:border-slate-800/50">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-primary text-lg">payments</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-semibold truncate text-slate-900 dark:text-slate-100">Yeni Ödəniş</p>
+<p class="text-[11px] text-slate-500">₼ 45.00 daxil oldu</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-bold text-slate-400">1 saat</p>
+</div>
+</div>
+<!-- Activity Item 4 -->
+<div class="flex items-center gap-4 py-3">
+<div class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Female user professional profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8rpn4o8B1Uh1nIfq3gZzXPTasS14jMw-us8YgowZtdxy8tj65hIxFAwy6TOO92V1jX2LdggwLDfCi6NI4T_NSGgTFmre0c-bp1ojcIT3Ro_VBTJhFY_q28pZjlNyyu8bgQblYTW3mBun_4ARloBoPk9_gFCgNklpW99bxRPlnRAoc9JaP5Ut5eGTpqPXmDRpz6KtiKts91BWFamaLlugZ6TgcK0Sb5_RYQJfutf46dS1kv0Ez4MMTb-lE15I89GfPOgZ4Ae8qY7c"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-semibold truncate text-slate-900 dark:text-slate-100">Günel Həsənova</p>
+<p class="text-[11px] text-slate-500">Profil məlumatlarını yenilədi</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-bold text-slate-400">3 saat</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Strategic Summary Mini Card -->
+<div class="bg-primary p-6 rounded-2xl text-white flex items-center justify-between premium-shadow">
+<div class="flex-1">
+<h4 class="text-xs uppercase tracking-[0.1em] font-bold opacity-80 mb-1">Aylıq Hədəf</h4>
+<p class="text-xl font-bold">85% Tamamlanıb</p>
+<div class="w-full bg-white/20 h-1 rounded-full mt-3 overflow-hidden">
+<div class="bg-white h-full w-[85%] rounded-full"></div>
+</div>
+</div>
+<div class="ml-6">
+<span class="material-symbols-outlined text-4xl opacity-50">auto_awesome</span>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Mobile Bottom Navigation (Visible only on very small screens if rail is hidden, but rail is preferred for pro feel) -->
+<!-- Keeping consistent with rail requested, but ensuring a floating action button if needed for quick creation -->
+<div class="fixed bottom-6 right-6 z-30">
+<button class="w-14 h-14 rounded-full bg-primary text-white shadow-lg shadow-primary/40 flex items-center justify-center">
+<span class="material-symbols-outlined text-2xl">add</span>
+</button>
+</div>
+</body></html>

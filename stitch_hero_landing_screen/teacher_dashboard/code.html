@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html lang="az"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EduCompany Teacher Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5048e5",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#121121",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
+<!-- Mobile Wrapper -->
+<div class="relative mx-auto min-h-screen max-w-md bg-white dark:bg-[#0a0a0f] flex flex-col shadow-2xl overflow-hidden">
+<!-- Top Status Bar (iOS Style) -->
+<div class="flex justify-between items-center px-6 pt-4 pb-2">
+<span class="text-xs font-semibold">9:41</span>
+<div class="flex gap-1.5 items-center">
+<span class="material-symbols-outlined text-[14px]">signal_cellular_alt</span>
+<span class="material-symbols-outlined text-[14px]">wifi</span>
+<span class="material-symbols-outlined text-[14px]">battery_full</span>
+</div>
+</div>
+<!-- Header -->
+<header class="px-6 py-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="w-12 h-12 rounded-full border-2 border-primary/20 p-0.5">
+<img alt="Teacher Avatar" class="w-full h-full rounded-full object-cover" data-alt="Professional portrait of a male teacher smiling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwMnBOdnAGR2HeYsMyKayFtsZ_wRCIdsgyAvrlYAuTe-1CoRsTVdZoE_BrnEWXyZ96O5fueLqF7jdvZ3jZ7wqH2T5C1WGw7_pqFs_TRAXdtJwPLu_OpFrlwfcBHE8fZrSm4XLqcNJWvIdcvLcjNfghVumzyH9LUeHLcyxQEzcJ9s4WaI9syKme98_lq8rPc1MEhWo1NhbXtT8hAeXA4NgJ0ba15gdbOy5_GHmTpXDJ6YLyXepieo8f_TBAW_XixR4BOTPj92EzGPw"/>
+</div>
+<span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white dark:border-[#0a0a0f] rounded-full"></span>
+</div>
+<div>
+<h1 class="text-lg font-bold tracking-tight">Xoş gəldiniz</h1>
+<p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Murad Əliyev • EduCompany</p>
+</div>
+</div>
+<button class="relative p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-300">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
+</button>
+</header>
+<!-- Main Content Scrollable Area -->
+<main class="flex-1 overflow-y-auto hide-scrollbar pb-24">
+<!-- Statistics Horizontal Scroll -->
+<section class="mt-4">
+<div class="flex overflow-x-auto gap-4 px-6 hide-scrollbar">
+<div class="min-w-[140px] bg-primary/5 dark:bg-primary/10 p-5 rounded-xl border border-primary/10">
+<p class="text-[10px] uppercase tracking-wider font-bold text-primary/70 mb-1">Tələbələr</p>
+<p class="text-2xl font-bold">156</p>
+<div class="flex items-center gap-1 mt-2 text-[10px] text-green-600 font-bold">
+<span class="material-symbols-outlined text-[12px]">trending_up</span>
+<span>+12%</span>
+</div>
+</div>
+<div class="min-w-[140px] bg-slate-50 dark:bg-slate-800/50 p-5 rounded-xl border border-slate-100 dark:border-slate-800">
+<p class="text-[10px] uppercase tracking-wider font-bold text-slate-500 mb-1">Aktiv Dərs</p>
+<p class="text-2xl font-bold">8</p>
+<div class="flex items-center gap-1 mt-2 text-[10px] text-slate-400 font-bold">
+<span class="material-symbols-outlined text-[12px]">remove</span>
+<span>Stabil</span>
+</div>
+</div>
+<div class="min-w-[140px] bg-slate-50 dark:bg-slate-800/50 p-5 rounded-xl border border-slate-100 dark:border-slate-800">
+<p class="text-[10px] uppercase tracking-wider font-bold text-slate-500 mb-1">Davamiyyət</p>
+<p class="text-2xl font-bold">94%</p>
+<div class="flex items-center gap-1 mt-2 text-[10px] text-red-500 font-bold">
+<span class="material-symbols-outlined text-[12px]">trending_down</span>
+<span>-2%</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Today's Schedule -->
+<section class="mt-8 px-6">
+<div class="flex items-center justify-between mb-5">
+<h2 class="text-xl font-bold tracking-tight">Bugünkü Cədvəl</h2>
+<a class="text-primary text-sm font-semibold" href="#">Hamısı</a>
+</div>
+<div class="space-y-4">
+<!-- Schedule Item 1 (Active) -->
+<div class="flex items-start gap-4">
+<div class="flex flex-col items-center pt-1 min-w-[50px]">
+<span class="text-sm font-bold text-primary">09:00</span>
+<span class="text-[10px] font-medium text-slate-400">10:30</span>
+</div>
+<div class="flex-1 bg-white dark:bg-slate-900 border-l-4 border-primary p-4 rounded-r-lg shadow-sm border border-slate-100 dark:border-slate-800">
+<h3 class="font-bold text-sm">Group A1 • General English</h3>
+<p class="text-xs text-slate-500 mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+                                Otaq 302 • 14 Tələbə
+                            </p>
+<div class="mt-3 flex -space-x-2">
+<img alt="" class="w-6 h-6 rounded-full border-2 border-white dark:border-slate-900" data-alt="Student avatar 1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtgrlAuL7Mh0bhC2_Uy2_Kiiu92hVKfzrJY7brANI6ZAlJzyDejlKJIyWi_M_kb4q_zawiAb45MFecBTlbPmjM8m2UU9jz5pg8k8CFi4ssOVZ4QWUiNl7xQ8pPw7e-k90hvY1Keqsx82q1zWY05OokoKWaTXFArmUjY4fU54Fqix1UzmveR9XQXE0BxbBOwsyE8pFP1mDsSQ_mX2qb534V2hQteFyJg0TqVBZoDU9F9AQw9REphjRqEWp1CqLPiyofvTi2mGMDA9g"/>
+<img alt="" class="w-6 h-6 rounded-full border-2 border-white dark:border-slate-900" data-alt="Student avatar 2" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtPj2PT0zBpQh5HmzYryyrgJwB-js2IY76QYxl60G6jp_nF5AoNn-HwAGGKVBJeccVpaK7s2YTEl1dJ_fZ59BHkWWjHaFbLurgfy5B_X1NEPVU5WEZlsZwMpQgpc5oES1MzOSxY7N4fgILKDiwwI8VHt3w7Hr3i1biK74hqS6ONF--T0ZRO_zByC07rPqqjtJOHO6R72b_7XUzNfRVAKswIQZIPK0hLLcreTKY3BseBU83yu6xkiWogJEpnKT7huemzPL82tdAKLQ"/>
+<img alt="" class="w-6 h-6 rounded-full border-2 border-white dark:border-slate-900" data-alt="Student avatar 3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQYsTpgaR357twZTa-1x_stknrCxmUuGK_Fak-DxZg6eovzXGbIS4tHOkUs4lLgzmYW1v_Jb1StUA9PtfloIExCNbdCGYkwuNre2yM4hxro469W7ABimcJEMrDY4KedgsrMlFHrjiqQtoBaeUwyu7ThDrD_fmtyvP9ps2oDTveKnfCeYx9R4kyCjy_SxaR8S-wmBv6KN59N1HxjU6i-kEMOxAnQDrMqkO9sr2XZp3mLkwtl_riBSj4x_mWULMkfOLU7OtaBlUIyhI"/>
+<div class="w-6 h-6 rounded-full bg-slate-100 dark:bg-slate-800 border-2 border-white dark:border-slate-900 flex items-center justify-center">
+<span class="text-[8px] font-bold">+11</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Schedule Item 2 -->
+<div class="flex items-start gap-4">
+<div class="flex flex-col items-center pt-1 min-w-[50px]">
+<span class="text-sm font-bold">11:00</span>
+<span class="text-[10px] font-medium text-slate-400">12:30</span>
+</div>
+<div class="flex-1 bg-white dark:bg-slate-900 border-l-4 border-slate-200 dark:border-slate-700 p-4 rounded-r-lg border border-slate-100 dark:border-slate-800">
+<h3 class="font-bold text-sm">Group B2 • IELTS Preparation</h3>
+<p class="text-xs text-slate-500 mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+                                Otaq 104 • 8 Tələbə
+                            </p>
+</div>
+</div>
+<!-- Schedule Item 3 -->
+<div class="flex items-start gap-4 opacity-60">
+<div class="flex flex-col items-center pt-1 min-w-[50px]">
+<span class="text-sm font-bold">14:00</span>
+<span class="text-[10px] font-medium text-slate-400">15:30</span>
+</div>
+<div class="flex-1 bg-white dark:bg-slate-900 border-l-4 border-slate-200 dark:border-slate-700 p-4 rounded-r-lg border border-slate-100 dark:border-slate-800">
+<h3 class="font-bold text-sm">Individual Session • Leman A.</h3>
+<p class="text-xs text-slate-500 mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">videocam</span>
+                                Online (Zoom)
+                            </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Notifications / Submissions Area -->
+<section class="mt-10 px-6">
+<div class="flex items-center justify-between mb-5">
+<h2 class="text-xl font-bold tracking-tight">Bildirişlər</h2>
+<span class="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">3 YENİ</span>
+</div>
+<div class="space-y-3">
+<!-- Notification Item -->
+<div class="flex items-center gap-4 p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">
+<div class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-blue-600 dark:text-blue-400 text-[20px]">assignment_turned_in</span>
+</div>
+<div class="flex-1">
+<h4 class="text-sm font-semibold">Tapşırıq təqdim edildi</h4>
+<p class="text-xs text-slate-500">Leman A. • Writing Task 2</p>
+</div>
+<button class="text-[10px] font-bold text-primary uppercase tracking-wider px-3 py-1.5 rounded-lg bg-primary/10">Yoxla</button>
+</div>
+<!-- Notification Item -->
+<div class="flex items-center gap-4 p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">
+<div class="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-green-600 dark:text-green-400 text-[20px]">person_add</span>
+</div>
+<div class="flex-1">
+<h4 class="text-sm font-semibold">Yeni qeydiyyat</h4>
+<p class="text-xs text-slate-500">Murad V. • Group B2</p>
+</div>
+<button class="material-symbols-outlined text-slate-400">chevron_right</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar (Fixed) -->
+<nav class="absolute bottom-0 left-0 right-0 bg-white/80 dark:bg-[#0a0a0f]/80 backdrop-blur-xl border-t border-slate-100 dark:border-slate-800 px-8 pt-3 pb-8 flex justify-between items-center">
+<a class="flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-primary font-variation-fill-1">home</span>
+<span class="text-[10px] font-bold text-primary">Ana Səhifə</span>
+</a>
+<a class="flex flex-col items-center gap-1 group text-slate-400" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="text-[10px] font-bold">Cədvəl</span>
+</a>
+<a class="flex flex-col items-center gap-1 group text-slate-400" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-[10px] font-bold">Tələbələr</span>
+</a>
+<a class="flex flex-col items-center gap-1 group text-slate-400" href="#">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="text-[10px] font-bold">Profil</span>
+</a>
+</nav>
+<!-- Floating Action Button (Optional for elite feel) -->
+<button class="absolute bottom-28 right-6 w-14 h-14 bg-primary text-white rounded-full shadow-xl shadow-primary/30 flex items-center justify-center active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</button>
+</div>
+<!-- Background Decoration (Subtle Gradients) -->
+<div class="fixed top-0 left-0 -z-10 w-full h-full pointer-events-none opacity-20 overflow-hidden">
+<div class="absolute -top-20 -left-20 w-96 h-96 bg-primary rounded-full blur-[120px]"></div>
+<div class="absolute top-1/2 -right-20 w-80 h-80 bg-blue-400 rounded-full blur-[100px]"></div>
+</div>
+</body></html>

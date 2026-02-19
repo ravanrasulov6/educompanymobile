@@ -42,9 +42,9 @@ class _AssignmentsScreenState extends State<AssignmentsScreen>
         TabBar(
           controller: _tabController,
           tabs: const [
-            Tab(text: 'Active'),
-            Tab(text: 'Submitted'),
-            Tab(text: 'Graded'),
+            Tab(text: 'Aktiv'),
+            Tab(text: 'Təhvil verildi'),
+            Tab(text: 'Qiymətləndirildi'),
           ],
         ),
         Expanded(
@@ -81,7 +81,7 @@ class _AssignmentList extends StatelessWidget {
                 size: 56,
                 color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.2)),
             const SizedBox(height: 12),
-            Text('No assignments', style: AppTextStyles.bodyMedium),
+            Text('Tapşırıq yoxdur', style: AppTextStyles.bodyMedium),
           ],
         ),
       );
@@ -163,7 +163,7 @@ class _AssignmentCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 6),
                 Text(
-                  'Due: ${dateFormat.format(assignment.deadline)}',
+                  'Son tarix: ${dateFormat.format(assignment.deadline)}',
                   style: AppTextStyles.bodySmall.copyWith(
                     color: isOverdue ? AppColors.error : null,
                     fontWeight: isOverdue ? FontWeight.w600 : null,
@@ -178,7 +178,7 @@ class _AssignmentCard extends StatelessWidget {
                       color: AppColors.error.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(6),
                     ),
-                    child: Text('OVERDUE',
+                    child: Text('VAXTI KEÇİB',
                         style: AppTextStyles.labelSmall
                             .copyWith(color: AppColors.error)),
                   ),
@@ -213,7 +213,7 @@ class _AssignmentCard extends StatelessWidget {
                 child: OutlinedButton.icon(
                   onPressed: () {},
                   icon: const Icon(Icons.upload_file, size: 18),
-                  label: const Text('Upload Submission'),
+                  label: const Text('Tapşırığı göndər'),
                 ),
               ),
             ],

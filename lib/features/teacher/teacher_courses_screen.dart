@@ -3,6 +3,7 @@ import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_text_styles.dart';
 import '../../core/widgets/stat_card.dart';
 import '../../models/course_model.dart';
+import '../../core/constants/app_strings.dart';
 
 /// Teacher course management screen
 class TeacherCoursesScreen extends StatelessWidget {
@@ -18,7 +19,7 @@ class TeacherCoursesScreen extends StatelessWidget {
           children: const [
             Expanded(
               child: StatCard(
-                title: 'Total Courses',
+                title: 'Ümumi dərslər',
                 value: '5',
                 icon: Icons.menu_book,
                 color: AppColors.primary,
@@ -28,7 +29,7 @@ class TeacherCoursesScreen extends StatelessWidget {
             SizedBox(width: 12),
             Expanded(
               child: StatCard(
-                title: 'Total Students',
+                title: 'Ümumi tələbələr',
                 value: '4.2K',
                 icon: Icons.people,
                 color: AppColors.secondary,
@@ -46,7 +47,7 @@ class TeacherCoursesScreen extends StatelessWidget {
               child: ElevatedButton.icon(
                 onPressed: () {},
                 icon: const Icon(Icons.add, size: 18),
-                label: const Text('New Course'),
+                label: const Text('Yeni dərs'),
               ),
             ),
             const SizedBox(width: 12),
@@ -54,7 +55,7 @@ class TeacherCoursesScreen extends StatelessWidget {
               child: OutlinedButton.icon(
                 onPressed: () {},
                 icon: const Icon(Icons.upload, size: 18),
-                label: const Text('Upload Lesson'),
+                label: const Text('Dərs yüklə'),
               ),
             ),
           ],
@@ -65,12 +66,12 @@ class TeacherCoursesScreen extends StatelessWidget {
           child: OutlinedButton.icon(
             onPressed: () {},
             icon: const Icon(Icons.videocam, size: 18),
-            label: const Text('Schedule Live Class'),
+            label: const Text('Canlı dərs planla'),
           ),
         ),
         const SizedBox(height: 24),
 
-        Text('My Courses', style: AppTextStyles.headlineSmall),
+        Text('Mənim dərslərim', style: AppTextStyles.headlineSmall),
         const SizedBox(height: 12),
 
         // Course list
@@ -92,18 +93,18 @@ class TeacherCoursesScreen extends StatelessWidget {
                     style: AppTextStyles.titleLarge, maxLines: 1,
                     overflow: TextOverflow.ellipsis),
                 subtitle: Text(
-                  '${course.studentsCount} students • ${course.rating} ★',
+                  '${course.studentsCount} tələbə • ${course.rating} ★',
                   style: AppTextStyles.bodySmall,
                 ),
                 trailing: PopupMenuButton(
                   icon: const Icon(Icons.more_vert),
                   itemBuilder: (_) => [
                     const PopupMenuItem(
-                        value: 'edit', child: Text('Edit Course')),
+                        value: 'edit', child: Text('Dərsi redaktə et')),
                     const PopupMenuItem(
-                        value: 'lessons', child: Text('Manage Lessons')),
+                        value: 'lessons', child: Text('Dərsləri idarə et')),
                     const PopupMenuItem(
-                        value: 'students', child: Text('View Students')),
+                        value: 'students', child: Text('Tələbələrə bax')),
                   ],
                 ),
               ),

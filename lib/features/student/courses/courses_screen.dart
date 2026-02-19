@@ -7,6 +7,7 @@ import '../../../core/widgets/shimmer_loader.dart';
 import '../../../core/widgets/section_header.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/constants/app_strings.dart';
 
 /// Student courses screen
 class CoursesScreen extends StatefulWidget {
@@ -75,13 +76,13 @@ class _CoursesScreenState extends State<CoursesScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '🔥 7 Day Streak!',
+                            '🔥 7 Günlük Seri!',
                             style: AppTextStyles.headlineSmall
                                 .copyWith(color: Colors.white),
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            'Keep learning daily to maintain your streak',
+                            'Seriyanı qorumaq üçün hər gün öyrənməyə davam et',
                             style: AppTextStyles.bodySmall
                                 .copyWith(color: Colors.white70),
                           ),
@@ -97,7 +98,7 @@ class _CoursesScreenState extends State<CoursesScreen> {
             if (inProgress.isNotEmpty) ...[
               SliverToBoxAdapter(
                 child: SectionHeader(
-                  title: 'Continue Learning',
+                  title: 'Öyrənməyə davam et',
                   onSeeAll: () {},
                 ),
               ),
@@ -125,7 +126,7 @@ class _CoursesScreenState extends State<CoursesScreen> {
             if (explore.isNotEmpty) ...[
               SliverToBoxAdapter(
                 child: SectionHeader(
-                  title: 'Explore Courses',
+                  title: 'Dərsləri kəşf et',
                   onSeeAll: () {},
                 ),
               ),

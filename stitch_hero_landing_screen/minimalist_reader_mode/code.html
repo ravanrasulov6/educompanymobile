@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html lang="az"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5048e5",
+                        "background-light": "#fafafa",
+                        "background-dark": "#121121",
+                    },
+                    fontFamily: {
+                        "display": ["Newsreader", "serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-header {
+            background: rgba(250, 250, 250, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .reading-content {
+            line-height: 1.8;
+            letter-spacing: -0.01em;
+        }
+        /* Custom thin progress bar */
+        .progress-indicator {
+            height: 2px;
+            width: 45%;
+            transition: width 0.3s ease;
+        }
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen flex flex-col items-center">
+<!-- Top Progress Indicator -->
+<div class="fixed top-0 left-0 w-full h-[2px] bg-primary/10 z-[100]">
+<div class="progress-indicator bg-primary"></div>
+</div>
+<!-- Sticky Navigation Bar (iOS Style) -->
+<header class="fixed top-0 left-0 w-full z-50 glass-header border-b border-slate-200/50 dark:border-slate-800/50 h-16 flex items-center px-4">
+<div class="flex items-center w-full max-w-2xl mx-auto justify-between">
+<button class="flex items-center gap-1 text-primary hover:opacity-70 transition-opacity">
+<span class="material-symbols-outlined text-[24px]">chevron_left</span>
+<span class="text-sm font-medium">Geri</span>
+</button>
+<h1 class="text-base font-semibold tracking-tight truncate px-4">Riyaziyyatın Əsasları</h1>
+<div class="w-10 flex justify-end">
+<span class="text-[10px] font-bold text-primary bg-primary/10 px-1.5 py-0.5 rounded">45%</span>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="w-full max-w-2xl px-6 pt-24 pb-32">
+<article class="reading-content space-y-8">
+<header class="mb-12">
+<p class="text-primary text-sm font-bold tracking-widest uppercase mb-2">Fəsil 1</p>
+<h2 class="text-4xl font-bold leading-tight">Riyazi Analizə Giriş</h2>
+</header>
+<section class="space-y-6 text-xl text-slate-800 dark:text-slate-200">
+<p>
+                    Riyaziyyatın əsasları hər bir elmin bünövrəsini təşkil edir. Bu bölmədə biz funksiyalar, limitlər və törəmə anlayışlarını dərindən araşdıracağıq. Müasir təhsil sistemində EduCompany platforması sizə ən qabaqcıl metodologiyalarla bu bilikləri mənimsəməyə kömək edir. 
+                </p>
+<p>
+                    Oxuma rejimi sizin diqqətinizi yayındırmadan mövzuya fokuslanmağınız üçün xüsusi olaraq hazırlanmışdır. Hər bir detal intellektual inkişafınız üçün nəzərdə tutulub. Azərbaycan təhsil mühitində premium standartlara cavab verən bu məzmun, həm nəzəri həm də praktiki tərəfləri əhatə edir.
+                </p>
+<blockquote class="border-l-2 border-primary pl-6 py-2 my-10 italic text-slate-600 dark:text-slate-400">
+                    "Riyazi təfəkkür yalnız rəqəmlərlə işləmək deyil, həm də məntiqi nəticələr çıxarmaq bacarığıdır."
+                </blockquote>
+<p>
+                    Analitik yanaşma tərzi, mürəkkəb problemləri kiçik və həll oluna bilən hissələrə ayırmağa imkan verir. Bu proses limit anlayışından başlayır. Limit, bir funksiyanın müəyyən bir nöqtəyə yaxınlaşdıqda necə davrandığını təsvir edir. Bu, yalnız nəzəri bir konsepsiya deyil, həm də kainatın dinamikasını anlamaq üçün vacib bir vasitədir.
+                </p>
+<div class="aspect-video w-full rounded-xl overflow-hidden my-8 bg-slate-100 dark:bg-slate-800 flex items-center justify-center relative border border-slate-200 dark:border-slate-700">
+<img alt="Mathematical equations on a blackboard" class="object-cover w-full h-full opacity-80" data-alt="Abstract mathematical blackboard with complex equations and formulas" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4p1_fL_hmII39crOaGtkERkCvE1GBOktrySUz5RZT78Cz3O5r4i3IGSLQOPaxXZj3JVEMLsJJIf_nae1J3CPqGZ8XPem-duOI_cPYP5O6PwCJ0u00vLUSkY4kR5Ju7z6FlMLvPaD4-OATZwi1o65u4OzJWSEIWO4TXO9MWLoVVylGs9x9V1CWCSrfkNh1Nf54Op-32UJ8swTW0oaPAwkkHH5VkHSA-FxlvLtjiP69MkCrGOrAmH_SlQo5SZBbjl6QxW2Dw79gZ98"/>
+<div class="absolute bottom-4 left-4 bg-white/90 dark:bg-black/80 px-3 py-1.5 rounded-lg text-xs font-medium">
+                        Şəkil 1.1: Limitlərin vizual təsviri
+                    </div>
+</div>
+<p>
+                    Diferensial hesablama isə dəyişikliklərin sürətini ölçür. Biz gündəlik həyatımızda istər iqtisadiyyatda, istərsə də fizikada hər an dəyişikliklərlə qarşılaşırıq. EduCompany-nin bu dərslikləri vasitəsilə siz bu dəyişiklikləri riyazi dildə ifadə etməyi öyrənəcəksiniz.
+                </p>
+<p>
+                    Mövzunun davamında biz kəsilməzlik və törəmənin tətbiqləri haqqında danışacağıq. Hər bir bölmənin sonunda biliklərinizi yoxlamaq üçün interaktiv tapşırıqlar təqdim olunacaq. Unutmayın ki, riyaziyyat səbr və davamlı təcrübə tələb edən bir sənətdir.
+                </p>
+</section>
+</article>
+</main>
+<!-- Floating UI Controls -->
+<div class="fixed bottom-8 right-8 flex flex-col items-end gap-4 z-[60]">
+<!-- Pop-up Menu (Hidden by default, shown for UI demonstration) -->
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-800 w-64 mb-2 animate-in fade-in slide-in-from-bottom-4">
+<div class="space-y-6">
+<!-- Font Size Control -->
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Font Ölçüsü</span>
+<span class="text-xs font-medium bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">20px</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-sm">A</span>
+<div class="flex-1 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 60%;"></div>
+</div>
+<span class="text-xl">A</span>
+</div>
+</div>
+<!-- Brightness Control -->
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Parlaqlıq</span>
+<span class="material-symbols-outlined text-xs">light_mode</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-sm">brightness_low</span>
+<div class="flex-1 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 85%;"></div>
+</div>
+<span class="material-symbols-outlined text-xl">brightness_high</span>
+</div>
+</div>
+<!-- Reading Mode Toggle -->
+<div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
+<span class="text-sm font-medium">Gecə Rejimi</span>
+<div class="w-10 h-5 bg-slate-200 dark:bg-primary/40 rounded-full relative p-0.5 cursor-pointer">
+<div class="w-4 h-4 bg-white rounded-full shadow-sm translate-x-0 dark:translate-x-5 transition-transform"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Action Button -->
+<button class="size-14 bg-primary text-white rounded-full shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[28px]">format_size</span>
+</button>
+</div>
+<!-- Bottom Indicator (iOS style bar) -->
+<div class="fixed bottom-1 left-1/2 -translate-x-1/2 w-32 h-1 bg-slate-300 dark:bg-slate-700 rounded-full opacity-40"></div>
+</body></html>

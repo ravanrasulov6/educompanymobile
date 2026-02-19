@@ -6,6 +6,7 @@ import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_text_styles.dart';
 import '../../core/widgets/premium_button.dart';
 import '../../core/constants/app_constants.dart';
+import '../../core/constants/app_strings.dart';
 
 /// Login screen
 class LoginScreen extends StatefulWidget {
@@ -59,10 +60,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 24),
 
                     // Header
-                    Text('Welcome Back', style: AppTextStyles.displayMedium),
+                    Text(AppStrings.welcome, style: AppTextStyles.displayMedium),
                     const SizedBox(height: 8),
                     Text(
-                      'Sign in to continue learning',
+                      'Təhsilinizə davam etmək üçün daxil olun',
                       style: AppTextStyles.bodyLarge.copyWith(
                         color: Theme.of(context)
                             .colorScheme
@@ -73,31 +74,31 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 40),
 
                     // Email
-                    Text('Email', style: AppTextStyles.labelLarge),
+                    Text(AppStrings.email, style: AppTextStyles.labelLarge),
                     const SizedBox(height: 8),
                     TextFormField(
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       decoration: const InputDecoration(
-                        hintText: 'Enter your email',
+                        hintText: 'nümunə@edu.com',
                         prefixIcon: Icon(Icons.email_outlined),
                       ),
                       validator: (v) {
-                        if (v == null || v.isEmpty) return 'Email is required';
-                        if (!v.contains('@')) return 'Enter a valid email';
+                        if (v == null || v.isEmpty) return 'E-poçt tələb olunur';
+                        if (!v.contains('@')) return 'E-poçt formatı düzgün deyil';
                         return null;
                       },
                     ),
                     const SizedBox(height: 20),
 
                     // Password
-                    Text('Password', style: AppTextStyles.labelLarge),
+                    Text(AppStrings.password, style: AppTextStyles.labelLarge),
                     const SizedBox(height: 8),
                     TextFormField(
                       controller: _passwordController,
                       obscureText: _obscurePassword,
                       decoration: InputDecoration(
-                        hintText: 'Enter your password',
+                        hintText: '••••••••',
                         prefixIcon: const Icon(Icons.lock_outline),
                         suffixIcon: IconButton(
                           icon: Icon(_obscurePassword
@@ -112,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       validator: (v) {
                         if (v == null || v.isEmpty) {
-                          return 'Password is required';
+                          return 'Şifrə tələb olunur';
                         }
                         return null;
                       },
@@ -124,7 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       alignment: Alignment.centerRight,
                       child: TextButton(
                         onPressed: () {},
-                        child: const Text('Forgot Password?'),
+                        child: const Text('Şifrəni unutmusunuz?'),
                       ),
                     ),
 
@@ -158,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                     // Login button
                     PremiumButton(
-                      label: 'Log In',
+                      label: AppStrings.login,
                       onPressed: _submit,
                       isGradient: true,
                       isLoading: auth.status == AuthStatus.loading,
@@ -184,17 +185,17 @@ class _LoginScreenState extends State<LoginScreen> {
                               const Icon(Icons.info_outline,
                                   color: AppColors.info, size: 18),
                               const SizedBox(width: 8),
-                              Text('Demo Accounts',
+                              Text('Demo Hesablar',
                                   style: AppTextStyles.titleMedium
                                       .copyWith(color: AppColors.info)),
                             ],
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            '• Student: ${AppConstants.demoStudentEmail}\n'
-                            '• Teacher: ${AppConstants.demoTeacherEmail}\n'
+                            '• Tələbə: ${AppConstants.demoStudentEmail}\n'
+                            '• Müəllim: ${AppConstants.demoTeacherEmail}\n'
                             '• Admin: ${AppConstants.demoAdminEmail}\n'
-                            '• Password: ${AppConstants.demoPassword}',
+                            '• Şifrə: ${AppConstants.demoPassword}',
                             style: AppTextStyles.bodySmall.copyWith(
                               height: 1.8,
                               color: Theme.of(context)
@@ -213,13 +214,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Don't have an account? ",
+                          "Hesabınız yoxdur? ",
                           style: AppTextStyles.bodyMedium,
                         ),
                         GestureDetector(
                           onTap: () => context.go('/signup'),
                           child: Text(
-                            'Sign Up',
+                            AppStrings.signUp,
                             style: AppTextStyles.titleMedium
                                 .copyWith(color: AppColors.primary),
                           ),

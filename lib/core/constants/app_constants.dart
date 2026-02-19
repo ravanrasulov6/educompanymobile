@@ -3,7 +3,7 @@ class AppConstants {
   AppConstants._();
 
   static const String appName = 'EduCompany';
-  static const String appTagline = 'Learn. Grow. Succeed.';
+  static const String appTagline = 'Gələcəyin təhsil platforması';
 
   // Demo credentials
   static const String demoStudentEmail = 'student@edu.com';

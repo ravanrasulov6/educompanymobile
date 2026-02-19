@@ -18,7 +18,7 @@ class AdminDashboardScreen extends StatelessWidget {
           children: const [
             Expanded(
               child: StatCard(
-                title: 'Total Users',
+                title: 'Ümumi istifadəçilər',
                 value: '12.4K',
                 icon: Icons.people,
                 color: AppColors.primary,
@@ -28,9 +28,9 @@ class AdminDashboardScreen extends StatelessWidget {
             SizedBox(width: 12),
             Expanded(
               child: StatCard(
-                title: 'Revenue',
-                value: '\$84.2K',
-                icon: Icons.attach_money,
+                title: 'Gəlir',
+                value: '₼84.2K',
+                icon: Icons.payments,
                 color: AppColors.success,
                 trend: 12.3,
               ),
@@ -42,7 +42,7 @@ class AdminDashboardScreen extends StatelessWidget {
           children: const [
             Expanded(
               child: StatCard(
-                title: 'Courses',
+                title: 'Kurslar',
                 value: '156',
                 icon: Icons.menu_book,
                 color: AppColors.secondary,
@@ -52,7 +52,7 @@ class AdminDashboardScreen extends StatelessWidget {
             SizedBox(width: 12),
             Expanded(
               child: StatCard(
-                title: 'Active Now',
+                title: 'Hazırda aktiv',
                 value: '328',
                 icon: Icons.circle,
                 color: AppColors.info,
@@ -63,7 +63,7 @@ class AdminDashboardScreen extends StatelessWidget {
         const SizedBox(height: 24),
 
         // Enrollment chart
-        Text('Monthly Enrollments', style: AppTextStyles.headlineSmall),
+        Text('Aylıq Qeydiyyatlar', style: AppTextStyles.headlineSmall),
         const SizedBox(height: 16),
         SizedBox(
           height: 200,
@@ -75,7 +75,7 @@ class AdminDashboardScreen extends StatelessWidget {
                   sideTitles: SideTitles(
                     showTitles: true,
                     getTitlesWidget: (value, meta) {
-                      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+                      const months = ['Yan', 'Fev', 'Mar', 'Apr', 'May', 'İyun'];
                       if (value.toInt() >= 0 && value.toInt() < months.length) {
                         return Padding(
                           padding: const EdgeInsets.only(top: 8),
@@ -122,31 +122,31 @@ class AdminDashboardScreen extends StatelessWidget {
         const SizedBox(height: 24),
 
         // Recent activity
-        Text('Recent Activity', style: AppTextStyles.headlineSmall),
+        Text('Son Fəaliyyətlər', style: AppTextStyles.headlineSmall),
         const SizedBox(height: 12),
         _ActivityItem(
           icon: Icons.person_add,
           color: AppColors.primary,
-          title: 'New teacher registered',
-          subtitle: 'John Doe • 2 hours ago',
+          title: 'Yeni müəllim qeydiyyatdan keçdi',
+          subtitle: 'Murad Əliyev • 2 saat əvvəl',
         ),
         _ActivityItem(
           icon: Icons.menu_book,
           color: AppColors.secondary,
-          title: 'New course published',
-          subtitle: 'Flutter Masterclass • Today',
+          title: 'Yeni kurs dərc olundu',
+          subtitle: 'Flutter Masterklas • Bugün',
         ),
         _ActivityItem(
           icon: Icons.report,
           color: AppColors.warning,
-          title: 'Content reported',
-          subtitle: 'Assignment #234 • 5 hours ago',
+          title: 'Məzmun şikayəti',
+          subtitle: 'Tapşırıq #234 • 5 saat əvvəl',
         ),
         _ActivityItem(
           icon: Icons.payment,
           color: AppColors.success,
-          title: 'Payment received',
-          subtitle: '\$49.99 • Premium Plan • Today',
+          title: 'Ödəniş qəbul edildi',
+          subtitle: '₼49.99 • Premium Plan • Bugün',
         ),
       ],
     );

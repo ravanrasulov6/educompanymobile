@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="az" class="">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>EduCompany - Təhsil Platforması</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5048e5",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#121121",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .hero-gradient-overlay {
+            background: linear-gradient(to bottom, 
+                rgba(246, 246, 248, 0.8) 0%, 
+                rgba(246, 246, 248, 0.2) 40%, 
+                rgba(246, 246, 248, 0.2) 60%, 
+                rgba(246, 246, 248, 1) 100%);
+        }
+        .btn-premium-gradient {
+            background: linear-gradient(135deg, #5048e5 0%, #7c74ff 100%);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .active-rail-item {
+            background: rgba(80, 72, 229, 0.08);
+            color: #5048e5;
+            border-right: 3px solid #5048e5;
+        }
+        .premium-shadow {
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.04);
+        }
+        .app-container {
+            max-width: 430px;
+            margin: 0 auto;
+            min-height: 100vh;
+            position: relative;
+            background: white;
+            overflow-x: hidden;
+        }
+        @media (min-width: 640px) {
+            .desktop-frame {
+                background-color: #f1f5f9;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+            }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-slate-100 dark:bg-slate-950">
+    <div id="root"></div>
+
+    <!-- React and Dependencies -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/history@5/umd/history.development.js"></script>
+    <script src="https://unpkg.com/react-router@6.3.0/umd/react-router.development.js"></script>
+    <script src="https://unpkg.com/react-router-dom@6.3.0/umd/react-router-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const { createRoot } = ReactDOM;
+        const { MemoryRouter, Routes, Route, Link, useNavigate, useLocation } = ReactRouterDOM;
+
+        // --- Layout Wrappers ---
+        const MobileLayout = ({ children, hideNav = false, activeTab = 'home' }) => {
+            const navigate = useNavigate();
+            return (
+                <div className="relative mx-auto min-h-screen max-w-[430px] bg-white dark:bg-background-dark shadow-2xl overflow-hidden pb-32">
+                    {/* Status Bar */}
+                    <div className="h-12 w-full flex items-center justify-between px-8 pt-4">
+                        <span className="text-xs font-semibold dark:text-white">9:41</span>
+                        <div className="flex gap-1.5 items-center dark:text-white">
+                            <span className="material-symbols-outlined text-[18px]">signal_cellular_alt</span>
+                            <span className="material-symbols-outlined text-[18px]">wifi</span>
+                            <span className="material-symbols-outlined text-[18px]">battery_full</span>
+                        </div>
+                    </div>
+                    {children}
+                    
+                    {!hideNav && (
+                        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 w-[90%] max-w-[380px] z-50">
+                            <nav className="glass-nav dark:bg-background-dark/80 rounded-full p-2 flex items-center justify-between shadow-xl border border-slate-200/50 dark:border-white/5">
+                                <Link to="/student" className={`flex items-center justify-center size-12 rounded-full ${activeTab === 'home' ? 'bg-primary text-white' : 'text-slate-400'}`}>
+                                    <span className="material-symbols-outlined">home</span>
+                                </Link>
+                                <button className="flex flex-col items-center justify-center size-12 text-slate-400 dark:text-slate-500">
+                                    <span className="material-symbols-outlined">book_4</span>
+                                </button>
+                                <button className="flex flex-col items-center justify-center size-12 text-slate-400 dark:text-slate-500">
+                                    <span className="material-symbols-outlined">calendar_today</span>
+                                </button>
+                                <Link to="/teacher" className={`flex flex-col items-center justify-center size-12 rounded-full ${activeTab === 'teacher' ? 'bg-primary text-white' : 'text-slate-400'}`}>
+                                    <span className="material-symbols-outlined">person</span>
+                                </Link>
+                            </nav>
+                        </div>
+                    )}
+                    <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-32 h-1.5 bg-slate-200 dark:bg-white/10 rounded-full"></div>
+                </div>
+            );
+        };
+
+        // --- Screen 1: Welcome/Onboarding ---
+        const WelcomeScreen = () => {
+            const navigate = useNavigate();
+            return (
+                <div className="relative h-screen w-full flex flex-col justify-between overflow-hidden bg-background-light dark:bg-background-dark">
+                    <div className="absolute inset-0 z-0">
+                        <img 
+                            alt="Student classroom" 
+                            className="w-full h-full object-cover" 
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAx31sam5yApJOWnz4Wk_rq8RQ1I4TJDY-XRdnaDIWr52I3yg-S-mYl7I-k8bMByzZPFYPWAssKS3a88AJuTr-J6sJy13eMeL50Ktwl1UDmpUmOjhcKmQON8YV5PslsUL8n-aoJiA9feZ-ou6OBtVjBOephHXzJzc6Z_ZRpblvWhAqkIuLd-SLZhn51yfMuT--YFc_6uf409hq45BVn_qpka8hjETP8iaSHx-nTgcVc6LlTM5h6GkAcfmKANtHqCARmP1OX7kpbSjg"
+                        />
+                        <div className="absolute inset-0 hero-gradient-overlay z-10"></div>
+                    </div>
+                    
+                    <header className="relative z-20 pt-14 px-6 flex flex-col items-center">
+                        <div className="flex items-center gap-2 mb-1">
+                            <div className="text-primary bg-white/80 backdrop-blur-md p-2 rounded-lg shadow-sm">
+                                <span className="material-symbols-outlined text-3xl">child_hat</span>
+                            </div>
+                            <h1 className="text-slate-900 dark:text-slate-100 text-2xl font-bold tracking-tight">EduCompany</h1>
+                        </div>
+                        <p className="text-slate-600 dark:text-slate-400 text-sm font-medium tracking-wide">Gələcəyin təhsil platforması</p>
+                    </header>
+
+                    <section className="relative z-20 pb-12 px-8 w-full max-w-md mx-auto">
+                        <div className="flex flex-col gap-4">
+                            <button onClick={() => navigate('/admin')} className="btn-premium-gradient w-full h-14 rounded-xl flex items-center justify-center gap-2 text-white font-semibold text-lg shadow-lg shadow-primary/25 active:scale-[0.98] transition-transform">
+                                <span className="material-symbols-outlined">stars</span>
+                                <span>Premium Qeydiyyat</span>
+                            </button>
+                            <button onClick={() => navigate('/student')} className="w-full h-14 rounded-xl flex items-center justify-center bg-white/60 backdrop-blur-md border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 font-semibold text-lg active:scale-[0.98] transition-transform">
+                                Daxil ol
+                            </button>
+                            <button onClick={() => navigate('/student')} className="mt-2 py-2 text-slate-500 dark:text-slate-400 font-medium text-sm flex items-center justify-center gap-1 hover:text-primary transition-colors">
+                                <span>Qonaq kimi davam et</span>
+                                <span className="material-symbols-outlined text-sm">chevron_right</span>
+                            </button>
+                        </div>
+                        <div className="h-6 w-full"></div>
+                    </section>
+
+                    <div className="absolute top-16 right-[-20px] z-10 opacity-20 dark:opacity-10">
+                        <span className="material-symbols-outlined text-[120px] text-primary rotate-12">auto_awesome</span>
+                    </div>
+                    
+                    <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-10">
+                        <div className="absolute top-[20%] left-[-10%] w-64 h-64 bg-primary/10 rounded-full blur-[80px]"></div>
+                        <div className="absolute bottom-[10%] right-[-10%] w-80 h-80 bg-primary/20 rounded-full blur-[100px]"></div>
+                    </div>
+                </div>
+            );
+        };
+
+        // --- Screen 2: Student Dashboard ---
+        const StudentDashboard = () => {
+            return (
+                <MobileLayout activeTab="home">
+                    <header className="px-6 pt-6 pb-4 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                            <div className="size-12 rounded-full border-2 border-primary/20 p-0.5 overflow-hidden">
+                                <img className="w-full h-full object-cover rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgHyb9gMYl_TSgGia27jDVEQiVEAen9Sc8yTyJfwSFx1f-6Wsw22BdoCVk82T_4av981PnuDOk3oAu_cciAGhOggOgeFPJjp84AM_DJG-rMnxPDQquWOv0HREl9E_-fMyZd5ttDHbjMXUg1mimL89nUb5Tnlv93piEUokFXpC75n-ri3S5X0t6XmKj9l5LjualSG5qf59E6mMvNciMp9ALpbF2dyzDytwXW4tXiwtTYxnvGdn5iICL1OlVi81ACkEljabhoqZ12xI" alt="Student"/>
+                            </div>
+                            <div>
+                                <h1 className="text-xl font-bold tracking-tight dark:text-white">Salam, Əli</h1>
+                                <p className="text-xs text-slate-500 dark:text-slate-400">Bugün 3 dərsin var</p>
+                            </div>
+                        </div>
+                        <button className="size-11 rounded-full bg-slate-50 dark:bg-white/5 flex items-center justify-center text-slate-600 dark:text-slate-300 border border-slate-100 dark:border-white/10 relative">
+                            <span className="material-symbols-outlined text-[22px]">notifications</span>
+                            <span className="absolute top-3 right-3 size-2 bg-primary rounded-full border-2 border-white dark:border-background-dark"></span>
+                        </button>
+                    </header>
+
+                    <section className="mt-4">
+                        <div className="px-6 flex justify-between items-center mb-4">
+                            <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">Dərs cədvəli</h2>
+                            <span className="text-xs text-primary font-medium">Noyabr 2024</span>
+                        </div>
+                        <div className="flex gap-4 overflow-x-auto px-6 pb-2 hide-scrollbar">
+                            {['B.e', 'Ç.ə', 'Çəş', 'C.a', 'Cüm', 'Şən'].map((day, i) => (
+                                <div key={day} className={`flex flex-col items-center gap-2 min-w-[50px] p-3 rounded-2xl border transition-all ${i === 2 ? 'bg-primary text-white shadow-lg shadow-primary/25 border-primary' : 'bg-slate-50 dark:bg-white/5 border-slate-100 dark:border-white/10 opacity-60'}`}>
+                                    <span className="text-[10px] font-bold uppercase">{day}</span>
+                                    <span className="text-sm font-bold">{14 + i}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    <section className="mt-8">
+                        <div className="px-6 flex justify-between items-end mb-4">
+                            <h2 className="text-xl font-bold tracking-tight dark:text-white">Dərslərim</h2>
+                            <button className="text-xs font-semibold text-primary">Hamısına bax</button>
+                        </div>
+                        <div className="flex gap-5 overflow-x-auto px-6 pb-4 hide-scrollbar">
+                            <div className="min-w-[280px] bg-white dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-xl overflow-hidden shadow-sm">
+                                <div className="h-36 w-full relative">
+                                    <img className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAngWUfKJA2TkY11ZnEkYAo1o1Ot4Zn2uiP4Bn4w2OIeZH7sRbeTb2zr8XtauRqky_r3ETloKFSUiym_yT9636Xtfx71KaJtiual8i27XM_zSdXw1ybhI_ht24PGx0YE_BzLvZ579IbhzC8s9yS4lBW58-F33hkTm0e03UfPkYYKVm0j1ITEUiVOR_XHlx_S2iNCcCN3heQuZ31_1n2-zuDbLSpWDHzbWpKrM7xct542wiKV6JtHFSlxyyPLsOXU3Pn9A19g16wSVc" alt="Course"/>
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                                    <span className="absolute bottom-3 left-3 px-2 py-1 bg-white/20 backdrop-blur-md rounded text-[10px] text-white font-bold uppercase">Dizayn</span>
+                                </div>
+                                <div className="p-4">
+                                    <h3 className="font-bold text-slate-800 dark:text-slate-100 mb-1">UI/UX Dizayn Əsasları</h3>
+                                    <p className="text-xs text-slate-500 mb-4">Müəllim: Samir Məmmədov</p>
+                                    <div className="flex items-center justify-between text-[11px] mb-2 font-medium">
+                                        <span className="dark:text-slate-400">Gedişat</span>
+                                        <span className="text-primary">75%</span>
+                                    </div>
+                                    <div className="h-1.5 w-full bg-slate-100 dark:bg-white/10 rounded-full overflow-hidden">
+                                        <div className="h-full bg-primary rounded-full" style={{width: '75%'}}></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="min-w-[280px] bg-white dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-xl overflow-hidden shadow-sm">
+                                <div className="h-36 w-full relative">
+                                    <img className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQ46jvW1XBYhix9nlcRBsgJFw9F04-SZxbb4pvJ6i6x4kGcmXoA0khaxYLCGzC7hNdgL1abpaqSTQBsGeEa8f6MC1qFZ8JjkA49nUrG-3l-KmBNRnbWpZfw_5P2xsCFoSZXp2gHTfdka0FitPs5QQvKsaFGJoylUxduVYOlMQNh_9NbeCPDVKYOA-Cj3wQjVOWZJ1u9BqIvYb1YiY1oTmQiuKOOp7Xf74M_r1I0rKSr3sgJKeMzRYzaIXRAZuRkME4BtU5AvJN5Hs" alt="Course"/>
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                                    <span className="absolute bottom-3 left-3 px-2 py-1 bg-white/20 backdrop-blur-md rounded text-[10px] text-white font-bold uppercase">Data</span>
+                                </div>
+                                <div className="p-4">
+                                    <h3 className="font-bold text-slate-800 dark:text-slate-100 mb-1">Data Analitika</h3>
+                                    <p className="text-xs text-slate-500 mb-4">Müəllim: Leyla Əliyeva</p>
+                                    <div className="flex items-center justify-between text-[11px] mb-2 font-medium">
+                                        <span className="dark:text-slate-400">Gedişat</span>
+                                        <span className="text-primary">40%</span>
+                                    </div>
+                                    <div className="h-1.5 w-full bg-slate-100 dark:bg-white/10 rounded-full overflow-hidden">
+                                        <div className="h-full bg-primary rounded-full" style={{width: '40%'}}></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="mt-8 px-6 pb-10">
+                        <h2 className="text-xl font-bold tracking-tight mb-4 dark:text-white">Tapşırıqlarım</h2>
+                        <div className="space-y-3">
+                            <div className="flex items-center justify-between p-4 bg-slate-50/50 dark:bg-white/5 rounded-2xl border border-slate-100 dark:border-white/10">
+                                <div className="flex items-center gap-4">
+                                    <div className="size-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                                        <span className="material-symbols-outlined text-[20px]">description</span>
+                                    </div>
+                                    <div>
+                                        <h4 className="text-sm font-semibold dark:text-white">User Personas Tədqiqatı</h4>
+                                        <p className="text-[11px] text-slate-500 mt-0.5">Son tarix: Sabah, 18:00</p>
+                                    </div>
+                                </div>
+                                <span className="px-2.5 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 text-[10px] font-bold rounded-lg uppercase">Gözləyir</span>
+                            </div>
+                            <div className="flex items-center justify-between p-4 bg-slate-50/50 dark:bg-white/5 rounded-2xl border border-slate-100 dark:border-white/10">
+                                <div className="flex items-center gap-4">
+                                    <div className="size-10 rounded-xl bg-emerald-100/50 dark:bg-emerald-900/10 flex items-center justify-center text-emerald-600">
+                                        <span className="material-symbols-outlined text-[20px]">check_circle</span>
+                                    </div>
+                                    <div>
+                                        <h4 className="text-sm font-semibold dark:text-white">SQL Queries Task #2</h4>
+                                        <p className="text-[11px] text-slate-500 mt-0.5">Tamamlanıb: Dünən</p>
+                                    </div>
+                                </div>
+                                <span className="px-2.5 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold rounded-lg uppercase">Bitib</span>
+                            </div>
+                        </div>
+                    </section>
+                </MobileLayout>
+            );
+        };
+
+        // --- Screen 3: Teacher Dashboard ---
+        const TeacherDashboard = () => {
+            const navigate = useNavigate();
+            return (
+                <div className="relative mx-auto min-h-screen max-w-md bg-white dark:bg-[#0a0a0f] flex flex-col shadow-2xl overflow-hidden">
+                    <div className="flex justify-between items-center px-6 pt-4 pb-2">
+                        <span className="text-xs font-semibold dark:text-white">9:41</span>
+                        <div className="flex gap-1.5 items-center dark:text-white">
+                            <span className="material-symbols-outlined text-[14px]">signal_cellular_alt</span>
+                            <span className="material-symbols-outlined text-[14px]">wifi</span>
+                            <span className="material-symbols-outlined text-[14px]">battery_full</span>
+                        </div>
+                    </div>
+                    
+                    <header className="px-6 py-4 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                            <div className="relative">
+                                <div className="w-12 h-12 rounded-full border-2 border-primary/20 p-0.5">
+                                    <img alt="Teacher" className="w-full h-full rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwMnBOdnAGR2HeYsMyKayFtsZ_wRCIdsgyAvrlYAuTe-1CoRsTVdZoE_BrnEWXyZ96O5fueLqF7jdvZ3jZ7wqH2T5C1WGw7_pqFs_TRAXdtJwPLu_OpFrlwfcBHE8fZrSm4XLqcNJWvIdcvLcjNfghVumzyH9LUeHLcyxQEzcJ9s4WaI9syKme98_lq8rPc1MEhWo1NhbXtT8hAeXA4NgJ0ba15gdbOy5_GHmTpXDJ6YLyXepieo8f_TBAW_XixR4BOTPj92EzGPw"/>
+                                </div>
+                                <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white dark:border-[#0a0a0f] rounded-full"></span>
+                            </div>
+                            <div>
+                                <h1 className="text-lg font-bold tracking-tight dark:text-white">Xoş gəldiniz</h1>
+                                <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Murad Əliyev • EduCompany</p>
+                            </div>
+                        </div>
+                        <button className="relative p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                            <span className="material-symbols-outlined text-slate-600 dark:text-slate-300">notifications</span>
+                            <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
+                        </button>
+                    </header>
+
+                    <main className="flex-1 overflow-y-auto hide-scrollbar pb-24">
+                        <section className="mt-4">
+                            <div className="flex overflow-x-auto gap-4 px-6 hide-scrollbar">
+                                <div className="min-w-[140px] bg-primary/5 dark:bg-primary/10 p-5 rounded-xl border border-primary/10">
+                                    <p className="text-[10px] uppercase tracking-wider font-bold text-primary/70 mb-1">Tələbələr</p>
+                                    <p className="text-2xl font-bold dark:text-white">156</p>
+                                    <div className="flex items-center gap-1 mt-2 text-[10px] text-green-600 font-bold">
+                                        <span className="material-symbols-outlined text-[12px]">trending_up</span>
+                                        <span>+12%</span>
+                                    </div>
+                                </div>
+                                <div className="min-w-[140px] bg-slate-50 dark:bg-slate-800/50 p-5 rounded-xl border border-slate-100 dark:border-slate-800">
+                                    <p className="text-[10px] uppercase tracking-wider font-bold text-slate-500 mb-1">Aktiv Dərs</p>
+                                    <p className="text-2xl font-bold dark:text-white">8</p>
+                                    <div className="flex items-center gap-1 mt-2 text-[10px] text-slate-400 font-bold">
+                                        <span className="material-symbols-outlined text-[12px]">remove</span>
+                                        <span>Stabil</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section className="mt-8 px-6">
+                            <div className="flex items-center justify-between mb-5">
+                                <h2 className="text-xl font-bold tracking-tight dark:text-white">Bugünkü Cədvəl</h2>
+                                <button className="text-primary text-sm font-semibold">Hamısı</button>
+                            </div>
+                            <div className="space-y-4">
+                                <div className="flex items-start gap-4">
+                                    <div className="flex flex-col items-center pt-1 min-w-[50px]">
+                                        <span className="text-sm font-bold text-primary">09:00</span>
+                                        <span className="text-[10px] font-medium text-slate-400">10:30</span>
+                                    </div>
+                                    <div className="flex-1 bg-white dark:bg-slate-900 border-l-4 border-primary p-4 rounded-r-lg shadow-sm border border-slate-100 dark:border-slate-800">
+                                        <h3 className="font-bold text-sm dark:text-white">Group A1 • General English</h3>
+                                        <p className="text-xs text-slate-500 mt-1 flex items-center gap-1">
+                                            <span className="material-symbols-outlined text-[14px]">location_on</span>
+                                            Otaq 302 • 14 Tələbə
+                                        </p>
+                                        <div className="mt-3 flex -space-x-2">
+                                            {[1, 2, 3].map(i => (
+                                                <div key={i} className="w-6 h-6 rounded-full border-2 border-white dark:border-slate-900 bg-slate-200 overflow-hidden">
+                                                    <img src={`https://i.pravatar.cc/100?u=stu${i}`} alt="stu"/>
+                                                </div>
+                                            ))}
+                                            <div className="w-6 h-6 rounded-full bg-slate-100 dark:bg-slate-800 border-2 border-white dark:border-slate-900 flex items-center justify-center">
+                                                <span className="text-[8px] font-bold dark:text-white">+11</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section className="mt-10 px-6">
+                            <div className="flex items-center justify-between mb-5">
+                                <h2 className="text-xl font-bold tracking-tight dark:text-white">Bildirişlər</h2>
+                                <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">3 YENİ</span>
+                            </div>
+                            <div className="space-y-3">
+                                <div className="flex items-center gap-4 p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">
+                                    <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                                        <span className="material-symbols-outlined text-blue-600 dark:text-blue-400 text-[20px]">assignment_turned_in</span>
+                                    </div>
+                                    <div className="flex-1">
+                                        <h4 className="text-sm font-semibold dark:text-white">Tapşırıq təqdim edildi</h4>
+                                        <p className="text-xs text-slate-500">Leman A. • Writing Task 2</p>
+                                    </div>
+                                    <button className="text-[10px] font-bold text-primary uppercase tracking-wider px-3 py-1.5 rounded-lg bg-primary/10">Yoxla</button>
+                                </div>
+                            </div>
+                        </section>
+                    </main>
+
+                    <nav className="absolute bottom-0 left-0 right-0 bg-white/80 dark:bg-[#0a0a0f]/80 backdrop-blur-xl border-t border-slate-100 dark:border-slate-800 px-8 pt-3 pb-8 flex justify-between items-center">
+                        <Link to="/student" className="flex flex-col items-center gap-1 group text-slate-400">
+                            <span className="material-symbols-outlined">home</span>
+                            <span className="text-[10px] font-bold">Ana Səhifə</span>
+                        </Link>
+                        <button className="flex flex-col items-center gap-1 group text-slate-400">
+                            <span className="material-symbols-outlined">calendar_today</span>
+                            <span className="text-[10px] font-bold">Cədvəl</span>
+                        </button>
+                        <button className="flex flex-col items-center gap-1 group text-slate-400">
+                            <span className="material-symbols-outlined">group</span>
+                            <span className="text-[10px] font-bold">Tələbələr</span>
+                        </button>
+                        <button className="flex flex-col items-center gap-1 group text-primary">
+                            <span className="material-symbols-outlined font-variation-fill-1">account_circle</span>
+                            <span className="text-[10px] font-bold">Profil</span>
+                        </button>
+                    </nav>
+
+                    <button className="absolute bottom-28 right-6 w-14 h-14 bg-primary text-white rounded-full shadow-xl shadow-primary/30 flex items-center justify-center active:scale-95 transition-transform">
+                        <span className="material-symbols-outlined text-[32px]">add</span>
+                    </button>
+                </div>
+            );
+        };
+
+        // --- Screen 4: Admin Dashboard ---
+        const AdminDashboard = () => {
+            const navigate = useNavigate();
+            return (
+                <div className="flex h-screen w-full overflow-hidden bg-background-light dark:bg-background-dark">
+                    <aside className="w-16 flex flex-col items-center py-8 border-r border-slate-100 dark:border-slate-800 bg-background-light/50 dark:bg-background-dark/50 backdrop-blur-md z-20">
+                        <div onClick={() => navigate('/')} className="mb-10 text-primary cursor-pointer">
+                            <span className="material-symbols-outlined text-3xl font-bold">school</span>
+                        </div>
+                        <nav className="flex flex-col gap-6 w-full">
+                            <Link to="/admin" className="flex flex-col items-center justify-center py-3 active-rail-item transition-all duration-300">
+                                <span className="material-symbols-outlined">dashboard</span>
+                            </Link>
+                            <button className="flex flex-col items-center justify-center py-3 text-slate-400 hover:text-primary transition-all duration-300">
+                                <span className="material-symbols-outlined">group</span>
+                            </button>
+                            <button className="flex flex-col items-center justify-center py-3 text-slate-400 hover:text-primary transition-all duration-300">
+                                <span className="material-symbols-outlined">account_balance_wallet</span>
+                            </button>
+                            <button className="flex flex-col items-center justify-center py-3 text-slate-400 hover:text-primary transition-all duration-300">
+                                <span className="material-symbols-outlined">bar_chart</span>
+                            </button>
+                            <button className="flex flex-col items-center justify-center py-3 text-slate-400 hover:text-primary transition-all duration-300">
+                                <span className="material-symbols-outlined">settings</span>
+                            </button>
+                        </nav>
+                        <div className="mt-auto">
+                            <div className="w-10 h-10 rounded-full overflow-hidden border border-slate-200 dark:border-slate-700">
+                                <img className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAewXNFb6se55SUy70IQLu9ynIhfkZtzK_YqZNRxS5nSudDPzBIu9REcmRNTkTSdJWSDYbX4oZx_Vm1hk--cWWVaZjZ6aB8vJwrCKif9o53j0Zs2lWNjszHVKPXk_Rw6TNj9-Hw_d4D-sGEiDU4J6Ei6OBHrdBpG8GjaAM6mbZ27cCHYumkZX6nqF9iu8uBsLBxwSbAT49j395IMv0PygLwxtnMvv_RJeJRoY4Iv1-vYV9aQ9m-BBXm24sbYy4M6BLk039FVroujU" alt="Admin"/>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <main className="flex-1 flex flex-col h-full overflow-y-auto bg-slate-50/30 dark:bg-slate-900/10">
+                        <header className="sticky top-0 px-6 py-5 flex items-center justify-between bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-xl z-10 border-b border-slate-100 dark:border-slate-800">
+                            <div>
+                                <h1 className="text-xl font-bold tracking-tight dark:text-white">İdarəetmə Paneli</h1>
+                                <p className="text-[10px] uppercase tracking-widest text-slate-400 font-semibold mt-0.5">EduCompany Premium</p>
+                            </div>
+                            <div className="flex items-center gap-4">
+                                <button className="w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+                                    <span className="material-symbols-outlined text-[20px]">notifications</span>
+                                </button>
+                                <button className="w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+                                    <span className="material-symbols-outlined text-[20px]">search</span>
+                                </button>
+                            </div>
+                        </header>
+
+                        <div className="p-6 flex flex-col gap-8 pb-32">
+                            <div className="flex items-center justify-between">
+                                <h2 className="text-xs uppercase tracking-[0.2em] font-bold text-slate-400">Platforma Analitikası</h2>
+                                <span className="text-[11px] font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">Bu Ay</span>
+                            </div>
+
+                            <div className="grid grid-cols-1 gap-4">
+                                <div className="bg-white dark:bg-slate-800/50 p-6 rounded-xl premium-shadow border border-slate-100 dark:border-slate-800 relative overflow-hidden">
+                                    <div className="relative z-10">
+                                        <p className="text-sm font-medium text-slate-500 mb-1">Ümumi Gəlir</p>
+                                        <div className="flex items-baseline gap-2">
+                                            <h3 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">₼ 12,450</h3>
+                                            <span className="text-xs font-bold text-emerald-500">+12.5%</span>
+                                        </div>
+                                    </div>
+                                    <div className="absolute bottom-0 left-0 w-full h-12 opacity-30">
+                                        <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 400 100">
+                                            <path d="M0 80 Q 50 20, 100 70 T 200 30 T 300 60 T 400 10" fill="none" stroke="#5048e5" strokeWidth="3"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                                <div className="bg-white dark:bg-slate-800/50 p-6 rounded-xl premium-shadow border border-slate-100 dark:border-slate-800 relative overflow-hidden">
+                                    <div className="relative z-10 flex justify-between items-start">
+                                        <div>
+                                            <p className="text-sm font-medium text-slate-500 mb-1">Yeni İstifadəçilər</p>
+                                            <h3 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">+142</h3>
+                                        </div>
+                                        <div className="w-12 h-12 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center">
+                                            <span className="material-symbols-outlined text-primary">person_add</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col gap-4">
+                                <h2 className="text-xs uppercase tracking-[0.2em] font-bold text-slate-400">Son Fəaliyyətlər</h2>
+                                <div className="flex flex-col gap-1">
+                                    {[
+                                        { name: 'Leyla Əliyeva', action: 'UX Design kursuna abunə oldu', time: '2 dər.', img: 'https://i.pravatar.cc/100?u=1' },
+                                        { name: 'Anar Məmmədov', action: 'Premium paketini yenilədi', time: '15 dər.', img: 'https://i.pravatar.cc/100?u=2' }
+                                    ].map((item, i) => (
+                                        <div key={i} className="flex items-center gap-4 py-3 border-b border-slate-50 dark:border-slate-800/50">
+                                            <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
+                                                <img className="w-full h-full object-cover" src={item.img} alt="User"/>
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <p className="text-sm font-semibold truncate text-slate-900 dark:text-slate-100">{item.name}</p>
+                                                <p className="text-[11px] text-slate-500">{item.action}</p>
+                                            </div>
+                                            <div className="text-right">
+                                                <p className="text-[10px] font-bold text-slate-400">{item.time}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                    
+                    <div className="fixed bottom-6 right-6 z-30">
+                        <button className="w-14 h-14 rounded-full bg-primary text-white shadow-lg shadow-primary/40 flex items-center justify-center">
+                            <span className="material-symbols-outlined text-2xl">add</span>
+                        </button>
+                    </div>
+                </div>
+            );
+        };
+
+        // --- Main App ---
+        const App = () => {
+            const [darkMode, setDarkMode] = useState(false);
+
+            useEffect(() => {
+                if (darkMode) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            }, [darkMode]);
+
+            const toggleDarkMode = () => setDarkMode(!darkMode);
+
+            return (
+                <div className="relative">
+                    {/* Dev Mode Theme Toggle */}
+                    <button 
+                        onClick={toggleDarkMode}
+                        className="fixed top-4 right-4 z-[9999] bg-white dark:bg-slate-800 p-2 rounded-full shadow-xl border border-slate-200 dark:border-slate-700 flex items-center justify-center"
+                    >
+                        <span className="material-symbols-outlined text-[20px] dark:text-yellow-400 text-slate-600">
+                            {darkMode ? 'light_mode' : 'dark_mode'}
+                        </span>
+                    </button>
+
+                    <Routes>
+                        <Route path="/" element={<WelcomeScreen />} />
+                        <Route path="/student" element={<StudentDashboard />} />
+                        <Route path="/teacher" element={<TeacherDashboard />} />
+                        <Route path="/admin" element={<AdminDashboard />} />
+                    </Routes>
+                </div>
+            );
+        };
+
+        const container = document.getElementById('root');
+        const root = createRoot(container);
+        root.render(
+            <MemoryRouter>
+                <App />
+            </MemoryRouter>
+        );
+    </script>
+</body>
+</html>

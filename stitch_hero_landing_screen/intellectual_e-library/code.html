@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html lang="az"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>İntellektual Kitabxana - EduCompany</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5048e5",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#121121",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .book-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<!-- Main Container -->
+<div class="relative mx-auto min-h-screen max-w-md bg-white dark:bg-slate-950 shadow-2xl flex flex-col overflow-hidden">
+<!-- Header & Search -->
+<header class="px-5 pt-8 pb-4 sticky top-0 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md z-30">
+<div class="flex items-center justify-between mb-6">
+<div>
+<p class="text-xs font-bold uppercase tracking-widest text-primary/80 mb-1">EduCompany</p>
+<h1 class="text-2xl font-extrabold tracking-tight">İntellektual Kitabxana</h1>
+</div>
+<div class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-300">notifications</span>
+</div>
+</div>
+<div class="relative flex items-center gap-3">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="w-full bg-slate-50 dark:bg-slate-900 border-none rounded-xl py-3.5 pl-12 pr-4 text-sm focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-slate-400" placeholder="Kitab və ya müəllif axtar..." type="text"/>
+</div>
+<button class="bg-slate-50 dark:bg-slate-900 p-3.5 rounded-xl flex items-center justify-center text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">tune</span>
+</button>
+</div>
+</header>
+<!-- Main Content Scrollable Area -->
+<main class="flex-1 overflow-y-auto pb-24 hide-scrollbar">
+<!-- Premium Nəşrlər Section -->
+<section class="mt-4">
+<div class="flex items-center justify-between px-5 mb-4">
+<h2 class="text-lg font-bold tracking-tight">Premium Nəşrlər</h2>
+<button class="text-primary text-sm font-semibold">Hamısı</button>
+</div>
+<div class="flex overflow-x-auto gap-6 px-5 py-2 hide-scrollbar snap-x snap-mandatory">
+<!-- Premium Book 1 -->
+<div class="flex-none w-56 snap-start">
+<div class="relative aspect-[3/4] rounded-xl overflow-hidden book-shadow mb-4 group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Minimalist book cover design with gold typography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmvOpyCKW0MYhIJTAJh5uz1qWfPYKjt_xQm-PsxPmDKRlvXba1YSXuJpvUo-PXJTIj0VWR08rKJ-oBfoiT_wVJNdx-grpVM8OBpLPOCRRf0Wq8vsQBOF0qIZPUsBu51RU_0nduRciWbnQuLI3k1l3GO-p3RVOo1BY6RgRI5n0pwVOUu8GUXUoNii6454Bm3dH-zUYkPjQYkXJ2sMy_56OslvB17XPZu6YT6HKcbs200yf534SEcgtlcYyuwLC3FLP0X__4VUGLOhs"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+</div>
+<h3 class="font-bold text-sm leading-tight mb-1">Kvant Fizikasının Əsasları</h3>
+<p class="text-xs text-slate-500 font-medium">Dr. Elvin Həsənov</p>
+</div>
+<!-- Premium Book 2 -->
+<div class="flex-none w-56 snap-start">
+<div class="relative aspect-[3/4] rounded-xl overflow-hidden book-shadow mb-4 group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Antique leather book cover in a library setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDd85kYDjj111BwEeJbWFYu3Za36uyqHD7bW8_HMEmGdnV0WptjpDrqrGHZF3wu6DxLc8T-acoviKnmBKoyNv5ZJmCAaHkFV5nwPvrbjuGeLz7UelZelBHUQzmawUkp11Ep_tZovcTSuZ8cHiVFnVaPG7byKnWhJJsnlDfjNDxgGCmGzLTdiuKlycjdk7y4yfJoKapuoDMSLaWVxGq6mDuULnm_yyfE3McE47AJvkEu51-3ZvACSFdM5UwjYXCj6tegp-IKFiAak80"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+</div>
+<h3 class="font-bold text-sm leading-tight mb-1">Azərbaycan Tarixi: İntibah</h3>
+<p class="text-xs text-slate-500 font-medium">Prof. Aydın Quliyev</p>
+</div>
+<!-- Premium Book 3 -->
+<div class="flex-none w-56 snap-start">
+<div class="relative aspect-[3/4] rounded-xl overflow-hidden book-shadow mb-4 group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Modern abstract book design with vibrant colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbcB5L-yLUGmHQbk8eCsVtFAIt7nLp6vvyxQZ46W5uis2KQPuISr_Ms5OVH5O-kyP3Hn15v0JTJjtAr-VZwythQzVlYaZ_jabaTsEZKsiwZRnO0Iwz6em4LnlXxBjTgNSxtLPVrnuy9mzGffijBS67wwiQ_jujLPHmJAKNSBXD9WdbYjZNuG_Wv-UIbX9wwdSUvHy-LS8GjQ-whXxbaxQ6xqnMg6SD9pM6YQW18KRIpgRYAVeTcHG40Ty4bNQXmrEf41YKscSJuLY"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+</div>
+<h3 class="font-bold text-sm leading-tight mb-1">Süni İntellekt Erası</h3>
+<p class="text-xs text-slate-500 font-medium">Leyla Məmmədova</p>
+</div>
+</div>
+</section>
+<!-- Categories Section -->
+<section class="mt-10">
+<div class="px-5 mb-4">
+<h2 class="text-lg font-bold tracking-tight">Kateqoriyalar</h2>
+</div>
+<div class="flex overflow-x-auto gap-3 px-5 hide-scrollbar">
+<button class="px-6 py-2.5 bg-primary text-white rounded-full text-sm font-semibold flex-none shadow-lg shadow-primary/20">Hamısı</button>
+<button class="px-6 py-2.5 bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-300 rounded-full text-sm font-semibold flex-none border border-slate-200/50 dark:border-slate-800">Riyaziyyat</button>
+<button class="px-6 py-2.5 bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-300 rounded-full text-sm font-semibold flex-none border border-slate-200/50 dark:border-slate-800">Fizika</button>
+<button class="px-6 py-2.5 bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-300 rounded-full text-sm font-semibold flex-none border border-slate-200/50 dark:border-slate-800">Bədii Ədəbiyyat</button>
+<button class="px-6 py-2.5 bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-300 rounded-full text-sm font-semibold flex-none border border-slate-200/50 dark:border-slate-800">Tarix</button>
+</div>
+</section>
+<!-- Bütün Kitablar Grid (3-Column) -->
+<section class="mt-10 px-5">
+<div class="flex items-center justify-between mb-5">
+<h2 class="text-lg font-bold tracking-tight">Bütün Kitablar</h2>
+</div>
+<div class="grid grid-cols-3 gap-x-4 gap-y-8">
+<!-- Book Item 1 -->
+<div class="space-y-2">
+<div class="aspect-[2/3] rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-900">
+<img class="w-full h-full object-cover" data-alt="Old classic book cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaKcuFikIT8TyV6ghWAUksCCU2HrJkrUGsANFSfVE1m9DFiaiZ66czeBJBIKhTjh3FqvmUnZwPA2G1LEily2xK7p_Xe5fB9NbIe1S5eg6g5ZSjedFiZQZSfgfcTfqajmHaFQy6Ymkm0hS2sn9dUzcU1xobKqh0vx-DufUgVLK8KYy9z51zE3wO8MYSvhM5FQRrsB1goIHjdHjozmuWb-iO5ej9jXJE0yV7U8cjzmbtDLZV5QhKET1MX6eotwGoKL4NSt2i3b5jiag"/>
+</div>
+<h4 class="text-[11px] font-bold leading-tight line-clamp-2">Sirlər Xəzinəsi</h4>
+<p class="text-[10px] text-slate-500 font-medium">Nizami G.</p>
+</div>
+<!-- Book Item 2 -->
+<div class="space-y-2">
+<div class="aspect-[2/3] rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-900">
+<img class="w-full h-full object-cover" data-alt="Colorful modern book design" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCs15_3fpB1b2LGLrjxZh4U1UFVAjUOSZOWxYeN5Qc1K2Sa0pU1kr9TPevZGXERW4ITOFhNq04JKhB-Wr4YHfO11nrR8bQaGm-r3XjCy96hoA5tjNw4hKE1PMFxeoLOmch6WymfXEbu5cPKsKSE08dmZVlaZc7BMmMwvOAcXXB5YPJQT8UVCYkczP7JLZQiK7G5XAiJ0ZqaEABY0Y3AamNBdt1fsoFRmlzBkIY5_MzXmyqcc4804fi5qez6yXoKdUMif516BjVth8"/>
+</div>
+<h4 class="text-[11px] font-bold leading-tight line-clamp-2">Psixologiya: Giriş</h4>
+<p class="text-[10px] text-slate-500 font-medium">Əli Rzayev</p>
+</div>
+<!-- Book Item 3 -->
+<div class="space-y-2">
+<div class="aspect-[2/3] rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-900">
+<img class="w-full h-full object-cover" data-alt="Abstract blue book cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdji1I9WYXzhECdff7wLirNPUnkbYwZvvFt7dkripYviFXBKQabi1eO34HUqeJLVVMXz26Jnz9FK0yCAvPXCuFsQDjkWPtCx_tEZb9YCHZZXUpZW-E1mplBs-6gC3_niygNIOXMw3tIb5X-Z4ZVH3MHY1K0eWFGlXYGhOKC0CXEN0DAJs-4WCZOHGbZNRtjyRIDRjV3jvXYXQtTcHe9xtrDwXw3AHN8HrIzlI6KEOyjUL-kfmtyxa3N2E8mJfSaneF12XDCc8vHD4"/>
+</div>
+<h4 class="text-[11px] font-bold leading-tight line-clamp-2">Molekulyar Biologiya</h4>
+<p class="text-[10px] text-slate-500 font-medium">Sevinc Əliyeva</p>
+</div>
+<!-- Book Item 4 -->
+<div class="space-y-2">
+<div class="aspect-[2/3] rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-900">
+<img class="w-full h-full object-cover" data-alt="Classic red book cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkv-zIjw7DIDN0JxV61e_yx6oWVgaLF-ALJeO8i3URQIoFKLWlneoef9WayjRf9UAj1bMvj3VYFqIgXfzoXz3piHpytNVmXPnUXwezgDs2Ju02kl_AB7BJ55gdchwsS0S5m8lQb7w9YXKNRdiyEVJd4dUXIAssTdifbOe7yLA1KiQdnyCrejlMGzABKJWBZi5s3qt-xl7a79b0aqVNARQNoQKYn94d779yXFgZkkQyN1-3gjzr2DkiuNLpiKDb6ZguhBQX5efL97g"/>
+</div>
+<h4 class="text-[11px] font-bold leading-tight line-clamp-2">Dədə Qorqud</h4>
+<p class="text-[10px] text-slate-500 font-medium">Xalq Yaradıcılığı</p>
+</div>
+<!-- Book Item 5 -->
+<div class="space-y-2">
+<div class="aspect-[2/3] rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-900">
+<img class="w-full h-full object-cover" data-alt="Scientific journal style cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKriixW1rlVELONQNt5OJvHYz9ZOk4syvwJTLoej0d-KES0cLvuYdu-hKhjhVcieyk2y4ZwHDBT7WKs1sF6bxUiD4aDsE-o0lflR45DW1VvXmNj6A9wSmzGwbrNYUKIHYYzmQ43JiXcoa1Bd5LveowzgPV3iKB3kd3MurDSMTpEvz35YTb8m9z-y8xCnrQJSY80TYYDQXjUOI6cDDQVMx3KasEmYAnFHsFNjHSon_l8_DC_pBL4a7LI0AUbtMx8_Cp3NaFbn-OlwQ"/>
+</div>
+<h4 class="text-[11px] font-bold leading-tight line-clamp-2">Kimya Dünyası</h4>
+<p class="text-[10px] text-slate-500 font-medium">Orxan Vəliyev</p>
+</div>
+<!-- Book Item 6 -->
+<div class="space-y-2">
+<div class="aspect-[2/3] rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-900">
+<img class="w-full h-full object-cover" data-alt="Abstract gradient book cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB56vubZBPmMRwHTBmzfDtTLTr0N7EHgFDsN0ht2gt_uWmsD2vJJneqM2X9aKezGO_89T0Nwo-sQwf00maxA09kezISbDqCXOOzKc0meXY9E04G5Soh44bNrlnmReazDbyglFoBdeIhmZER8X9CuqXsTAW_skWX9HDeGXbOqe7c2JleNYdP69qLzFXfhBlhWhhETnOpT0kNbYukU9Z-jM5Kx9FueE9e2tPgFo5OGUUS8-1mMxOM20jQ8ibCNObeam3MM8xEC9mwJSw"/>
+</div>
+<h4 class="text-[11px] font-bold leading-tight line-clamp-2">Gələcəyin Şəhərləri</h4>
+<p class="text-[10px] text-slate-500 font-medium">M. Kərimli</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar (Apple Style) -->
+<nav class="absolute bottom-0 left-0 right-0 bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl border-t border-slate-100 dark:border-slate-800 px-6 pb-8 pt-3 flex items-center justify-between z-50">
+<a class="flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">home</span>
+<span class="text-[10px] font-bold text-slate-400 group-hover:text-primary">Əsas</span>
+</a>
+<a class="flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-primary fill-current">auto_stories</span>
+<span class="text-[10px] font-bold text-primary">Kitabxana</span>
+</a>
+<a class="flex flex-col items-center gap-1 group" href="#">
+<div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center -mt-8 shadow-lg shadow-primary/30 border-4 border-white dark:border-slate-950">
+<span class="material-symbols-outlined text-white">school</span>
+</div>
+<span class="text-[10px] font-bold text-slate-400 mt-1">Kurslar</span>
+</a>
+<a class="flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">bookmark</span>
+<span class="text-[10px] font-bold text-slate-400 group-hover:text-primary">Saxlanılanlar</span>
+</a>
+<a class="flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">person</span>
+<span class="text-[10px] font-bold text-slate-400 group-hover:text-primary">Profil</span>
+</a>
+</nav>
+<!-- iPhone Notch Indicator -->
+<div class="absolute bottom-1 left-1/2 -translate-x-1/2 w-32 h-1 bg-slate-300 dark:bg-slate-700 rounded-full z-[60]"></div>
+</div>
+</body></html>

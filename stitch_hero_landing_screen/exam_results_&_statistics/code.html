@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<html lang="az"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EduCompany - İmtahan Nəticəsi</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5048e5",
+                        "background-light": "#ffffff",
+                        "background-dark": "#121121",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .circular-progress {
+            background: conic-gradient(#5048e5 331deg, #e5e7eb 0deg);
+        }
+        .sparkline-gradient {
+            fill: url(#gradient);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex min-h-screen w-full max-w-[430px] mx-auto flex-col bg-background-light dark:bg-background-dark overflow-x-hidden border-x border-slate-100 dark:border-slate-800">
+<!-- Header -->
+<header class="flex items-center justify-between px-6 py-8">
+<button class="flex items-center justify-center size-10 rounded-full bg-slate-50 dark:bg-slate-800/50 text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined !text-[20px]">arrow_back_ios_new</span>
+</button>
+<h1 class="text-sm font-semibold tracking-wider uppercase text-slate-400 dark:text-slate-500">Nəticə Analizi</h1>
+<button class="flex items-center justify-center size-10 rounded-full bg-slate-50 dark:bg-slate-800/50 text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined !text-[24px]">more_horiz</span>
+</button>
+</header>
+<!-- Main Content -->
+<main class="flex-1 px-6">
+<!-- Score Hero Section -->
+<section class="flex flex-col items-center justify-center py-8">
+<div class="relative flex items-center justify-center size-64">
+<!-- Progress Ring (SVG for cinematic look) -->
+<svg class="size-full -rotate-90 transform" viewbox="0 0 100 100">
+<circle class="text-slate-100 dark:text-slate-800/50" cx="50" cy="50" fill="transparent" r="45" stroke="currentColor" stroke-width="2"></circle>
+<circle class="drop-shadow-[0_0_12px_rgba(80,72,229,0.3)]" cx="50" cy="50" fill="transparent" r="45" stroke="url(#indigo-grad)" stroke-dasharray="282.7" stroke-dashoffset="22.6" stroke-linecap="round" stroke-width="3"></circle>
+<defs>
+<lineargradient id="indigo-grad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#5048e5"></stop>
+<stop offset="100%" stop-color="#818cf8"></stop>
+</lineargradient>
+</defs>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+<span class="text-6xl font-light tracking-tighter">92<span class="text-3xl opacity-50">%</span></span>
+<span class="mt-2 text-sm font-medium text-primary tracking-wide">MÜKƏMMƏL!</span>
+</div>
+</div>
+<p class="mt-6 text-center text-slate-500 dark:text-slate-400 text-sm max-w-[240px] leading-relaxed">
+                    Siz tələbələrin ilk 3%-lik hissəsində yer alırsınız.
+                </p>
+</section>
+<!-- Statistik Breakdown -->
+<section class="mt-12">
+<div class="flex items-end justify-between mb-6">
+<h2 class="text-lg font-bold tracking-tight">Statistik Breakdown</h2>
+<span class="text-xs text-slate-400">Sualların sayı: 90</span>
+</div>
+<div class="space-y-8">
+<!-- Riyaziyyat -->
+<div class="group">
+<div class="flex justify-between items-center mb-2">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary/60 !text-[18px]">calculate</span>
+<span class="text-sm font-medium">Riyaziyyat</span>
+</div>
+<span class="text-xs font-semibold">28 / 30</span>
+</div>
+<div class="h-[3px] w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 93%;"></div>
+</div>
+<div class="flex gap-4 mt-2">
+<span class="text-[10px] text-emerald-500 font-medium flex items-center gap-1">
+<span class="material-symbols-outlined !text-[10px]">check_circle</span> 28 Düz
+                            </span>
+<span class="text-[10px] text-rose-500 font-medium flex items-center gap-1">
+<span class="material-symbols-outlined !text-[10px]">cancel</span> 2 Səhv
+                            </span>
+</div>
+</div>
+<!-- Azərbaycan Dili -->
+<div class="group">
+<div class="flex justify-between items-center mb-2">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary/60 !text-[18px]">auto_stories</span>
+<span class="text-sm font-medium">Azərbaycan dili</span>
+</div>
+<span class="text-xs font-semibold">25 / 30</span>
+</div>
+<div class="h-[3px] w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 83%;"></div>
+</div>
+<div class="flex gap-4 mt-2">
+<span class="text-[10px] text-emerald-500 font-medium flex items-center gap-1">
+<span class="material-symbols-outlined !text-[10px]">check_circle</span> 25 Düz
+                            </span>
+<span class="text-[10px] text-rose-500 font-medium flex items-center gap-1">
+<span class="material-symbols-outlined !text-[10px]">cancel</span> 5 Səhv
+                            </span>
+</div>
+</div>
+<!-- İngilis Dili -->
+<div class="group">
+<div class="flex justify-between items-center mb-2">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary/60 !text-[18px]">translate</span>
+<span class="text-sm font-medium">İngilis dili</span>
+</div>
+<span class="text-xs font-semibold">27 / 30</span>
+</div>
+<div class="h-[3px] w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 90%;"></div>
+</div>
+<div class="flex gap-4 mt-2">
+<span class="text-[10px] text-emerald-500 font-medium flex items-center gap-1">
+<span class="material-symbols-outlined !text-[10px]">check_circle</span> 27 Düz
+                            </span>
+<span class="text-[10px] text-rose-500 font-medium flex items-center gap-1">
+<span class="material-symbols-outlined !text-[10px]">cancel</span> 3 Səhv
+                            </span>
+</div>
+</div>
+</div>
+</section>
+<!-- Trend Section -->
+<section class="mt-14 mb-32">
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-lg font-bold tracking-tight">Performans Trendi</h2>
+<div class="flex items-center gap-1 text-[10px] font-bold text-primary bg-primary/5 px-2 py-1 rounded-full uppercase tracking-tighter">
+<span class="material-symbols-outlined !text-[12px]">trending_up</span> +12% ARTIB
+                    </div>
+</div>
+<div class="relative w-full h-32 flex items-end">
+<!-- Abstract Sparkline representation -->
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 40">
+<path d="M0 35 Q 10 32, 20 28 T 40 20 T 60 22 T 80 10 T 100 5" fill="none" stroke="#5048e5" stroke-linecap="round" stroke-width="1.5"></path>
+<path d="M0 35 Q 10 32, 20 28 T 40 20 T 60 22 T 80 10 T 100 5 V 40 H 0 Z" fill="url(#sparkline-fill)" opacity="0.1"></path>
+<defs>
+<lineargradient id="sparkline-fill" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#5048e5"></stop>
+<stop offset="100%" stop-color="#ffffff"></stop>
+</lineargradient>
+</defs>
+</svg>
+<!-- Labels for sparkline points -->
+<div class="absolute inset-x-0 bottom-[-24px] flex justify-between px-1">
+<span class="text-[9px] text-slate-400 font-medium">İmtahan 1</span>
+<span class="text-[9px] text-slate-400 font-medium">İmtahan 3</span>
+<span class="text-[9px] text-slate-400 font-medium">Sonuncu</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Fixed Footer Actions -->
+<div class="sticky bottom-0 left-0 right-0 bg-white/80 dark:bg-background-dark/80 backdrop-blur-xl border-t border-slate-100 dark:border-slate-800 px-6 pt-4 pb-10 flex flex-col gap-4">
+<button class="w-full h-14 rounded-xl border border-primary text-primary font-semibold text-sm hover:bg-primary/5 transition-colors flex items-center justify-center gap-2">
+                Səhvlərə bax
+                <span class="material-symbols-outlined !text-[18px]">history_edu</span>
+</button>
+<button class="w-full text-center text-slate-400 dark:text-slate-500 font-medium text-xs tracking-wide py-2 hover:text-primary transition-colors">
+                Nəticəni dostlarınla paylaş
+            </button>
+</div>
+<!-- Bottom Navigation (Mini Version for Mobile Feel) -->
+<nav class="fixed bottom-4 left-1/2 -translate-x-1/2 w-[90%] max-w-[380px] bg-slate-900 dark:bg-slate-800 text-white rounded-full px-8 py-4 shadow-2xl flex items-center justify-between z-50">
+<a class="text-white/60 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+</a>
+<a class="text-white" href="#">
+<span class="material-symbols-outlined">analytics</span>
+</a>
+<a class="text-white/60 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+</a>
+<a class="text-white/60 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+</a>
+</nav>
+</div>
+</body></html>

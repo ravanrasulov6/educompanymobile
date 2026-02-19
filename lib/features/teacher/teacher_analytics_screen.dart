@@ -18,7 +18,7 @@ class TeacherAnalyticsScreen extends StatelessWidget {
           children: const [
             Expanded(
               child: StatCard(
-                title: 'Avg. Rating',
+                title: 'Ortalama Reytinq',
                 value: '4.7',
                 icon: Icons.star,
                 color: AppColors.accent,
@@ -28,7 +28,7 @@ class TeacherAnalyticsScreen extends StatelessWidget {
             SizedBox(width: 12),
             Expanded(
               child: StatCard(
-                title: 'Completion Rate',
+                title: 'Tamamlanma nisbəti',
                 value: '78%',
                 icon: Icons.check_circle,
                 color: AppColors.success,
@@ -42,7 +42,7 @@ class TeacherAnalyticsScreen extends StatelessWidget {
           children: const [
             Expanded(
               child: StatCard(
-                title: 'Active Students',
+                title: 'Aktiv tələbələr',
                 value: '312',
                 icon: Icons.people,
                 color: AppColors.secondary,
@@ -51,7 +51,7 @@ class TeacherAnalyticsScreen extends StatelessWidget {
             SizedBox(width: 12),
             Expanded(
               child: StatCard(
-                title: 'This Week Views',
+                title: 'Bu həftəki baxışlar',
                 value: '1.8K',
                 icon: Icons.visibility,
                 color: AppColors.info,
@@ -63,7 +63,7 @@ class TeacherAnalyticsScreen extends StatelessWidget {
         const SizedBox(height: 24),
 
         // Chart
-        Text('Student Engagement', style: AppTextStyles.headlineSmall),
+        Text('Tələbə aktivliyi', style: AppTextStyles.headlineSmall),
         const SizedBox(height: 16),
         SizedBox(
           height: 220,
@@ -78,7 +78,7 @@ class TeacherAnalyticsScreen extends StatelessWidget {
                   sideTitles: SideTitles(
                     showTitles: true,
                     getTitlesWidget: (value, meta) {
-                      const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+                      const days = ['B.e', 'Ç.ə', 'Ç', 'C.ə', 'C', 'Ş', 'B'];
                       return Padding(
                         padding: const EdgeInsets.only(top: 8),
                         child: Text(
@@ -113,7 +113,7 @@ class TeacherAnalyticsScreen extends StatelessWidget {
         const SizedBox(height: 24),
 
         // Recent submissions
-        Text('Recent Submissions', style: AppTextStyles.headlineSmall),
+        Text('Son təhvil verilənlər', style: AppTextStyles.headlineSmall),
         const SizedBox(height: 12),
         ..._buildRecentSubmissions(),
       ],
@@ -136,9 +136,9 @@ class TeacherAnalyticsScreen extends StatelessWidget {
 
   List<Widget> _buildRecentSubmissions() {
     final submissions = [
-      {'student': 'Alice', 'assignment': 'Todo App', 'time': '2 hours ago'},
-      {'student': 'Bob', 'assignment': 'Design System', 'time': '5 hours ago'},
-      {'student': 'Carol', 'assignment': 'Todo App', 'time': 'Yesterday'},
+      {'student': 'Əli', 'assignment': 'Todo Proqramı', 'time': '2 saat əvvəl'},
+      {'student': 'Vüsal', 'assignment': 'Dizayn Sistemi', 'time': '5 saat əvvəl'},
+      {'student': 'Leyla', 'assignment': 'Todo Proqramı', 'time': 'Dünən'},
     ];
 
     return submissions

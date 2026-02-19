@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/theme_provider.dart';
+import '../../core/constants/app_strings.dart';
 
 /// Admin dashboard shell with navigation
 class AdminShell extends StatefulWidget {
@@ -56,20 +57,24 @@ class _AdminShellState extends State<AdminShell> {
                 ? Icons.light_mode_rounded
                 : Icons.dark_mode_rounded),
             onPressed: () => theme.toggleTheme(),
+            tooltip: 'Görünüşü dəyiş',
           ),
           PopupMenuButton<String>(
             icon: const Icon(Icons.admin_panel_settings),
             onSelected: (value) {
-              if (value == 'logout') auth.logout();
+              if (value == 'logout') {
+                auth.logout();
+                context.go('/');
+              }
             },
             itemBuilder: (context) => [
               const PopupMenuItem(
                 enabled: false,
-                child: Text('Admin Panel',
+                child: Text('İdarəetmə Paneli',
                     style: TextStyle(fontWeight: FontWeight.w600)),
               ),
               const PopupMenuDivider(),
-              const PopupMenuItem(value: 'logout', child: Text('Log Out')),
+              const PopupMenuItem(value: 'logout', child: Text('Çıxış')),
             ],
           ),
         ],
@@ -82,22 +87,22 @@ class _AdminShellState extends State<AdminShell> {
           NavigationDestination(
             icon: Icon(Icons.dashboard_outlined),
             selectedIcon: Icon(Icons.dashboard),
-            label: 'Dashboard',
+            label: 'Panel',
           ),
           NavigationDestination(
             icon: Icon(Icons.people_outline),
             selectedIcon: Icon(Icons.people),
-            label: 'Users',
+            label: 'İstifadəçilər',
           ),
           NavigationDestination(
             icon: Icon(Icons.menu_book_outlined),
             selectedIcon: Icon(Icons.menu_book),
-            label: 'Courses',
+            label: AppStrings.myCourses,
           ),
           NavigationDestination(
             icon: Icon(Icons.settings_outlined),
             selectedIcon: Icon(Icons.settings),
-            label: 'Settings',
+            label: 'Parametrlər',
           ),
         ],
       ),
@@ -106,11 +111,11 @@ class _AdminShellState extends State<AdminShell> {
 
   String _getTitle() {
     switch (_currentIndex) {
-      case 0: return 'Admin Dashboard';
-      case 1: return 'User Management';
-      case 2: return 'Course Management';
-      case 3: return 'Settings';
-      default: return 'Admin';
+      case 0: return 'İdarəetmə Paneli';
+      case 1: return 'İstifadəçi İdarəetməsi';
+      case 2: return 'Dərs İdarəetməsi';
+      case 3: return 'Parametrlər';
+      default: return AppStrings.appName;
     }
   }
 }

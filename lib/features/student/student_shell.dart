@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/theme_provider.dart';
 import '../../core/theme/app_colors.dart';
+import '../../core/constants/app_strings.dart';
 
 /// Student bottom navigation shell
 class StudentShell extends StatefulWidget {
@@ -62,7 +63,7 @@ class _StudentShellState extends State<StudentShell> {
                 ? Icons.light_mode_rounded
                 : Icons.dark_mode_rounded),
             onPressed: () => theme.toggleTheme(),
-            tooltip: 'Toggle theme',
+            tooltip: 'Görünüşü dəyiş',
           ),
           if (!isGuest)
             IconButton(
@@ -74,6 +75,7 @@ class _StudentShellState extends State<StudentShell> {
             onSelected: (value) {
               if (value == 'logout') {
                 auth.logout();
+                context.go('/');
               }
             },
             itemBuilder: (context) => [
@@ -100,7 +102,7 @@ class _StudentShellState extends State<StudentShell> {
                           color: AppColors.accent.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(6),
                         ),
-                        child: const Text('Guest Mode',
+                        child: const Text('Qonaq rejimi',
                             style: TextStyle(
                                 fontSize: 11, color: AppColors.accent)),
                       ),
@@ -114,7 +116,7 @@ class _StudentShellState extends State<StudentShell> {
                   children: [
                     Icon(Icons.logout, size: 18),
                     SizedBox(width: 8),
-                    Text('Log Out'),
+                    Text('Çıxış'),
                   ],
                 ),
               ),
@@ -128,29 +130,29 @@ class _StudentShellState extends State<StudentShell> {
         onDestinationSelected: _onDestinationSelected,
         destinations: const [
           NavigationDestination(
-            icon: Icon(Icons.menu_book_outlined),
-            selectedIcon: Icon(Icons.menu_book),
-            label: 'Courses',
+            icon: Icon(Icons.home_outlined),
+            selectedIcon: Icon(Icons.home),
+            label: AppStrings.navHome,
           ),
           NavigationDestination(
             icon: Icon(Icons.videocam_outlined),
             selectedIcon: Icon(Icons.videocam),
-            label: 'Live',
+            label: AppStrings.liveClasses,
           ),
           NavigationDestination(
             icon: Icon(Icons.assignment_outlined),
             selectedIcon: Icon(Icons.assignment),
-            label: 'Tasks',
+            label: 'Tapşırıq',
           ),
           NavigationDestination(
             icon: Icon(Icons.calendar_today_outlined),
             selectedIcon: Icon(Icons.calendar_today),
-            label: 'Schedule',
+            label: AppStrings.navSchedule,
           ),
           NavigationDestination(
             icon: Icon(Icons.quiz_outlined),
             selectedIcon: Icon(Icons.quiz),
-            label: 'Exams',
+            label: AppStrings.exams,
           ),
         ],
       ),
@@ -160,17 +162,17 @@ class _StudentShellState extends State<StudentShell> {
   String _getTitle() {
     switch (_currentIndex) {
       case 0:
-        return 'My Courses';
+        return AppStrings.myCourses;
       case 1:
-        return 'Live Classes';
+        return AppStrings.liveClasses;
       case 2:
-        return 'Assignments';
+        return AppStrings.assignments;
       case 3:
-        return 'Schedule';
+        return AppStrings.schedule;
       case 4:
-        return 'Practice Exams';
+        return AppStrings.exams;
       default:
-        return 'EduCompany';
+        return AppStrings.appName;
     }
   }
 }

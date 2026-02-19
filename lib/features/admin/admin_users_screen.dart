@@ -19,7 +19,7 @@ class AdminUsersScreen extends StatelessWidget {
               Expanded(
                 child: TextField(
                   decoration: InputDecoration(
-                    hintText: 'Search users...',
+                    hintText: 'İstifadəçi axtar...',
                     prefixIcon: const Icon(Icons.search),
                     isDense: true,
                     border: OutlineInputBorder(
@@ -39,10 +39,10 @@ class AdminUsersScreen extends StatelessWidget {
                   icon: const Icon(Icons.filter_list),
                   onSelected: (_) {},
                   itemBuilder: (_) => const [
-                    PopupMenuItem(value: 'all', child: Text('All Users')),
-                    PopupMenuItem(value: 'student', child: Text('Students')),
-                    PopupMenuItem(value: 'teacher', child: Text('Teachers')),
-                    PopupMenuItem(value: 'admin', child: Text('Admins')),
+                    PopupMenuItem(value: 'all', child: Text('Bütün istifadəçilər')),
+                    PopupMenuItem(value: 'student', child: Text('Tələbələr')),
+                    PopupMenuItem(value: 'teacher', child: Text('Müəllimlər')),
+                    PopupMenuItem(value: 'admin', child: Text('Adminlər')),
                   ],
                 ),
               ),
@@ -80,7 +80,7 @@ class AdminUsersScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
-                      user.role.name.toUpperCase(),
+                      _roleLabel(user.role),
                       style: AppTextStyles.labelSmall
                           .copyWith(color: _roleColor(user.role)),
                     ),
@@ -92,6 +92,15 @@ class AdminUsersScreen extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  String _roleLabel(UserRole role) {
+    switch (role) {
+      case UserRole.student: return 'TƏLƏBƏ';
+      case UserRole.teacher: return 'MÜƏLLİM';
+      case UserRole.admin: return 'ADMİN';
+      case UserRole.guest: return 'QONAQ';
+    }
   }
 
   Color _roleColor(UserRole role) {

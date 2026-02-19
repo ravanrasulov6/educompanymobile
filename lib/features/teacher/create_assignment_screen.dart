@@ -13,43 +13,43 @@ class CreateAssignmentScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('New Assignment', style: AppTextStyles.headlineMedium),
+          Text('Yeni Tapşırıq', style: AppTextStyles.headlineMedium),
           const SizedBox(height: 24),
 
-          Text('Title', style: AppTextStyles.labelLarge),
+          Text('Başlıq', style: AppTextStyles.labelLarge),
           const SizedBox(height: 8),
           const TextField(
-            decoration: InputDecoration(hintText: 'Assignment title'),
+            decoration: InputDecoration(hintText: 'Tapşırıq başlığı'),
           ),
           const SizedBox(height: 20),
 
-          Text('Course', style: AppTextStyles.labelLarge),
+          Text('Kurs', style: AppTextStyles.labelLarge),
           const SizedBox(height: 8),
           DropdownButtonFormField<String>(
-            decoration: const InputDecoration(hintText: 'Select course'),
+            decoration: const InputDecoration(hintText: 'Kurs seçin'),
             items: const [
-              DropdownMenuItem(value: 'flutter', child: Text('Flutter Development')),
-              DropdownMenuItem(value: 'design', child: Text('UI/UX Design')),
-              DropdownMenuItem(value: 'algo', child: Text('Data Structures')),
+              DropdownMenuItem(value: 'flutter', child: Text('Flutter Proqramlaşdırma')),
+              DropdownMenuItem(value: 'design', child: Text('UI/UX Dizayn')),
+              DropdownMenuItem(value: 'algo', child: Text('Məlumat Strukturları')),
             ],
             onChanged: (_) {},
           ),
           const SizedBox(height: 20),
 
-          Text('Description', style: AppTextStyles.labelLarge),
+          Text('Təsvir', style: AppTextStyles.labelLarge),
           const SizedBox(height: 8),
           const TextField(
             maxLines: 4,
-            decoration: InputDecoration(hintText: 'Describe the assignment...'),
+            decoration: InputDecoration(hintText: 'Tapşırığı təsvir edin...'),
           ),
           const SizedBox(height: 20),
 
-          Text('Deadline', style: AppTextStyles.labelLarge),
+          Text('Son tarix', style: AppTextStyles.labelLarge),
           const SizedBox(height: 8),
           TextField(
             readOnly: true,
             decoration: InputDecoration(
-              hintText: 'Select deadline',
+              hintText: 'Tarix seçin',
               suffixIcon: IconButton(
                 icon: const Icon(Icons.calendar_today),
                 onPressed: () {},
@@ -59,7 +59,7 @@ class CreateAssignmentScreen extends StatelessWidget {
           const SizedBox(height: 32),
 
           PremiumButton(
-            label: 'Create Assignment',
+            label: 'Tapşırıq yarat',
             onPressed: () {},
             isGradient: true,
             icon: Icons.check_circle,

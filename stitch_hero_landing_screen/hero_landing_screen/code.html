@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html lang="az"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5048e5",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#121121",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .hero-gradient-overlay {
+            background: linear-gradient(to bottom, 
+                rgba(246, 246, 248, 0.8) 0%, 
+                rgba(246, 246, 248, 0.2) 40%, 
+                rgba(246, 246, 248, 0.2) 60%, 
+                rgba(246, 246, 248, 1) 100%);
+        }
+        .btn-premium-gradient {
+            background: linear-gradient(135deg, #5048e5 0%, #7c74ff 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display overflow-hidden">
+<!-- Cinematic Background Container -->
+<div class="relative h-screen w-full flex flex-col justify-between overflow-hidden">
+<!-- Background Image/Video Placeholder -->
+<div class="absolute inset-0 z-0">
+<img alt="Slow motion footage of a student with a tablet in a bright classroom" class="w-full h-full object-cover" data-alt="Cinematic shot of a modern bright classroom with students" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAx31sam5yApJOWnz4Wk_rq8RQ1I4TJDY-XRdnaDIWr52I3yg-S-mYl7I-k8bMByzZPFYPWAssKS3a88AJuTr-J6sJy13eMeL50Ktwl1UDmpUmOjhcKmQON8YV5PslsUL8n-aoJiA9feZ-ou6OBtVjBOephHXzJzc6Z_ZRpblvWhAqkIuLd-SLZhn51yfMuT--YFc_6uf409hq45BVn_qpka8hjETP8iaSHx-nTgcVc6LlTM5h6GkAcfmKANtHqCARmP1OX7kpbSjg"/>
+<!-- Soft White Overlay for legibility and cinematic feel -->
+<div class="absolute inset-0 hero-gradient-overlay z-10"></div>
+</div>
+<!-- Top Navigation / Branding -->
+<header class="relative z-20 pt-14 px-6 flex flex-col items-center">
+<div class="flex items-center gap-2 mb-1">
+<div class="text-primary bg-white/80 backdrop-blur-md p-2 rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-3xl">child_hat</span>
+</div>
+<h1 class="text-slate-900 dark:text-slate-100 text-2xl font-bold tracking-tight">
+                    EduCompany
+                </h1>
+</div>
+<p class="text-slate-600 dark:text-slate-400 text-sm font-medium tracking-wide">
+                Gələcəyin təhsil platforması
+            </p>
+</header>
+<!-- Bottom Actions Section -->
+<section class="relative z-20 pb-12 px-8 w-full max-w-md mx-auto">
+<div class="flex flex-col gap-4">
+<!-- Primary Action: Premium Registration -->
+<button class="btn-premium-gradient w-full h-14 rounded-xl flex items-center justify-center gap-2 text-white font-semibold text-lg shadow-lg shadow-primary/25 active:scale-[0.98] transition-transform">
+<span class="material-symbols-outlined">stars</span>
+<span>Premium Qeydiyyat</span>
+</button>
+<!-- Secondary Action: Login -->
+<button class="w-full h-14 rounded-xl flex items-center justify-center bg-white/60 backdrop-blur-md border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 font-semibold text-lg active:scale-[0.98] transition-transform">
+                    Daxil ol
+                </button>
+<!-- Tertiary Action: Guest Access -->
+<button class="mt-2 py-2 text-slate-500 dark:text-slate-400 font-medium text-sm flex items-center justify-center gap-1 hover:text-primary transition-colors">
+<span>Qonaq kimi davam et</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+<!-- iOS Home Indicator Spacing -->
+<div class="h-6 w-full"></div>
+</section>
+<!-- Floating Decorative Element (Top Right) -->
+<div class="absolute top-16 right-[-20px] z-10 opacity-20 dark:opacity-10">
+<span class="material-symbols-outlined text-[120px] text-primary rotate-12">auto_awesome</span>
+</div>
+</div>
+<!-- Background Decoration for Premium feel -->
+<div class="fixed top-0 left-0 w-full h-full pointer-events-none z-10">
+<div class="absolute top-[20%] left-[-10%] w-64 h-64 bg-primary/10 rounded-full blur-[80px]"></div>
+<div class="absolute bottom-[10%] right-[-10%] w-80 h-80 bg-primary/20 rounded-full blur-[100px]"></div>
+</div>
+</body></html>

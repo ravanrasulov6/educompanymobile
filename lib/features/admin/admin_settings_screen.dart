@@ -15,13 +15,13 @@ class AdminSettingsScreen extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        Text('App Settings', style: AppTextStyles.headlineMedium),
+        Text('Tətbiq Parametrləri', style: AppTextStyles.headlineMedium),
         const SizedBox(height: 16),
 
         _SettingsTile(
           icon: Icons.dark_mode,
-          title: 'Dark Mode',
-          subtitle: 'Toggle dark/light theme',
+          title: 'Qaranlıq Rejim',
+          subtitle: 'Qaranlıq/İşıqlı mövzu',
           trailing: Switch(
             value: theme.isDarkMode,
             onChanged: (_) => theme.toggleTheme(),
@@ -29,51 +29,51 @@ class AdminSettingsScreen extends StatelessWidget {
         ),
         _SettingsTile(
           icon: Icons.notifications,
-          title: 'Push Notifications',
-          subtitle: 'Enable push notifications',
+          title: 'Bildirişlər',
+          subtitle: 'Bildirişləri aktivləşdir',
           trailing: Switch(value: true, onChanged: (_) {}),
         ),
         _SettingsTile(
           icon: Icons.language,
-          title: 'Language',
-          subtitle: 'English',
+          title: 'Dil',
+          subtitle: 'Azərbaycan dili',
           trailing: const Icon(Icons.chevron_right),
         ),
         const Divider(height: 32),
 
-        Text('Platform', style: AppTextStyles.headlineSmall),
+        Text('Platforma', style: AppTextStyles.headlineSmall),
         const SizedBox(height: 12),
         _SettingsTile(
           icon: Icons.payment,
-          title: 'Payment Gateway',
-          subtitle: 'Stripe connected',
+          title: 'Ödəniş Sistemi',
+          subtitle: 'Stripe qoşulub',
           trailing: const Icon(Icons.chevron_right),
         ),
         _SettingsTile(
           icon: Icons.email,
-          title: 'Email Settings',
-          subtitle: 'SMTP configuration',
+          title: 'E-poçt Parametrləri',
+          subtitle: 'SMTP konfiqurasiyası',
           trailing: const Icon(Icons.chevron_right),
         ),
         _SettingsTile(
           icon: Icons.storage,
-          title: 'Storage',
-          subtitle: '24.5 GB / 100 GB used',
+          title: 'Depolama',
+          subtitle: '24.5 GB / 100 GB istifadə olunub',
           trailing: const Icon(Icons.chevron_right),
         ),
         const Divider(height: 32),
 
-        Text('About', style: AppTextStyles.headlineSmall),
+        Text('Haqqında', style: AppTextStyles.headlineSmall),
         const SizedBox(height: 12),
         _SettingsTile(
           icon: Icons.info_outline,
-          title: 'App Version',
+          title: 'Tətbiq Versiyası',
           subtitle: '1.0.0 (Build 1)',
         ),
         _SettingsTile(
           icon: Icons.code,
-          title: 'Licenses',
-          subtitle: 'Open source licenses',
+          title: 'Lisenziyalar',
+          subtitle: 'Açıq mənbə lisenziyaları',
           trailing: const Icon(Icons.chevron_right),
         ),
       ],

@@ -42,8 +42,8 @@ class _ExamsScreenState extends State<ExamsScreen>
         TabBar(
           controller: _tabController,
           tabs: const [
-            Tab(text: 'Available'),
-            Tab(text: 'Completed'),
+            Tab(text: 'Mövcud'),
+            Tab(text: 'Bitmiş'),
           ],
         ),
         Expanded(
@@ -90,7 +90,7 @@ class _ExamList extends StatelessWidget {
                     .onSurface
                     .withValues(alpha: 0.2)),
             const SizedBox(height: 12),
-            Text('No exams', style: AppTextStyles.bodyMedium),
+            Text('İmtahan yoxdur', style: AppTextStyles.bodyMedium),
           ],
         ),
       );
@@ -153,12 +153,12 @@ class _ExamList extends StatelessWidget {
                   children: [
                     const Icon(Icons.help_outline, size: 16),
                     const SizedBox(width: 6),
-                    Text('${exam.totalQuestions} questions',
+                    Text('${exam.totalQuestions} sual',
                         style: AppTextStyles.bodySmall),
                     const SizedBox(width: 16),
                     const Icon(Icons.timer_outlined, size: 16),
                     const SizedBox(width: 6),
-                    Text('${exam.durationMinutes} min',
+                    Text('${exam.durationMinutes} dəq',
                         style: AppTextStyles.bodySmall),
                   ],
                 ),
@@ -169,7 +169,7 @@ class _ExamList extends StatelessWidget {
                     child: ElevatedButton.icon(
                       onPressed: () => onTake!(exam),
                       icon: const Icon(Icons.play_arrow, size: 18),
-                      label: const Text('Start Exam'),
+                      label: const Text('İmtahana başla'),
                     ),
                   ),
                 ],

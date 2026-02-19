@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html lang="az"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EduCompany Student Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5048e5",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#121121",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<!-- Main Mobile Container (iOS feel) -->
+<div class="relative mx-auto min-h-screen max-w-[430px] bg-white dark:bg-background-dark shadow-2xl overflow-hidden pb-32">
+<!-- Top Status Bar Placeholder (iOS) -->
+<div class="h-12 w-full flex items-center justify-between px-8 pt-4">
+<span class="text-xs font-semibold">9:41</span>
+<div class="flex gap-1.5 items-center">
+<span class="material-symbols-outlined text-[18px]">signal_cellular_alt</span>
+<span class="material-symbols-outlined text-[18px]">wifi</span>
+<span class="material-symbols-outlined text-[18px]">battery_full</span>
+</div>
+</div>
+<!-- Header Section -->
+<header class="px-6 pt-6 pb-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="size-12 rounded-full border-2 border-primary/20 p-0.5 overflow-hidden">
+<img class="w-full h-full object-cover rounded-full" data-alt="Modern professional headshot of a student" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgHyb9gMYl_TSgGia27jDVEQiVEAen9Sc8yTyJfwSFx1f-6Wsw22BdoCVk82T_4av981PnuDOk3oAu_cciAGhOggOgeFPJjp84AM_DJG-rMnxPDQquWOv0HREl9E_-fMyZd5ttDHbjMXUg1mimL89nUb5Tnlv93piEUokFXpC75n-ri3S5X0t6XmKj9l5LjualSG5qf59E6mMvNciMp9ALpbF2dyzDytwXW4tXiwtTYxnvGdn5iICL1OlVi81ACkEljabhoqZ12xI"/>
+</div>
+<div>
+<h1 class="text-xl font-bold tracking-tight">Salam, Əli</h1>
+<p class="text-xs text-slate-500 dark:text-slate-400">Bugün 3 dərsin var</p>
+</div>
+</div>
+<button class="size-11 rounded-full bg-slate-50 dark:bg-white/5 flex items-center justify-center text-slate-600 dark:text-slate-300 border border-slate-100 dark:border-white/10 relative">
+<span class="material-symbols-outlined text-[22px]">notifications</span>
+<span class="absolute top-3 right-3 size-2 bg-primary rounded-full border-2 border-white dark:border-background-dark"></span>
+</button>
+</header>
+<!-- Weekly Calendar Section -->
+<section class="mt-4">
+<div class="px-6 flex justify-between items-center mb-4">
+<h2 class="text-sm font-semibold uppercase tracking-wider text-slate-400">Dərs cədvəli</h2>
+<span class="text-xs text-primary font-medium">Noyabr 2024</span>
+</div>
+<div class="flex gap-4 overflow-x-auto px-6 pb-2 hide-scrollbar">
+<div class="flex flex-col items-center gap-2 min-w-[50px] p-3 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 opacity-60">
+<span class="text-[10px] font-bold uppercase">B.e</span>
+<span class="text-sm font-bold">14</span>
+</div>
+<div class="flex flex-col items-center gap-2 min-w-[50px] p-3 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 opacity-60">
+<span class="text-[10px] font-bold uppercase">Ç.ə</span>
+<span class="text-sm font-bold">15</span>
+</div>
+<!-- Active Day -->
+<div class="flex flex-col items-center gap-2 min-w-[50px] p-3 rounded-2xl bg-primary text-white shadow-lg shadow-primary/25">
+<span class="text-[10px] font-bold uppercase">Çəş</span>
+<span class="text-sm font-bold">16</span>
+</div>
+<div class="flex flex-col items-center gap-2 min-w-[50px] p-3 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10">
+<span class="text-[10px] font-bold uppercase">C.a</span>
+<span class="text-sm font-bold">17</span>
+</div>
+<div class="flex flex-col items-center gap-2 min-w-[50px] p-3 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10">
+<span class="text-[10px] font-bold uppercase">Cüm</span>
+<span class="text-sm font-bold">18</span>
+</div>
+<div class="flex flex-col items-center gap-2 min-w-[50px] p-3 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10">
+<span class="text-[10px] font-bold uppercase">Şən</span>
+<span class="text-sm font-bold">19</span>
+</div>
+</div>
+</section>
+<!-- Active Courses (Dərslərim) -->
+<section class="mt-8">
+<div class="px-6 flex justify-between items-end mb-4">
+<h2 class="text-xl font-bold tracking-tight">Dərslərim</h2>
+<button class="text-xs font-semibold text-primary">Hamısına bax</button>
+</div>
+<div class="flex gap-5 overflow-x-auto px-6 pb-4 hide-scrollbar">
+<!-- Course Card 1 -->
+<div class="min-w-[280px] bg-white dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-xl overflow-hidden shadow-sm">
+<div class="h-36 w-full relative">
+<img class="w-full h-full object-cover" data-alt="Modern architectural structure minimalist style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAngWUfKJA2TkY11ZnEkYAo1o1Ot4Zn2uiP4Bn4w2OIeZH7sRbeTb2zr8XtauRqky_r3ETloKFSUiym_yT9636Xtfx71KaJtiual8i27XM_zSdXw1ybhI_ht24PGx0YE_BzLvZ579IbhzC8s9yS4lBW58-F33hkTm0e03UfPkYYKVm0j1ITEUiVOR_XHlx_S2iNCcCN3heQuZ31_1n2-zuDbLSpWDHzbWpKrM7xct542wiKV6JtHFSlxyyPLsOXU3Pn9A19g16wSVc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+<span class="absolute bottom-3 left-3 px-2 py-1 bg-white/20 backdrop-blur-md rounded text-[10px] text-white font-bold uppercase">Dizayn</span>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-slate-800 dark:text-slate-100 mb-1">UI/UX Dizayn Əsasları</h3>
+<p class="text-xs text-slate-500 mb-4">Müəllim: Samir Məmmədov</p>
+<div class="flex items-center justify-between text-[11px] mb-2 font-medium">
+<span>Gedişat</span>
+<span class="text-primary">75%</span>
+</div>
+<div class="h-1.5 w-full bg-slate-100 dark:bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 75%"></div>
+</div>
+</div>
+</div>
+<!-- Course Card 2 -->
+<div class="min-w-[280px] bg-white dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-xl overflow-hidden shadow-sm">
+<div class="h-36 w-full relative">
+<img class="w-full h-full object-cover" data-alt="Data visualization charts on computer screen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQ46jvW1XBYhix9nlcRBsgJFw9F04-SZxbb4pvJ6i6x4kGcmXoA0khaxYLCGzC7hNdgL1abpaqSTQBsGeEa8f6MC1qFZ8JjkA49nUrG-3l-KmBNRnbWpZfw_5P2xsCFoSZXp2gHTfdka0FitPs5QQvKsaFGJoylUxduVYOlMQNh_9NbeCPDVKYOA-Cj3wQjVOWZJ1u9BqIvYb1YiY1oTmQiuKOOp7Xf74M_r1I0rKSr3sgJKeMzRYzaIXRAZuRkME4BtU5AvJN5Hs"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+<span class="absolute bottom-3 left-3 px-2 py-1 bg-white/20 backdrop-blur-md rounded text-[10px] text-white font-bold uppercase">Data</span>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-slate-800 dark:text-slate-100 mb-1">Data Analitika</h3>
+<p class="text-xs text-slate-500 mb-4">Müəllim: Leyla Əliyeva</p>
+<div class="flex items-center justify-between text-[11px] mb-2 font-medium">
+<span>Gedişat</span>
+<span class="text-primary">40%</span>
+</div>
+<div class="h-1.5 w-full bg-slate-100 dark:bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 40%"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Tasks Section (Tapşırıqlarım) -->
+<section class="mt-8 px-6">
+<h2 class="text-xl font-bold tracking-tight mb-4">Tapşırıqlarım</h2>
+<div class="space-y-3">
+<!-- Task Row 1 -->
+<div class="flex items-center justify-between p-4 bg-slate-50/50 dark:bg-white/5 rounded-2xl border border-slate-100 dark:border-white/10">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">description</span>
+</div>
+<div>
+<h4 class="text-sm font-semibold">User Personas Tədqiqatı</h4>
+<p class="text-[11px] text-slate-500 mt-0.5">Son tarix: Sabah, 18:00</p>
+</div>
+</div>
+<span class="px-2.5 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 text-[10px] font-bold rounded-lg uppercase">Gözləyir</span>
+</div>
+<!-- Task Row 2 -->
+<div class="flex items-center justify-between p-4 bg-slate-50/50 dark:bg-white/5 rounded-2xl border border-slate-100 dark:border-white/10">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-xl bg-emerald-100/50 dark:bg-emerald-900/10 flex items-center justify-center text-emerald-600">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+</div>
+<div>
+<h4 class="text-sm font-semibold">SQL Queries Task #2</h4>
+<p class="text-[11px] text-slate-500 mt-0.5">Tamamlanıb: Dünən</p>
+</div>
+</div>
+<span class="px-2.5 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold rounded-lg uppercase">Bitib</span>
+</div>
+<!-- Task Row 3 -->
+<div class="flex items-center justify-between p-4 bg-slate-50/50 dark:bg-white/5 rounded-2xl border border-slate-100 dark:border-white/10 opacity-70">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-xl bg-slate-100 dark:bg-white/10 flex items-center justify-center text-slate-400">
+<span class="material-symbols-outlined text-[20px]">assignment_late</span>
+</div>
+<div>
+<h4 class="text-sm font-semibold">İngilis dili Essesi</h4>
+<p class="text-[11px] text-slate-500 mt-0.5">Son tarix: 14 Noy</p>
+</div>
+</div>
+<span class="px-2.5 py-1 bg-slate-100 dark:bg-white/10 text-slate-500 text-[10px] font-bold rounded-lg uppercase">Arxiv</span>
+</div>
+</div>
+</section>
+<!-- Floating Bottom Navigation -->
+<div class="fixed bottom-8 left-1/2 -translate-x-1/2 w-[90%] max-w-[380px] z-50">
+<nav class="glass-nav dark:bg-background-dark/80 rounded-full p-2 flex items-center justify-between shadow-xl border border-slate-200/50 dark:border-white/5">
+<a class="flex items-center justify-center size-12 bg-primary text-white rounded-full" href="#">
+<span class="material-symbols-outlined">home</span>
+</a>
+<a class="flex flex-col items-center justify-center size-12 text-slate-400 dark:text-slate-500" href="#">
+<span class="material-symbols-outlined">book_4</span>
+</a>
+<a class="flex flex-col items-center justify-center size-12 text-slate-400 dark:text-slate-500" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+</a>
+<a class="flex flex-col items-center justify-center size-12 text-slate-400 dark:text-slate-500" href="#">
+<span class="material-symbols-outlined">person</span>
+</a>
+</nav>
+</div>
+<!-- iOS Home Indicator -->
+<div class="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-32 h-1.5 bg-slate-200 dark:bg-white/10 rounded-full"></div>
+</div>
+</body></html>
