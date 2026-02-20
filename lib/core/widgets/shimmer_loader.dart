@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import '../theme/app_colors.dart';
 
 /// Shimmer skeleton placeholder for loading states
 class ShimmerLoader extends StatelessWidget {
@@ -18,9 +19,8 @@ class ShimmerLoader extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Shimmer.fromColors(
-      baseColor: isDark ? const Color(0xFF334155) : const Color(0xFFE2E8F0),
-      highlightColor:
-          isDark ? const Color(0xFF475569) : const Color(0xFFF1F5F9),
+      baseColor: isDark ? AppColors.darkShimmerBase : AppColors.shimmerBase,
+      highlightColor: isDark ? AppColors.darkShimmerHighlight : AppColors.shimmerHighlight,
       child: Container(
         width: width,
         height: height,
@@ -37,9 +37,8 @@ class ShimmerLoader extends StatelessWidget {
     return Builder(builder: (context) {
       final isDark = Theme.of(context).brightness == Brightness.dark;
       return Shimmer.fromColors(
-        baseColor: isDark ? const Color(0xFF334155) : const Color(0xFFE2E8F0),
-        highlightColor:
-            isDark ? const Color(0xFF475569) : const Color(0xFFF1F5F9),
+        baseColor: isDark ? AppColors.darkShimmerBase : AppColors.shimmerBase,
+        highlightColor: isDark ? AppColors.darkShimmerHighlight : AppColors.shimmerHighlight,
         child: Container(
           height: height,
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -76,6 +75,46 @@ class ShimmerLoader extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  /// Dashboard skeleton shimmer
+  static Widget dashboard() {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const ShimmerLoader(width: 120, height: 16),
+                const SizedBox(height: 12),
+                const ShimmerLoader(width: 250, height: 28),
+                const SizedBox(height: 24),
+                const ShimmerLoader(height: 54, borderRadius: 16),
+              ],
+            ),
+          ),
+          const SizedBox(height: 24),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              children: List.generate(
+                4,
+                (i) => const Padding(
+                  padding: EdgeInsets.only(right: 12),
+                  child: ShimmerLoader(width: 80, height: 36, borderRadius: 12),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 24),
+          ShimmerLoader.card(height: 160),
+          ShimmerLoader.card(height: 160),
+        ],
       ),
     );
   }

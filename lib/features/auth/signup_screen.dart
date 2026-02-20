@@ -64,10 +64,10 @@ class _SignupScreenState extends State<SignupScreen> {
                   children: [
                     const SizedBox(height: 24),
 
-                    Text('Hesab Yaradın', style: AppTextStyles.displayMedium),
+                    Text(AppStrings.createAccount, style: AppTextStyles.displayMedium),
                     const SizedBox(height: 8),
                     Text(
-                      'Təhsil yolculuğunuza bugün başlayın',
+                      AppStrings.signupSubtitle,
                       style: AppTextStyles.bodyLarge.copyWith(
                         color: Theme.of(context)
                             .colorScheme
@@ -83,11 +83,11 @@ class _SignupScreenState extends State<SignupScreen> {
                     TextFormField(
                       controller: _nameController,
                       decoration: const InputDecoration(
-                        hintText: 'Adınız və Soyadınız',
-                        prefixIcon: Icon(Icons.person_outline),
+                        hintText: AppStrings.nameHint,
+                        prefixIcon: Icon(Icons.person_outline_rounded),
                       ),
                       validator: (v) =>
-                          v == null || v.isEmpty ? 'Ad tələb olunur' : null,
+                          v == null || v.isEmpty ? AppStrings.nameRequired : null,
                     ),
                     const SizedBox(height: 20),
 
@@ -98,12 +98,12 @@ class _SignupScreenState extends State<SignupScreen> {
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       decoration: const InputDecoration(
-                        hintText: 'nümunə@edu.com',
-                        prefixIcon: Icon(Icons.email_outlined),
+                        hintText: AppStrings.emailHint,
+                        prefixIcon: Icon(Icons.mail_outline_rounded),
                       ),
                       validator: (v) {
-                        if (v == null || v.isEmpty) return 'E-poçt tələb olunur';
-                        if (!v.contains('@')) return 'E-poçt formatı düzgün deyil';
+                        if (v == null || v.isEmpty) return AppStrings.emailRequired;
+                        if (!v.contains('@')) return AppStrings.emailInvalid;
                         return null;
                       },
                     ),
@@ -116,8 +116,8 @@ class _SignupScreenState extends State<SignupScreen> {
                       controller: _passwordController,
                       obscureText: _obscurePassword,
                       decoration: InputDecoration(
-                        hintText: 'Şifrə yaradın',
-                        prefixIcon: const Icon(Icons.lock_outline),
+                        hintText: AppStrings.passwordHint,
+                        prefixIcon: const Icon(Icons.lock_outline_rounded),
                         suffixIcon: IconButton(
                           icon: Icon(_obscurePassword
                               ? Icons.visibility_off_outlined
@@ -127,29 +127,29 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                       ),
                       validator: (v) {
-                        if (v == null || v.isEmpty) return 'Şifrə tələb olunur';
-                        if (v.length < 6) return 'Minimum 6 simvol';
+                        if (v == null || v.isEmpty) return AppStrings.passwordRequired;
+                        if (v.length < 6) return AppStrings.passwordTooShort;
                         return null;
                       },
                     ),
                     const SizedBox(height: 24),
 
                     // Role selection
-                    Text('Mən bir ...', style: AppTextStyles.labelLarge),
+                    Text(AppStrings.iAmA, style: AppTextStyles.labelLarge),
                     const SizedBox(height: 12),
                     Row(
                       children: [
                         _RoleChip(
-                          label: 'Tələbəyəm',
-                          icon: Icons.school_outlined,
+                          label: AppStrings.iAmStudent,
+                          icon: Icons.school_rounded,
                           isSelected: _selectedRole == UserRole.student,
                           onTap: () =>
                               setState(() => _selectedRole = UserRole.student),
                         ),
                         const SizedBox(width: 12),
                         _RoleChip(
-                          label: 'Müəlliməm',
-                          icon: Icons.cast_for_education_outlined,
+                          label: AppStrings.iAmTeacher,
+                          icon: Icons.cast_for_education_rounded,
                           isSelected: _selectedRole == UserRole.teacher,
                           onTap: () =>
                               setState(() => _selectedRole = UserRole.teacher),
@@ -197,7 +197,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Artıq hesabınız var? ',
+                        Text(AppStrings.alreadyHaveAccount,
                             style: AppTextStyles.bodyMedium),
                         GestureDetector(
                           onTap: () => context.go('/login'),

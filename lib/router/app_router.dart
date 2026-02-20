@@ -10,12 +10,16 @@ import '../features/auth/signup_screen.dart';
 import '../features/student/student_shell.dart';
 import '../features/student/courses/courses_screen.dart';
 import '../features/student/courses/course_detail_screen.dart';
+import '../features/student/courses/live_class_detail_screen.dart';
 import '../features/student/live_classes/live_classes_screen.dart';
 import '../features/student/assignments/assignments_screen.dart';
 import '../features/student/schedule/schedule_screen.dart';
 import '../features/student/exams/exams_screen.dart';
 import '../features/student/exams/exam_taking_screen.dart';
 import '../features/student/exams/exam_result_screen.dart';
+import '../features/student/profile/profile_screen.dart';
+import '../features/student/profile/payment_methods_screen.dart';
+import '../features/student/profile/settings_placeholder_screen.dart';
 import '../features/teacher/teacher_shell.dart';
 import '../features/teacher/teacher_courses_screen.dart';
 import '../features/teacher/teacher_analytics_screen.dart';
@@ -102,6 +106,13 @@ class AppRouter {
             ),
           ),
           GoRoute(
+            path: '/student/live-classes/:id',
+            name: 'liveClassDetail',
+            builder: (context, state) => LiveClassDetailScreen(
+              courseId: state.pathParameters['id']!,
+            ),
+          ),
+          GoRoute(
             path: '/student/live',
             name: 'liveClasses',
             builder: (context, state) => const LiveClassesScreen(),
@@ -130,6 +141,32 @@ class AppRouter {
             path: '/student/exams/result',
             name: 'examResult',
             builder: (context, state) => const ExamResultScreen(),
+          ),
+          GoRoute(
+            path: '/student/profile',
+            name: 'studentProfile',
+            builder: (context, state) => const ProfileScreen(),
+          ),
+          GoRoute(
+            path: '/student/profile/certificates',
+            name: 'studentCertificates',
+            builder: (context, state) => const SettingsPlaceholderScreen(
+              title: 'Sertifikatlar',
+              icon: Icons.workspace_premium_rounded,
+            ),
+          ),
+          GoRoute(
+            path: '/student/profile/payment',
+            name: 'studentPayment',
+            builder: (context, state) => const PaymentMethodScreen(),
+          ),
+          GoRoute(
+            path: '/student/profile/notifications',
+            name: 'studentNotifications',
+            builder: (context, state) => const SettingsPlaceholderScreen(
+              title: 'Bildiriş Tənzimləmələri',
+              icon: Icons.notifications_active_rounded,
+            ),
           ),
         ],
       ),

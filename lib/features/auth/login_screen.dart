@@ -63,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Text(AppStrings.welcome, style: AppTextStyles.displayMedium),
                     const SizedBox(height: 8),
                     Text(
-                      'Təhsilinizə davam etmək üçün daxil olun',
+                      AppStrings.loginSubtitle,
                       style: AppTextStyles.bodyLarge.copyWith(
                         color: Theme.of(context)
                             .colorScheme
@@ -80,12 +80,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       decoration: const InputDecoration(
-                        hintText: 'nümunə@edu.com',
+                        hintText: AppStrings.emailHint,
                         prefixIcon: Icon(Icons.email_outlined),
                       ),
                       validator: (v) {
-                        if (v == null || v.isEmpty) return 'E-poçt tələb olunur';
-                        if (!v.contains('@')) return 'E-poçt formatı düzgün deyil';
+                        if (v == null || v.isEmpty) return AppStrings.emailRequired;
+                        if (!v.contains('@')) return AppStrings.emailInvalid;
                         return null;
                       },
                     ),
@@ -98,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: _passwordController,
                       obscureText: _obscurePassword,
                       decoration: InputDecoration(
-                        hintText: '••••••••',
+                        hintText: AppStrings.passwordHint,
                         prefixIcon: const Icon(Icons.lock_outline),
                         suffixIcon: IconButton(
                           icon: Icon(_obscurePassword
@@ -113,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       validator: (v) {
                         if (v == null || v.isEmpty) {
-                          return 'Şifrə tələb olunur';
+                          return AppStrings.passwordRequired;
                         }
                         return null;
                       },
@@ -125,7 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       alignment: Alignment.centerRight,
                       child: TextButton(
                         onPressed: () {},
-                        child: const Text('Şifrəni unutmusunuz?'),
+                        child: const Text(AppStrings.forgotPassword),
                       ),
                     ),
 
@@ -185,17 +185,17 @@ class _LoginScreenState extends State<LoginScreen> {
                               const Icon(Icons.info_outline,
                                   color: AppColors.info, size: 18),
                               const SizedBox(width: 8),
-                              Text('Demo Hesablar',
+                              Text(AppStrings.demoAccounts,
                                   style: AppTextStyles.titleMedium
                                       .copyWith(color: AppColors.info)),
                             ],
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            '• Tələbə: ${AppConstants.demoStudentEmail}\n'
-                            '• Müəllim: ${AppConstants.demoTeacherEmail}\n'
-                            '• Admin: ${AppConstants.demoAdminEmail}\n'
-                            '• Şifrə: ${AppConstants.demoPassword}',
+                            '• ${AppStrings.student}: ${AppConstants.demoStudentEmail}\n'
+                            '• ${AppStrings.teacherRole}: ${AppConstants.demoTeacherEmail}\n'
+                            '• ${AppStrings.admin}: ${AppConstants.demoAdminEmail}\n'
+                            '• ${AppStrings.password}: ${AppConstants.demoPassword}',
                             style: AppTextStyles.bodySmall.copyWith(
                               height: 1.8,
                               color: Theme.of(context)
@@ -214,7 +214,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Hesabınız yoxdur? ",
+                          AppStrings.dontHaveAccount,
                           style: AppTextStyles.bodyMedium,
                         ),
                         GestureDetector(

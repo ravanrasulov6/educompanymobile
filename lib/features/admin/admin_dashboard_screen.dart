@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_text_styles.dart';
+import '../../core/constants/app_strings.dart';
 import '../../core/widgets/stat_card.dart';
 
 /// Admin overview dashboard
@@ -15,22 +16,22 @@ class AdminDashboardScreen extends StatelessWidget {
       children: [
         // Platform stats
         Row(
-          children: const [
+          children: [
             Expanded(
               child: StatCard(
-                title: 'Ümumi istifadəçilər',
+                title: AppStrings.totalUsers,
                 value: '12.4K',
-                icon: Icons.people,
+                icon: Icons.people_alt_rounded,
                 color: AppColors.primary,
                 trend: 8.5,
               ),
             ),
-            SizedBox(width: 12),
+            const SizedBox(width: 12),
             Expanded(
               child: StatCard(
-                title: 'Gəlir',
+                title: AppStrings.revenue,
                 value: '₼84.2K',
-                icon: Icons.payments,
+                icon: Icons.account_balance_wallet_rounded,
                 color: AppColors.success,
                 trend: 12.3,
               ),
@@ -39,22 +40,22 @@ class AdminDashboardScreen extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         Row(
-          children: const [
+          children: [
             Expanded(
               child: StatCard(
-                title: 'Kurslar',
+                title: AppStrings.coursesCount,
                 value: '156',
-                icon: Icons.menu_book,
+                icon: Icons.auto_stories_rounded,
                 color: AppColors.secondary,
                 trend: 4.2,
               ),
             ),
-            SizedBox(width: 12),
+            const SizedBox(width: 12),
             Expanded(
               child: StatCard(
-                title: 'Hazırda aktiv',
+                title: AppStrings.currentlyActive,
                 value: '328',
-                icon: Icons.circle,
+                icon: Icons.online_prediction_rounded,
                 color: AppColors.info,
               ),
             ),
@@ -63,7 +64,7 @@ class AdminDashboardScreen extends StatelessWidget {
         const SizedBox(height: 24),
 
         // Enrollment chart
-        Text('Aylıq Qeydiyyatlar', style: AppTextStyles.headlineSmall),
+        Text(AppStrings.monthlyEnrollments, style: AppTextStyles.headlineSmall),
         const SizedBox(height: 16),
         SizedBox(
           height: 200,
@@ -122,31 +123,31 @@ class AdminDashboardScreen extends StatelessWidget {
         const SizedBox(height: 24),
 
         // Recent activity
-        Text('Son Fəaliyyətlər', style: AppTextStyles.headlineSmall),
+        Text(AppStrings.recentActivities, style: AppTextStyles.headlineSmall),
         const SizedBox(height: 12),
         _ActivityItem(
-          icon: Icons.person_add,
+          icon: Icons.person_add_rounded,
           color: AppColors.primary,
-          title: 'Yeni müəllim qeydiyyatdan keçdi',
-          subtitle: 'Murad Əliyev • 2 saat əvvəl',
+          title: AppStrings.newTeacherRegistered,
+          subtitle: 'Murad Əliyev • ${AppStrings.hoursAgo.replaceFirst('%s', '2')}',
         ),
         _ActivityItem(
-          icon: Icons.menu_book,
+          icon: Icons.auto_stories_rounded,
           color: AppColors.secondary,
-          title: 'Yeni kurs dərc olundu',
-          subtitle: 'Flutter Masterklas • Bugün',
+          title: AppStrings.newCoursePublished,
+          subtitle: 'Flutter Masterklas • ${AppStrings.today}',
         ),
         _ActivityItem(
-          icon: Icons.report,
+          icon: Icons.report_problem_rounded,
           color: AppColors.warning,
-          title: 'Məzmun şikayəti',
-          subtitle: 'Tapşırıq #234 • 5 saat əvvəl',
+          title: AppStrings.contentReport,
+          subtitle: 'Tapşırıq #234 • ${AppStrings.hoursAgo.replaceFirst('%s', '5')}',
         ),
         _ActivityItem(
-          icon: Icons.payment,
+          icon: Icons.payments_rounded,
           color: AppColors.success,
-          title: 'Ödəniş qəbul edildi',
-          subtitle: '₼49.99 • Premium Plan • Bugün',
+          title: AppStrings.paymentReceived,
+          subtitle: '₼49.99 • Premium Plan • ${AppStrings.today}',
         ),
       ],
     );

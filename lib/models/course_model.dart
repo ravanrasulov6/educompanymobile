@@ -12,6 +12,7 @@ class CourseModel {
   final double rating;
   final int studentsCount;
   final bool isDemo;
+  final bool isLive;
   final List<CourseSection> sections;
 
   const CourseModel({
@@ -27,72 +28,109 @@ class CourseModel {
     this.rating = 0.0,
     this.studentsCount = 0,
     this.isDemo = false,
+    this.isLive = false,
     this.sections = const [],
   });
 
   /// Demo courses
   static final List<CourseModel> demoCourses = [
+    // Live Courses
     CourseModel(
       id: 'c1',
-      title: 'Flutter Development Masterclass',
-      description: 'Build production-ready mobile apps with Flutter and Dart.',
-      instructor: 'Sarah Teacher',
-      category: 'Mobile Development',
+      title: 'Flutter İnkişafı Masterklas',
+      description: 'Flutter və Dart ilə istehsala hazır mobil tətbiqlər qurun.',
+      thumbnailUrl: 'https://picsum.photos/seed/flutter/800/600',
+      instructor: 'Sarah Müəllim',
+      category: 'Mobil İnkişaf',
       rating: 4.8,
       studentsCount: 1250,
       progress: 0.65,
       totalLessons: 48,
       completedLessons: 31,
       isDemo: true,
+      isLive: true,
       sections: [
-        CourseSection(title: 'Getting Started', lessons: [
-          Lesson(id: 'l1', title: 'Introduction to Flutter', duration: '12:30', isCompleted: true),
-          Lesson(id: 'l2', title: 'Setting Up Your Environment', duration: '18:45', isCompleted: true),
-          Lesson(id: 'l3', title: 'Your First Widget', duration: '22:10', isCompleted: true),
+        CourseSection(title: 'Başlanğıc', lessons: [
+          Lesson(id: 'l1', title: 'Flutter-a Giriş', duration: '12:30', isCompleted: true),
+          Lesson(id: 'l2', title: 'Mühitinizin Quraşdırılması', duration: '18:45', isCompleted: true),
+          Lesson(id: 'l3', title: 'İlk Widget-iniz', duration: '22:10', isCompleted: true),
         ]),
-        CourseSection(title: 'Widgets Deep Dive', lessons: [
+        CourseSection(title: 'Widget-lərə Dərindən Baxış', lessons: [
           Lesson(id: 'l4', title: 'Stateful vs Stateless', duration: '15:00', isCompleted: true),
-          Lesson(id: 'l5', title: 'Layout Widgets', duration: '20:30', isCompleted: false),
-          Lesson(id: 'l6', title: 'Custom Widgets', duration: '25:15', isCompleted: false),
+          Lesson(id: 'l5', title: 'Layout Widget-ləri', duration: '20:30', isCompleted: false),
+          Lesson(id: 'l6', title: 'Xüsusi Widget-lər', duration: '25:15', isCompleted: false),
         ]),
       ],
     ),
     CourseModel(
       id: 'c2',
-      title: 'UI/UX Design Fundamentals',
-      description: 'Master the principles of user interface and experience design.',
-      instructor: 'Sarah Teacher',
-      category: 'Design',
+      title: 'UI/UX Dizayn Əsasları',
+      description: 'İstifadəçi interfeysi və təcrübəsi dizaynının prinsiplərinə yiyələnin.',
+      thumbnailUrl: 'https://picsum.photos/seed/design/800/600',
+      instructor: 'Sarah Müəllim',
+      category: 'Dizayn',
       rating: 4.6,
       studentsCount: 890,
       progress: 0.30,
       totalLessons: 36,
       completedLessons: 11,
       isDemo: true,
+      isLive: true,
       sections: [
-        CourseSection(title: 'Design Principles', lessons: [
-          Lesson(id: 'l7', title: 'Color Theory', duration: '14:20', isCompleted: true),
-          Lesson(id: 'l8', title: 'Typography Basics', duration: '16:45', isCompleted: true),
+        CourseSection(title: 'Dizayn Prinsipləri', lessons: [
+          Lesson(id: 'l7', title: 'Rəng Nəzəriyyəsi', duration: '14:20', isCompleted: true),
+          Lesson(id: 'l8', title: 'Tipoqrafiya Əsasları', duration: '16:45', isCompleted: true),
         ]),
       ],
     ),
+    // Video Courses
     CourseModel(
       id: 'c3',
-      title: 'Data Structures & Algorithms',
-      description: 'Essential CS concepts for coding interviews and real projects.',
-      instructor: 'Sarah Teacher',
-      category: 'Computer Science',
+      title: 'Məlumat Strukturları və Alqoritmlər',
+      description: 'Kodlaşdırma müsahibələri və real layihələr üçün vacib CS konsepsiyaları.',
+      thumbnailUrl: 'https://picsum.photos/seed/code/800/600',
+      instructor: 'Sarah Müəllim',
+      category: 'Kompüter Elmləri',
       rating: 4.9,
       studentsCount: 2100,
       progress: 0.0,
       totalLessons: 60,
       completedLessons: 0,
+      isLive: false,
       sections: [
-        CourseSection(title: 'Arrays & Strings', lessons: [
-          Lesson(id: 'l9', title: 'Array Operations', duration: '20:00', isCompleted: false),
-          Lesson(id: 'l10', title: 'String Manipulation', duration: '18:30', isCompleted: false),
+        CourseSection(title: 'Massivlər və Sətirlər', lessons: [
+          Lesson(id: 'l9', title: 'Massiv Əməliyyatları', duration: '20:00', isCompleted: false),
+          Lesson(id: 'l10', title: 'Sətir Manipulyasiyası', duration: '18:30', isCompleted: false),
         ]),
       ],
+    ),
+    CourseModel(
+      id: 'c4',
+      title: 'Rəqəmsal Marketinq Strategiyaları',
+      description: 'Brendinizi böyütmək üçün müasir marketinq alətləri.',
+      thumbnailUrl: 'https://picsum.photos/seed/marketing/800/600',
+      instructor: 'Emin Bəy',
+      category: 'Marketing',
+      rating: 4.7,
+      studentsCount: 1540,
+      progress: 0.0,
+      totalLessons: 24,
+      completedLessons: 0,
+      isLive: false,
+    ),
+    CourseModel(
+      id: 'c5',
+      title: 'Python ilə Süni İntellekt',
+      description: 'AI və Machine Learning dünyasına ilk addım.',
+      thumbnailUrl: 'https://picsum.photos/seed/ai/800/600',
+      instructor: 'Leyla Xanım',
+      category: 'Data Science',
+      rating: 4.5,
+      studentsCount: 3200,
+      progress: 0.0,
+      totalLessons: 52,
+      completedLessons: 0,
+      isLive: false,
     ),
   ];
 }

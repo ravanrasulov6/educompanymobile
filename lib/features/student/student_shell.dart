@@ -1,10 +1,9 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
-import '../../providers/auth_provider.dart';
-import '../../providers/theme_provider.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/constants/app_strings.dart';
+import '../../core/widgets/premium_drawer.dart';
 
 /// Student bottom navigation shell
 class StudentShell extends StatefulWidget {
@@ -17,6 +16,7 @@ class StudentShell extends StatefulWidget {
 
 class _StudentShellState extends State<StudentShell> {
   int _currentIndex = 0;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   static const _destinations = [
     '/student/courses',
@@ -50,129 +50,158 @@ class _StudentShellState extends State<StudentShell> {
 
   @override
   Widget build(BuildContext context) {
-    final auth = context.read<AuthProvider>();
-    final theme = context.watch<ThemeProvider>();
-    final isGuest = auth.isGuest;
+    final isSubPage = _isSubPage(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(_getTitle()),
-        actions: [
-          IconButton(
-            icon: Icon(theme.isDarkMode
-                ? Icons.light_mode_rounded
-                : Icons.dark_mode_rounded),
-            onPressed: () => theme.toggleTheme(),
-            tooltip: 'Görünüşü dəyiş',
-          ),
-          if (!isGuest)
-            IconButton(
-              icon: const Icon(Icons.notifications_outlined),
-              onPressed: () {},
+      key: _scaffoldKey,
+      drawer: isSubPage
+          ? null
+          : PremiumDrawer(
+              selectedIndex: _currentIndex,
+              onDestinationSelected: _onDestinationSelected,
+              items: const [
+                {
+                  'icon': Icons.dashboard_rounded,
+                  'label': AppStrings.navHome
+                },
+                {
+                  'icon': Icons.emoji_events_rounded,
+                  'label': 'Liderlər Lövhəsi'
+                },
+                {
+                  'icon': Icons.insights_rounded,
+                  'label': 'Sınaq Nəticələrim'
+                },
+                {
+                  'icon': Icons.download_done_rounded,
+                  'label': 'Yükləmələrim'
+                },
+                {
+                  'icon': Icons.forum_rounded,
+                  'label': 'Müəllimə Sual Ver'
+                },
+                {
+                  'icon': Icons.settings_rounded,
+                  'label': 'Tənzimləmələr'
+                },
+              ],
             ),
-          PopupMenuButton<String>(
-            icon: const Icon(Icons.account_circle_outlined),
-            onSelected: (value) {
-              if (value == 'logout') {
-                auth.logout();
-                context.go('/');
-              }
-            },
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                enabled: false,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(auth.user?.name ?? '',
-                        style: const TextStyle(fontWeight: FontWeight.w600)),
-                    Text(auth.user?.email ?? '',
-                        style: TextStyle(
-                            fontSize: 12,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSurface
-                                .withValues(alpha: 0.5))),
-                    if (isGuest)
-                      Container(
-                        margin: const EdgeInsets.only(top: 4),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 2),
-                        decoration: BoxDecoration(
-                          color: AppColors.accent.withValues(alpha: 0.15),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: const Text('Qonaq rejimi',
-                            style: TextStyle(
-                                fontSize: 11, color: AppColors.accent)),
-                      ),
-                  ],
+      appBar: isSubPage
+          ? null
+          : AppBar(
+              leading: GestureDetector(
+                onTap: () => _scaffoldKey.currentState?.openDrawer(),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 16),
+                  child: Center(
+                    child: CircleAvatar(
+                      radius: 18,
+                      backgroundColor:
+                          AppColors.primary.withValues(alpha: 0.1),
+                      child: const Icon(Icons.menu_rounded,
+                          size: 20, color: AppColors.primary),
+                    ),
+                  ),
                 ),
               ),
-              const PopupMenuDivider(),
-              const PopupMenuItem(
-                value: 'logout',
-                child: Row(
-                  children: [
-                    Icon(Icons.logout, size: 18),
-                    SizedBox(width: 8),
-                    Text('Çıxış'),
-                  ],
-                ),
+              title: Row(
+                children: [
+                  Image.asset(
+                    'assets/images/logo_m.png',
+                    height: 28,
+                    fit: BoxFit.contain,
+                  ),
+                ],
               ),
-            ],
-          ),
-        ],
-      ),
+              leadingWidth: 52,
+              actions: [
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.mail_outline_rounded,
+                      color: AppColors.primary),
+                  tooltip: 'Mesajlar',
+                ),
+                IconButton(
+                  onPressed: () => context.push('/student/profile'),
+                  icon: Container(
+                    padding: const EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border:
+                          Border.all(color: AppColors.primary, width: 1.5),
+                    ),
+                    child: const Icon(Icons.person_rounded,
+                        color: AppColors.primary, size: 20),
+                  ),
+                  tooltip: 'Profil',
+                ),
+                const SizedBox(width: 8),
+              ],
+            ),
+      extendBody: true,
       body: widget.child,
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: _currentIndex,
-        onDestinationSelected: _onDestinationSelected,
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.home_outlined),
-            selectedIcon: Icon(Icons.home),
-            label: AppStrings.navHome,
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.videocam_outlined),
-            selectedIcon: Icon(Icons.videocam),
-            label: AppStrings.liveClasses,
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.assignment_outlined),
-            selectedIcon: Icon(Icons.assignment),
-            label: 'Tapşırıq',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.calendar_today_outlined),
-            selectedIcon: Icon(Icons.calendar_today),
-            label: AppStrings.navSchedule,
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.quiz_outlined),
-            selectedIcon: Icon(Icons.quiz),
-            label: AppStrings.exams,
-          ),
-        ],
-      ),
+      bottomNavigationBar: isSubPage
+          ? null
+          : ClipRRect(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).scaffoldBackgroundColor.withValues(alpha: 0.75),
+                    border: Border(
+                      top: BorderSide(
+                        color: AppColors.primary.withValues(alpha: 0.1),
+                        width: 1,
+                      ),
+                    ),
+                  ),
+                  child: NavigationBar(
+                    backgroundColor: Colors.transparent, // override theme default 
+                    elevation: 0,
+                    selectedIndex: _currentIndex,
+                    onDestinationSelected: _onDestinationSelected,
+                    destinations: const [
+                      NavigationDestination(
+                        icon: Icon(Icons.home_outlined),
+                        selectedIcon: Icon(Icons.home_rounded),
+                        label: AppStrings.navHome,
+                      ),
+                      NavigationDestination(
+                        icon: Icon(Icons.videocam_outlined),
+                        selectedIcon: Icon(Icons.videocam_rounded),
+                        label: AppStrings.liveClasses,
+                      ),
+                      NavigationDestination(
+                        icon: Icon(Icons.assignment_outlined),
+                        selectedIcon: Icon(Icons.assignment_rounded),
+                        label: AppStrings.assignments,
+                      ),
+                      NavigationDestination(
+                        icon: Icon(Icons.event_note_outlined),
+                        selectedIcon: Icon(Icons.event_note_rounded),
+                        label: AppStrings.navSchedule,
+                      ),
+                      NavigationDestination(
+                        icon: Icon(Icons.quiz_outlined),
+                        selectedIcon: Icon(Icons.quiz_rounded),
+                        label: AppStrings.exams,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
     );
   }
 
-  String _getTitle() {
-    switch (_currentIndex) {
-      case 0:
-        return AppStrings.myCourses;
-      case 1:
-        return AppStrings.liveClasses;
-      case 2:
-        return AppStrings.assignments;
-      case 3:
-        return AppStrings.schedule;
-      case 4:
-        return AppStrings.exams;
-      default:
-        return AppStrings.appName;
+  /// Returns true only if the current route is a sub-page (not a root tab).
+  bool _isSubPage(BuildContext context) {
+    final location = GoRouterState.of(context).matchedLocation;
+    // If the current location exactly matches any root tab, it's NOT a sub-page
+    for (final dest in _destinations) {
+      if (location == dest) return false;
     }
+    // Otherwise it's a sub-page (e.g. /student/courses/123, /student/profile)
+    return true;
   }
 }

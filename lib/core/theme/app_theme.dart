@@ -16,16 +16,22 @@ class AppTheme {
           surface: AppColors.lightSurface,
         ),
         scaffoldBackgroundColor: AppColors.lightBackground,
-        textTheme: GoogleFonts.interTextTheme(ThemeData.light().textTheme),
+        textTheme: GoogleFonts.outfitTextTheme(ThemeData.light().textTheme),
 
         // AppBar
-        appBarTheme: const AppBarTheme(
+        appBarTheme: AppBarTheme(
           elevation: 0,
           scrolledUnderElevation: 1,
-          centerTitle: false,
+          centerTitle: true,
           backgroundColor: AppColors.lightSurface,
           foregroundColor: AppColors.lightTextPrimary,
           surfaceTintColor: Colors.transparent,
+          titleTextStyle: GoogleFonts.inter(
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
+            color: AppColors.lightTextPrimary,
+            letterSpacing: -0.5,
+          ),
         ),
 
         // Cards
@@ -49,7 +55,7 @@ class AppTheme {
             ),
             backgroundColor: AppColors.primary,
             foregroundColor: Colors.white,
-            textStyle: GoogleFonts.inter(
+            textStyle: GoogleFonts.outfit(
               fontSize: 15,
               fontWeight: FontWeight.w600,
               letterSpacing: 0.3,
@@ -66,7 +72,7 @@ class AppTheme {
             ),
             side: const BorderSide(color: AppColors.primary, width: 1.5),
             foregroundColor: AppColors.primary,
-            textStyle: GoogleFonts.inter(
+            textStyle: GoogleFonts.outfit(
               fontSize: 15,
               fontWeight: FontWeight.w600,
               letterSpacing: 0.3,
@@ -79,7 +85,7 @@ class AppTheme {
           style: TextButton.styleFrom(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             foregroundColor: AppColors.lightTextSecondary,
-            textStyle: GoogleFonts.inter(
+            textStyle: GoogleFonts.outfit(
               fontSize: 14,
               fontWeight: FontWeight.w500,
             ),
@@ -109,7 +115,7 @@ class AppTheme {
             borderRadius: BorderRadius.circular(14),
             borderSide: const BorderSide(color: AppColors.error),
           ),
-          hintStyle: GoogleFonts.inter(
+          hintStyle: GoogleFonts.outfit(
             color: AppColors.lightTextHint,
             fontSize: 14,
           ),
@@ -120,10 +126,32 @@ class AppTheme {
           elevation: 0,
           backgroundColor: AppColors.lightSurface,
           surfaceTintColor: Colors.transparent,
-          indicatorColor: AppColors.primary.withValues(alpha: 0.12),
-          labelTextStyle: WidgetStateProperty.all(
-            GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w500),
+          height: 72,
+          indicatorColor: AppColors.primary.withValues(alpha: 0.1),
+          indicatorShape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
           ),
+          iconTheme: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.selected)) {
+              return const IconThemeData(color: AppColors.primary, size: 26);
+            }
+            return IconThemeData(
+              color: AppColors.lightTextSecondary.withValues(alpha: 0.8),
+              size: 24,
+            );
+          }),
+          labelTextStyle: WidgetStateProperty.resolveWith((states) {
+            final style = GoogleFonts.outfit(
+              fontSize: 12,
+              fontWeight: states.contains(WidgetState.selected)
+                  ? FontWeight.w600
+                  : FontWeight.w500,
+            );
+            if (states.contains(WidgetState.selected)) {
+              return style.copyWith(color: AppColors.primary);
+            }
+            return style.copyWith(color: AppColors.lightTextSecondary);
+          }),
         ),
 
         // Navigation Rail (Admin sidebar)
@@ -138,6 +166,14 @@ class AppTheme {
           color: AppColors.lightDivider,
           thickness: 1,
         ),
+
+        // Animations
+        pageTransitionsTheme: const PageTransitionsTheme(
+          builders: {
+            TargetPlatform.android: ZoomPageTransitionsBuilder(),
+            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+          },
+        ),
       );
 
   // ── Dark Theme ─────────────────────────────────────────────────
@@ -150,16 +186,22 @@ class AppTheme {
           surface: AppColors.darkSurface,
         ),
         scaffoldBackgroundColor: AppColors.darkBackground,
-        textTheme: GoogleFonts.interTextTheme(ThemeData.dark().textTheme),
+        textTheme: GoogleFonts.outfitTextTheme(ThemeData.dark().textTheme),
 
         // AppBar
-        appBarTheme: const AppBarTheme(
+        appBarTheme: AppBarTheme(
           elevation: 0,
           scrolledUnderElevation: 1,
-          centerTitle: false,
+          centerTitle: true,
           backgroundColor: AppColors.darkSurface,
           foregroundColor: AppColors.darkTextPrimary,
           surfaceTintColor: Colors.transparent,
+          titleTextStyle: GoogleFonts.inter(
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
+            color: AppColors.darkTextPrimary,
+            letterSpacing: -0.5,
+          ),
         ),
 
         // Cards
@@ -183,7 +225,7 @@ class AppTheme {
             ),
             backgroundColor: AppColors.primaryLight,
             foregroundColor: AppColors.darkBackground,
-            textStyle: GoogleFonts.inter(
+            textStyle: GoogleFonts.outfit(
               fontSize: 15,
               fontWeight: FontWeight.w600,
               letterSpacing: 0.3,
@@ -200,7 +242,7 @@ class AppTheme {
             ),
             side: const BorderSide(color: AppColors.primaryLight, width: 1.5),
             foregroundColor: AppColors.primaryLight,
-            textStyle: GoogleFonts.inter(
+            textStyle: GoogleFonts.outfit(
               fontSize: 15,
               fontWeight: FontWeight.w600,
               letterSpacing: 0.3,
@@ -213,7 +255,7 @@ class AppTheme {
           style: TextButton.styleFrom(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             foregroundColor: AppColors.darkTextSecondary,
-            textStyle: GoogleFonts.inter(
+            textStyle: GoogleFonts.outfit(
               fontSize: 14,
               fontWeight: FontWeight.w500,
             ),
@@ -243,7 +285,7 @@ class AppTheme {
             borderRadius: BorderRadius.circular(14),
             borderSide: const BorderSide(color: AppColors.error),
           ),
-          hintStyle: GoogleFonts.inter(
+          hintStyle: GoogleFonts.outfit(
             color: AppColors.darkTextHint,
             fontSize: 14,
           ),
@@ -254,10 +296,32 @@ class AppTheme {
           elevation: 0,
           backgroundColor: AppColors.darkSurface,
           surfaceTintColor: Colors.transparent,
+          height: 72,
           indicatorColor: AppColors.primaryLight.withValues(alpha: 0.15),
-          labelTextStyle: WidgetStateProperty.all(
-            GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w500),
+          indicatorShape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
           ),
+          iconTheme: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.selected)) {
+              return const IconThemeData(color: AppColors.primaryLight, size: 26);
+            }
+            return IconThemeData(
+              color: AppColors.darkTextSecondary.withValues(alpha: 0.8),
+              size: 24,
+            );
+          }),
+          labelTextStyle: WidgetStateProperty.resolveWith((states) {
+            final style = GoogleFonts.outfit(
+              fontSize: 12,
+              fontWeight: states.contains(WidgetState.selected)
+                  ? FontWeight.w600
+                  : FontWeight.w500,
+            );
+            if (states.contains(WidgetState.selected)) {
+              return style.copyWith(color: AppColors.primaryLight);
+            }
+            return style.copyWith(color: AppColors.darkTextSecondary);
+          }),
         ),
 
         // Navigation Rail
@@ -271,6 +335,14 @@ class AppTheme {
         dividerTheme: const DividerThemeData(
           color: AppColors.darkDivider,
           thickness: 1,
+        ),
+
+        // Animations
+        pageTransitionsTheme: const PageTransitionsTheme(
+          builders: {
+            TargetPlatform.android: ZoomPageTransitionsBuilder(),
+            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+          },
         ),
       );
 }

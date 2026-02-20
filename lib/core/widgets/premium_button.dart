@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../theme/app_colors.dart';
 
 /// Premium CTA button with high-quality press animation and gradient support
@@ -40,10 +41,10 @@ class _PremiumButtonState extends State<PremiumButton>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 100),
+      duration: const Duration(milliseconds: 150),
     );
-    _scale = Tween<double>(begin: 1.0, end: 0.96).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    _scale = Tween<double>(begin: 1.0, end: 0.94).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeOutBack),
     );
   }
 
@@ -54,15 +55,22 @@ class _PremiumButtonState extends State<PremiumButton>
   }
 
   void _handleTapDown(TapDownDetails details) {
-    if (!widget.isLoading) _controller.forward();
+    if (!widget.isLoading) {
+      _controller.forward();
+      HapticFeedback.lightImpact();
+    }
   }
 
   void _handleTapUp(TapUpDetails details) {
-    if (!widget.isLoading) _controller.reverse();
+    if (!widget.isLoading) {
+      _controller.reverse();
+    }
   }
 
   void _handleTapCancel() {
-    if (!widget.isLoading) _controller.reverse();
+    if (!widget.isLoading) {
+      _controller.reverse();
+    }
   }
 
   @override
@@ -96,9 +104,10 @@ class _PremiumButtonState extends State<PremiumButton>
         onPressed: null, // Handled by GestureDetector
         style: OutlinedButton.styleFrom(
           side: BorderSide(
-            color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
+            color: AppColors.primary.withOpacity(0.3),
+            width: 1.5,
           ),
-          backgroundColor: Theme.of(context).cardColor.withValues(alpha: 0.6),
+          backgroundColor: Theme.of(context).cardColor.withOpacity(0.4),
         ),
         child: _buildLabel(context),
       );
@@ -108,12 +117,12 @@ class _PremiumButtonState extends State<PremiumButton>
       return DecoratedBox(
         decoration: BoxDecoration(
           gradient: AppColors.primaryGradient,
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: AppColors.primary.withValues(alpha: 0.3),
-              blurRadius: 15,
-              offset: const Offset(0, 8),
+              color: AppColors.primary.withOpacity(0.3),
+              blurRadius: 20,
+              offset: const Offset(0, 10),
             ),
           ],
         ),
@@ -123,6 +132,11 @@ class _PremiumButtonState extends State<PremiumButton>
 
     return ElevatedButton(
       onPressed: null, // Handled by GestureDetector
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+      ),
       child: _buildLabel(context),
     );
   }
@@ -130,42 +144,35 @@ class _PremiumButtonState extends State<PremiumButton>
   Widget _buildLabel(BuildContext context, {bool isWhite = false}) {
     if (widget.isLoading) {
       return const SizedBox(
-        height: 20,
-        width: 20,
+        height: 24,
+        width: 24,
         child: CircularProgressIndicator(
-          strokeWidth: 2,
+          strokeWidth: 2.5,
           valueColor: AlwaysStoppedAnimation(Colors.white),
         ),
       );
     }
 
-    final color = isWhite ? Colors.white : null;
+    final color = isWhite ? Colors.white : AppColors.primary;
 
-    if (widget.icon != null) {
-      return Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        if (widget.icon != null) ...[
           Icon(widget.icon, size: 20, color: color),
           const SizedBox(width: 10),
-          Text(
-            widget.label,
-            style: TextStyle(
-              color: color,
-              fontWeight: FontWeight.w600,
-              fontSize: 16,
-            ),
-          ),
         ],
-      );
-    }
-
-    return Text(
-      widget.label,
-      style: TextStyle(
-        color: color,
-        fontWeight: FontWeight.w600,
-        fontSize: 17,
-      ),
+        Text(
+          widget.label,
+          style: TextStyle(
+            color: color,
+            fontWeight: FontWeight.w700,
+            fontSize: 16,
+            letterSpacing: 0.5,
+          ),
+        ),
+      ],
     );
   }
 }

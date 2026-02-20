@@ -2,28 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_text_styles.dart';
+import '../constants/app_strings.dart';
 
 /// Course list card with progress indicator
 class CourseCard extends StatelessWidget {
+  final String id;
   final String title;
   final String instructor;
   final double progress;
   final String category;
   final double rating;
-  final int lessonsCount;
+  final String thumbnailUrl;
   final VoidCallback? onTap;
   final VoidCallback? onContinue;
 
+  final bool isLive;
+
   const CourseCard({
     super.key,
+    required this.id,
     required this.title,
     required this.instructor,
+    required this.onTap,
+    this.thumbnailUrl = '',
     this.progress = 0.0,
     this.category = '',
     this.rating = 0.0,
-    this.lessonsCount = 0,
-    this.onTap,
     this.onContinue,
+    this.isLive = false,
   });
 
   @override
@@ -37,17 +43,42 @@ class CourseCard extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Row(
             children: [
-              // Thumbnail placeholder
-              Container(
-                width: 72,
-                height: 72,
-                decoration: BoxDecoration(
-                  gradient: AppColors.primaryGradient,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: const Center(
-                  child: Icon(Icons.play_circle_outline,
-                      color: Colors.white, size: 32),
+              // Thumbnail
+              Hero(
+                tag: 'course-$id',
+                child: Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Container(
+                        width: 72,
+                        height: 72,
+                        decoration: BoxDecoration(
+                          color: AppColors.primary.withValues(alpha: 0.05),
+                        ),
+                        child: thumbnailUrl.isNotEmpty
+                            ? Image.network(
+                                thumbnailUrl,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    const Center(
+                                  child: Icon(Icons.play_circle_outline,
+                                      color: AppColors.primary, size: 32),
+                                ),
+                              )
+                            : const Center(
+                                child: Icon(Icons.play_circle_outline,
+                                    color: AppColors.primary, size: 32),
+                              ),
+                      ),
+                    ),
+                    if (isLive)
+                      Positioned(
+                        top: 4,
+                        left: 4,
+                        child: _buildLiveIndicator(),
+                      ),
+                  ],
                 ),
               ),
               const SizedBox(width: 14),
@@ -112,9 +143,9 @@ class CourseCard extends StatelessWidget {
                           height: 30,
                           child: OutlinedButton.icon(
                             onPressed: onContinue,
-                            icon: const Icon(Icons.play_arrow, size: 16),
-                            label: const Text('Continue',
-                                style: TextStyle(fontSize: 12)),
+                            icon: const Icon(Icons.play_circle_fill_rounded, size: 16),
+                            label: Text(AppStrings.continueLearning,
+                                style: const TextStyle(fontSize: 12)),
                             style: OutlinedButton.styleFrom(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 12),
@@ -132,7 +163,7 @@ class CourseCard extends StatelessWidget {
               if (rating > 0)
                 Column(
                   children: [
-                    const Icon(Icons.star, color: AppColors.accent, size: 18),
+                    const Icon(Icons.star_rounded, color: AppColors.accent, size: 20),
                     const SizedBox(height: 2),
                     Text(rating.toStringAsFixed(1),
                         style: AppTextStyles.labelSmall),
@@ -142,6 +173,39 @@ class CourseCard extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildLiveIndicator() {
+    return TweenAnimationBuilder<double>(
+      tween: Tween(begin: 0.4, end: 1.0),
+      duration: const Duration(milliseconds: 1000),
+      curve: Curves.easeInOut,
+      builder: (context, value, child) {
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+          decoration: BoxDecoration(
+            color: Colors.red.withValues(alpha: value),
+            borderRadius: BorderRadius.circular(4),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.red.withValues(alpha: 0.4 * value),
+                blurRadius: 4,
+                spreadRadius: 1,
+              ),
+            ],
+          ),
+          child: const Text(
+            'LİVE',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 8,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        );
+      },
+      onEnd: () {}, // Handled by TweenAnimationBuilder normally but can be used for loop if needed
     );
   }
 }

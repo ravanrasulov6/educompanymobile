@@ -23,8 +23,8 @@ class ExamModel {
   static final List<ExamModel> demoExams = [
     ExamModel(
       id: 'e1',
-      title: 'Flutter Basics Quiz',
-      courseName: 'Flutter Development Masterclass',
+      title: 'Flutter Əsasları Viktorinası',
+      courseName: 'Flutter İnkişafı Masterklas',
       totalQuestions: 20,
       durationMinutes: 30,
       status: ExamStatus.available,
@@ -32,8 +32,8 @@ class ExamModel {
     ),
     ExamModel(
       id: 'e2',
-      title: 'Design Principles Test',
-      courseName: 'UI/UX Design Fundamentals',
+      title: 'Dizayn Prinsipləri Testi',
+      courseName: 'UI/UX Dizayn Əsasları',
       totalQuestions: 15,
       durationMinutes: 20,
       status: ExamStatus.completed,
@@ -41,8 +41,8 @@ class ExamModel {
     ),
     ExamModel(
       id: 'e3',
-      title: 'Algorithms Mid-Term',
-      courseName: 'Data Structures & Algorithms',
+      title: 'Alqoritmlər Aralıq İmtahanı',
+      courseName: 'Məlumat Strukturları və Alqoritmlər',
       totalQuestions: 30,
       durationMinutes: 45,
       status: ExamStatus.available,
@@ -69,32 +69,32 @@ class ExamQuestion {
   static const List<ExamQuestion> demoQuestions = [
     ExamQuestion(
       id: 'q1',
-      question: 'What is the base class for all widgets in Flutter?',
+      question: 'Flutter-da bütün widget-lər üçün əsas klass hansıdır?',
       options: ['Widget', 'Component', 'View', 'Element'],
       correctIndex: 0,
     ),
     ExamQuestion(
       id: 'q2',
-      question: 'Which widget rebuilds when state changes?',
+      question: 'Vəziyyət dəyişdikdə hansı widget yenidən qurulur?',
       options: ['StatelessWidget', 'StatefulWidget', 'InheritedWidget', 'Container'],
       correctIndex: 1,
     ),
     ExamQuestion(
       id: 'q3',
-      question: 'What method is called to create the UI in a widget?',
+      question: 'Widget-də UI yaratmaq üçün hansı metod çağırılır?',
       options: ['render()', 'create()', 'build()', 'draw()'],
       correctIndex: 2,
     ),
     ExamQuestion(
       id: 'q4',
-      question: 'Which layout widget places children in a vertical array?',
+      question: 'Hansı layout widget-i uşaqları şaquli massivdə yerləşdirir?',
       options: ['Row', 'Stack', 'Column', 'Wrap'],
       correctIndex: 2,
     ),
     ExamQuestion(
       id: 'q5',
-      question: 'What package is commonly used for state management?',
-      options: ['Redux', 'Provider', 'MobX', 'All of the above'],
+      question: 'Vəziyyətin idarə edilməsi (state management) üçün adətən hansı paket istifadə olunur?',
+      options: ['Redux', 'Provider', 'MobX', 'Hamısı'],
       correctIndex: 3,
     ),
   ];

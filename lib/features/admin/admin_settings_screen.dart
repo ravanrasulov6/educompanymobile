@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../providers/theme_provider.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_text_styles.dart';
+import '../../core/constants/app_strings.dart';
 
 /// Admin settings screen
 class AdminSettingsScreen extends StatelessWidget {
@@ -15,66 +16,68 @@ class AdminSettingsScreen extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        Text('Tətbiq Parametrləri', style: AppTextStyles.headlineMedium),
+        Text(AppStrings.appSettings, style: AppTextStyles.headlineMedium),
         const SizedBox(height: 16),
 
         _SettingsTile(
-          icon: Icons.dark_mode,
-          title: 'Qaranlıq Rejim',
-          subtitle: 'Qaranlıq/İşıqlı mövzu',
+          icon: Icons.dark_mode_rounded,
+          title: AppStrings.darkMode,
+          subtitle: AppStrings.darkLightModeSub,
           trailing: Switch(
             value: theme.isDarkMode,
             onChanged: (_) => theme.toggleTheme(),
           ),
         ),
         _SettingsTile(
-          icon: Icons.notifications,
-          title: 'Bildirişlər',
-          subtitle: 'Bildirişləri aktivləşdir',
+          icon: Icons.notifications_active_rounded,
+          title: AppStrings.notifications,
+          subtitle: AppStrings.notificationsSub,
           trailing: Switch(value: true, onChanged: (_) {}),
         ),
         _SettingsTile(
-          icon: Icons.language,
-          title: 'Dil',
-          subtitle: 'Azərbaycan dili',
-          trailing: const Icon(Icons.chevron_right),
+          icon: Icons.translate_rounded,
+          title: AppStrings.appLanguage,
+          subtitle: AppStrings.azLang,
+          trailing: const Icon(Icons.chevron_right_rounded),
         ),
         const Divider(height: 32),
 
-        Text('Platforma', style: AppTextStyles.headlineSmall),
+        Text(AppStrings.platform, style: AppTextStyles.headlineSmall),
         const SizedBox(height: 12),
         _SettingsTile(
-          icon: Icons.payment,
-          title: 'Ödəniş Sistemi',
-          subtitle: 'Stripe qoşulub',
-          trailing: const Icon(Icons.chevron_right),
+          icon: Icons.payments_rounded,
+          title: AppStrings.paymentSystem,
+          subtitle: AppStrings.stripeConnected,
+          trailing: const Icon(Icons.chevron_right_rounded),
         ),
         _SettingsTile(
-          icon: Icons.email,
-          title: 'E-poçt Parametrləri',
-          subtitle: 'SMTP konfiqurasiyası',
-          trailing: const Icon(Icons.chevron_right),
+          icon: Icons.contact_mail_rounded,
+          title: AppStrings.emailSettings,
+          subtitle: AppStrings.smtpConfig,
+          trailing: const Icon(Icons.chevron_right_rounded),
         ),
         _SettingsTile(
-          icon: Icons.storage,
-          title: 'Depolama',
-          subtitle: '24.5 GB / 100 GB istifadə olunub',
-          trailing: const Icon(Icons.chevron_right),
+          icon: Icons.cloud_done_rounded,
+          title: AppStrings.storage,
+          subtitle: AppStrings.storageUsed
+              .replaceFirst('%s', '24.5')
+              .replaceFirst('%s', '100'),
+          trailing: const Icon(Icons.chevron_right_rounded),
         ),
         const Divider(height: 32),
 
-        Text('Haqqında', style: AppTextStyles.headlineSmall),
+        Text(AppStrings.about, style: AppTextStyles.headlineSmall),
         const SizedBox(height: 12),
         _SettingsTile(
-          icon: Icons.info_outline,
-          title: 'Tətbiq Versiyası',
+          icon: Icons.verified_rounded,
+          title: AppStrings.appVersion,
           subtitle: '1.0.0 (Build 1)',
         ),
         _SettingsTile(
-          icon: Icons.code,
-          title: 'Lisenziyalar',
-          subtitle: 'Açıq mənbə lisenziyaları',
-          trailing: const Icon(Icons.chevron_right),
+          icon: Icons.gavel_rounded,
+          title: AppStrings.licenses,
+          subtitle: AppStrings.openSourceLicenses,
+          trailing: const Icon(Icons.chevron_right_rounded),
         ),
       ],
     );

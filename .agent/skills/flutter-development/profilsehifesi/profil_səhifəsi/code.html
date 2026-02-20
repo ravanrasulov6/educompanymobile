@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html lang="az"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Profil Səhifəsi - Premium Təhsil</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b8cee",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
+<!-- Mobile Wrapper -->
+<div class="relative flex min-h-screen w-full flex-col max-w-md mx-auto bg-background-light dark:bg-background-dark pb-20">
+<!-- Header / Status Bar Area -->
+<header class="sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-6 pt-6 pb-4">
+<div class="flex items-center justify-between">
+<h1 class="text-2xl font-bold tracking-tight">Profil</h1>
+<button class="flex items-center justify-center size-10 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</header>
+<!-- Profile Section -->
+<section class="px-6 py-4">
+<div class="flex flex-col items-center">
+<div class="relative group">
+<div class="size-28 rounded-full overflow-hidden border-4 border-white dark:border-slate-800 shadow-xl">
+<img alt="Anar Məmmədov" class="size-full object-cover" data-alt="Professional male portrait in a suit" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlC-hOet5L8vWESFBceUvZPlzCh9nsPvzhlGpVVgYVX1pnB-D8fD04JdOSxUf7XeaMtcCWx3-nH-qsxEA2kTEMZAteZpGI78lNRkvsh8JShl1jtu2sR5q-cqGzwQi685AkOdw8iTlB0pfMp8GCdTLTPiWuONQSbFwiSRoN5aq1Kwl9HJR7k0venOWcuDwcnHd6AINVuZ8wWQ_T8hERGKcTZbx7ELrJMD-fW7seQRFOmUe7bI3izkNp8rBOtogtpokgonhHWlDaTh4"/>
+</div>
+<div class="absolute bottom-0 right-0 bg-primary text-white size-8 rounded-full flex items-center justify-center border-2 border-white dark:border-slate-900 shadow-md">
+<span class="material-symbols-outlined text-sm">edit</span>
+</div>
+</div>
+<div class="mt-4 text-center">
+<h2 class="text-xl font-bold">Anar Məmmədov</h2>
+<div class="inline-flex items-center gap-1.5 px-3 py-1 mt-1 rounded-full bg-primary/10 text-primary text-xs font-semibold">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+                        PREMİUM TƏLƏBƏ
+                    </div>
+<p class="text-slate-500 dark:text-slate-400 text-sm mt-2">anar.mammadov@example.az</p>
+</div>
+</div>
+<!-- Quick Stats -->
+<div class="grid grid-cols-3 gap-3 mt-8">
+<div class="bg-white dark:bg-slate-900/50 p-4 rounded-xl shadow-sm flex flex-col items-center border border-slate-100 dark:border-slate-800">
+<span class="text-lg font-bold">14</span>
+<span class="text-[10px] text-slate-500 font-medium uppercase tracking-wider">Təlim</span>
+</div>
+<div class="bg-white dark:bg-slate-900/50 p-4 rounded-xl shadow-sm flex flex-col items-center border border-slate-100 dark:border-slate-800">
+<span class="text-lg font-bold text-primary">6</span>
+<span class="text-[10px] text-slate-500 font-medium uppercase tracking-wider">Sertifikat</span>
+</div>
+<div class="bg-white dark:bg-slate-900/50 p-4 rounded-xl shadow-sm flex flex-col items-center border border-slate-100 dark:border-slate-800">
+<span class="text-lg font-bold">52</span>
+<span class="text-[10px] text-slate-500 font-medium uppercase tracking-wider">Saat</span>
+</div>
+</div>
+</section>
+<!-- Navigation List -->
+<section class="px-6 py-4 space-y-6">
+<!-- Learning Group -->
+<div>
+<h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest px-1 mb-3">Təhsil fəaliyyəti</h3>
+<div class="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800">
+<a class="flex items-center gap-4 p-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors" href="#">
+<div class="size-10 rounded-full bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined">menu_book</span>
+</div>
+<span class="flex-1 font-medium">Alınmış təlimlər</span>
+<span class="material-symbols-outlined text-slate-300">chevron_right</span>
+</a>
+<div class="h-[1px] bg-slate-100 dark:bg-slate-800 mx-4"></div>
+<a class="flex items-center gap-4 p-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors" href="#">
+<div class="size-10 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center">
+<span class="material-symbols-outlined">workspace_premium</span>
+</div>
+<span class="flex-1 font-medium">Sertifikatlar</span>
+<span class="material-symbols-outlined text-slate-300">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- Account Group -->
+<div>
+<h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest px-1 mb-3">Hesab və Ödəniş</h3>
+<div class="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800">
+<a class="flex items-center gap-4 p-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors" href="#">
+<div class="size-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
+<span class="material-symbols-outlined">receipt_long</span>
+</div>
+<span class="flex-1 font-medium">Ödəniş tarixçəsi</span>
+<span class="material-symbols-outlined text-slate-300">chevron_right</span>
+</a>
+<div class="h-[1px] bg-slate-100 dark:bg-slate-800 mx-4"></div>
+<a class="flex items-center gap-4 p-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors" href="#">
+<div class="size-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center">
+<span class="material-symbols-outlined">notifications_active</span>
+</div>
+<span class="flex-1 font-medium">Bildiriş tənzimləmələri</span>
+<span class="material-symbols-outlined text-slate-300">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- Danger Zone -->
+<div class="pt-4">
+<button class="w-full flex items-center justify-center gap-2 p-4 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-semibold hover:bg-red-50 hover:text-red-600 transition-all">
+<span class="material-symbols-outlined">logout</span>
+                    Çıxış et
+                </button>
+</div>
+</section>
+<!-- Footer Info -->
+<footer class="mt-auto px-6 py-8 text-center">
+<p class="text-[11px] text-slate-400 font-medium">Versiya 2.4.0 (Premium)</p>
+<div class="flex justify-center gap-4 mt-2">
+<a class="text-[11px] text-primary font-semibold" href="#">Yardım mərkəzi</a>
+<span class="text-slate-300">•</span>
+<a class="text-[11px] text-primary font-semibold" href="#">Məxfilik siyasəti</a>
+</div>
+</footer>
+<!-- Bottom Navigation Bar (iOS Style) -->
+<nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-t border-slate-200 dark:border-slate-800 px-6 pb-6 pt-2">
+<div class="flex justify-between items-center">
+<a class="flex flex-col items-center gap-1 group" href="#">
+<div class="size-10 rounded-full flex items-center justify-center text-slate-400 group-hover:bg-primary/5 transition-all">
+<span class="material-symbols-outlined">home</span>
+</div>
+<span class="text-[10px] font-medium text-slate-400">Ana Səhifə</span>
+</a>
+<a class="flex flex-col items-center gap-1 group" href="#">
+<div class="size-10 rounded-full flex items-center justify-center text-slate-400 group-hover:bg-primary/5 transition-all">
+<span class="material-symbols-outlined">search</span>
+</div>
+<span class="text-[10px] font-medium text-slate-400">Axtarış</span>
+</a>
+<a class="flex flex-col items-center gap-1 group" href="#">
+<div class="size-10 rounded-full flex items-center justify-center text-slate-400 group-hover:bg-primary/5 transition-all">
+<span class="material-symbols-outlined">school</span>
+</div>
+<span class="text-[10px] font-medium text-slate-400">Kurslarım</span>
+</a>
+<a class="flex flex-col items-center gap-1 group" href="#">
+<div class="size-10 rounded-full flex items-center justify-center text-primary bg-primary/10 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+<span class="text-[10px] font-bold text-primary">Profil</span>
+</a>
+</div>
+</nav>
+</div>
+</body></html>

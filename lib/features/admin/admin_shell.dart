@@ -3,7 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/theme_provider.dart';
+import '../../core/theme/app_colors.dart';
 import '../../core/constants/app_strings.dart';
+import '../../core/widgets/premium_drawer.dart';
 
 /// Admin dashboard shell with navigation
 class AdminShell extends StatefulWidget {
@@ -16,6 +18,7 @@ class AdminShell extends StatefulWidget {
 
 class _AdminShellState extends State<AdminShell> {
   int _currentIndex = 0;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   static const _destinations = [
     '/admin/dashboard',
@@ -45,64 +48,89 @@ class _AdminShellState extends State<AdminShell> {
 
   @override
   Widget build(BuildContext context) {
-    final auth = context.read<AuthProvider>();
-    final theme = context.watch<ThemeProvider>();
-
     return Scaffold(
-      appBar: AppBar(
-        title: Text(_getTitle()),
-        actions: [
-          IconButton(
-            icon: Icon(theme.isDarkMode
-                ? Icons.light_mode_rounded
-                : Icons.dark_mode_rounded),
-            onPressed: () => theme.toggleTheme(),
-            tooltip: 'Görünüşü dəyiş',
-          ),
-          PopupMenuButton<String>(
-            icon: const Icon(Icons.admin_panel_settings),
-            onSelected: (value) {
-              if (value == 'logout') {
-                auth.logout();
-                context.go('/');
-              }
-            },
-            itemBuilder: (context) => [
-              const PopupMenuItem(
-                enabled: false,
-                child: Text('İdarəetmə Paneli',
-                    style: TextStyle(fontWeight: FontWeight.w600)),
-              ),
-              const PopupMenuDivider(),
-              const PopupMenuItem(value: 'logout', child: Text('Çıxış')),
-            ],
-          ),
-        ],
-      ),
-      body: widget.child,
-      bottomNavigationBar: NavigationBar(
+      key: _scaffoldKey,
+      drawer: PremiumDrawer(
         selectedIndex: _currentIndex,
         onDestinationSelected: _onDestinationSelected,
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.dashboard_outlined),
-            selectedIcon: Icon(Icons.dashboard),
-            label: 'Panel',
+        items: const [
+          {'icon': Icons.dashboard_rounded, 'label': AppStrings.navHome},
+          {'icon': Icons.people_alt_rounded, 'label': AppStrings.navUsers},
+          {'icon': Icons.auto_stories_rounded, 'label': AppStrings.courseManagement},
+          {'icon': Icons.settings_rounded, 'label': AppStrings.navSettings},
+        ],
+      ),
+      appBar: AppBar(
+        leading: context.canPop()
+            ? IconButton(
+                onPressed: () => context.pop(),
+                icon: const Icon(Icons.arrow_back_ios_new_rounded),
+              )
+            : GestureDetector(
+                onTap: () => _scaffoldKey.currentState?.openDrawer(),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 16),
+                  child: Center(
+                    child: CircleAvatar(
+                      radius: 18,
+                      backgroundColor: AppColors.primary.withValues(alpha: 0.1),
+                      child: const Icon(Icons.menu_rounded,
+                          size: 20, color: AppColors.primary),
+                    ),
+                  ),
+                ),
+              ),
+        title: Text(_getTitle()),
+        leadingWidth: 52,
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.notifications_active_rounded, color: AppColors.primary),
           ),
-          NavigationDestination(
-            icon: Icon(Icons.people_outline),
-            selectedIcon: Icon(Icons.people),
-            label: 'İstifadəçilər',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.menu_book_outlined),
-            selectedIcon: Icon(Icons.menu_book),
-            label: AppStrings.myCourses,
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.settings_outlined),
-            selectedIcon: Icon(Icons.settings),
-            label: 'Parametrlər',
+          const SizedBox(width: 8),
+        ],
+      ),
+      body: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 400),
+        switchInCurve: Curves.easeOut,
+        switchOutCurve: Curves.easeIn,
+        transitionBuilder: (child, animation) {
+          return FadeTransition(opacity: animation, child: child);
+        },
+        child: KeyedSubtree(
+          key: ValueKey<int>(_currentIndex),
+          child: widget.child,
+        ),
+      ),
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Divider(height: 1, thickness: 0.5),
+          NavigationBar(
+            selectedIndex: _currentIndex,
+            onDestinationSelected: _onDestinationSelected,
+            destinations: const [
+              NavigationDestination(
+                icon: Icon(Icons.dashboard_rounded),
+                selectedIcon: Icon(Icons.dashboard_rounded),
+                label: AppStrings.navHome,
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.people_alt_rounded),
+                selectedIcon: Icon(Icons.people_alt_rounded),
+                label: AppStrings.navUsers,
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.auto_stories_rounded),
+                selectedIcon: Icon(Icons.auto_stories_rounded),
+                label: AppStrings.courseManagement,
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.settings_rounded),
+                selectedIcon: Icon(Icons.settings_rounded),
+                label: AppStrings.navSettings,
+              ),
+            ],
           ),
         ],
       ),
@@ -111,10 +139,10 @@ class _AdminShellState extends State<AdminShell> {
 
   String _getTitle() {
     switch (_currentIndex) {
-      case 0: return 'İdarəetmə Paneli';
-      case 1: return 'İstifadəçi İdarəetməsi';
-      case 2: return 'Dərs İdarəetməsi';
-      case 3: return 'Parametrlər';
+      case 0: return AppStrings.adminPanel;
+      case 1: return AppStrings.userManagement;
+      case 2: return AppStrings.courseManagement;
+      case 3: return AppStrings.settingsTitle;
       default: return AppStrings.appName;
     }
   }

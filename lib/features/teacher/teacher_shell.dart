@@ -3,7 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/theme_provider.dart';
+import '../../core/theme/app_colors.dart';
 import '../../core/constants/app_strings.dart';
+import '../../core/widgets/premium_drawer.dart';
 
 /// Teacher dashboard shell with navigation
 class TeacherShell extends StatefulWidget {
@@ -16,6 +18,7 @@ class TeacherShell extends StatefulWidget {
 
 class _TeacherShellState extends State<TeacherShell> {
   int _currentIndex = 0;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   static const _destinations = [
     '/teacher/courses',
@@ -45,60 +48,89 @@ class _TeacherShellState extends State<TeacherShell> {
 
   @override
   Widget build(BuildContext context) {
-    final auth = context.read<AuthProvider>();
-    final theme = context.watch<ThemeProvider>();
-
     return Scaffold(
-      appBar: AppBar(
-        title: Text(_getTitle()),
-        actions: [
-          IconButton(
-            icon: Icon(theme.isDarkMode
-                ? Icons.light_mode_rounded
-                : Icons.dark_mode_rounded),
-            onPressed: () => theme.toggleTheme(),
-          ),
-          PopupMenuButton<String>(
-            icon: const Icon(Icons.account_circle_outlined),
-            onSelected: (value) {
-              if (value == 'logout') auth.logout();
-            },
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                enabled: false,
-                child: Text(auth.user?.name ?? '',
-                    style: const TextStyle(fontWeight: FontWeight.w600)),
-              ),
-              const PopupMenuDivider(),
-              const PopupMenuItem(value: 'logout', child: Text('Çıxış')),
-            ],
-          ),
-        ],
-      ),
-      body: widget.child,
-      bottomNavigationBar: NavigationBar(
+      key: _scaffoldKey,
+      drawer: PremiumDrawer(
         selectedIndex: _currentIndex,
         onDestinationSelected: _onDestinationSelected,
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.home_outlined),
-            selectedIcon: Icon(Icons.home),
-            label: AppStrings.navHome,
+        items: const [
+          {'icon': Icons.dashboard_rounded, 'label': AppStrings.navHome},
+          {'icon': Icons.analytics_rounded, 'label': AppStrings.navAnalytics},
+          {'icon': Icons.add_task_rounded, 'label': AppStrings.assignments},
+          {'icon': Icons.quiz_rounded, 'label': AppStrings.exams},
+        ],
+      ),
+      appBar: AppBar(
+        leading: context.canPop()
+            ? IconButton(
+                onPressed: () => context.pop(),
+                icon: const Icon(Icons.arrow_back_ios_new_rounded),
+              )
+            : GestureDetector(
+                onTap: () => _scaffoldKey.currentState?.openDrawer(),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 16),
+                  child: Center(
+                    child: CircleAvatar(
+                      radius: 18,
+                      backgroundColor: AppColors.primary.withValues(alpha: 0.1),
+                      child: const Icon(Icons.menu_rounded,
+                          size: 20, color: AppColors.primary),
+                    ),
+                  ),
+                ),
+              ),
+        title: Text(_getTitle()),
+        leadingWidth: 52,
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.notifications_active_rounded, color: AppColors.primary),
           ),
-          NavigationDestination(
-            icon: Icon(Icons.analytics_outlined),
-            selectedIcon: Icon(Icons.analytics),
-            label: AppStrings.navAnalytics,
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.assignment_add),
-            selectedIcon: Icon(Icons.assignment),
-            label: 'Tapşırıq',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.quiz_outlined),
-            selectedIcon: Icon(Icons.quiz),
-            label: AppStrings.exams,
+          const SizedBox(width: 8),
+        ],
+      ),
+      body: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 400),
+        switchInCurve: Curves.easeOut,
+        switchOutCurve: Curves.easeIn,
+        transitionBuilder: (child, animation) {
+          return FadeTransition(opacity: animation, child: child);
+        },
+        child: KeyedSubtree(
+          key: ValueKey<int>(_currentIndex),
+          child: widget.child,
+        ),
+      ),
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Divider(height: 1, thickness: 0.5),
+          NavigationBar(
+            selectedIndex: _currentIndex,
+            onDestinationSelected: _onDestinationSelected,
+            destinations: const [
+              NavigationDestination(
+                icon: Icon(Icons.dashboard_rounded),
+                selectedIcon: Icon(Icons.dashboard_rounded),
+                label: AppStrings.navHome,
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.analytics_rounded),
+                selectedIcon: Icon(Icons.analytics_rounded),
+                label: AppStrings.navAnalytics,
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.add_task_rounded),
+                selectedIcon: Icon(Icons.add_task_rounded),
+                label: AppStrings.assignments,
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.quiz_rounded),
+                selectedIcon: Icon(Icons.quiz_rounded),
+                label: AppStrings.exams,
+              ),
+            ],
           ),
         ],
       ),
@@ -109,8 +141,8 @@ class _TeacherShellState extends State<TeacherShell> {
     switch (_currentIndex) {
       case 0: return AppStrings.myCourses;
       case 1: return AppStrings.navAnalytics;
-      case 2: return 'Tapşırıq yarat';
-      case 3: return 'İmtahan yarat';
+      case 2: return AppStrings.createAssignment;
+      case 3: return AppStrings.createExam;
       default: return AppStrings.appName;
     }
   }
