@@ -40,7 +40,6 @@ class _AssignmentsScreenState extends State<AssignmentsScreen> {
         return Column(
           children: [
             const SizedBox(height: 8),
-            // ── Stat Summary Row ──
             _StatSummaryRow(
               activeCount: provider.activeAssignments.length,
               submittedCount: provider.submittedAssignments.length,
@@ -179,28 +178,33 @@ class _StatSummaryRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Row(
-        children: [
-          _StatChip(
-            label: AppStrings.active,
-            count: activeCount,
-            color: AppColors.info,
-          ),
-          const SizedBox(width: 10),
-          _StatChip(
-            label: AppStrings.submitted,
-            count: submittedCount,
-            color: AppColors.warning,
-          ),
-          const SizedBox(width: 10),
-          _StatChip(
-            label: AppStrings.graded,
-            count: gradedCount,
-            color: AppColors.success,
-          ),
-        ],
+    return EntranceAnimation(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Row(
+          children: [
+            _StatChip(
+              label: AppStrings.active,
+              count: activeCount,
+              color: AppColors.info,
+              icon: Icons.pending_actions,
+            ),
+            const SizedBox(width: 10),
+            _StatChip(
+              label: AppStrings.submitted,
+              count: submittedCount,
+              color: AppColors.warning,
+              icon: Icons.upload_file,
+            ),
+            const SizedBox(width: 10),
+            _StatChip(
+              label: AppStrings.graded,
+              count: gradedCount,
+              color: AppColors.success,
+              icon: Icons.check_circle,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -210,11 +214,13 @@ class _StatChip extends StatelessWidget {
   final String label;
   final int count;
   final Color color;
+  final IconData icon;
 
   const _StatChip({
     required this.label,
     required this.count,
     required this.color,
+    required this.icon,
   });
 
   @override
@@ -222,23 +228,26 @@ class _StatChip extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Expanded(
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
         decoration: BoxDecoration(
           color: isDark
-              ? color.withValues(alpha: 0.08)
-              : color.withValues(alpha: 0.06),
-          borderRadius: BorderRadius.circular(16),
+              ? color.withValues(alpha: 0.1)
+              : color.withValues(alpha: 0.08),
+          borderRadius: BorderRadius.circular(18),
           border: Border.all(
-            color: color.withValues(alpha: isDark ? 0.15 : 0.1),
+            color: color.withValues(alpha: isDark ? 0.2 : 0.15),
           ),
         ),
         child: Column(
           children: [
+            Icon(icon, color: color, size: 20),
+            const SizedBox(height: 8),
             Text(
               '$count',
               style: AppTextStyles.headlineMedium.copyWith(
                 color: color,
-                fontWeight: FontWeight.w800,
+                fontWeight: FontWeight.w900,
+                fontSize: 20,
               ),
             ),
             const SizedBox(height: 2),
@@ -248,6 +257,8 @@ class _StatChip extends StatelessWidget {
                 color: isDark
                     ? AppColors.darkTextSecondary
                     : AppColors.lightTextSecondary,
+                fontSize: 10,
+                fontWeight: FontWeight.w600,
               ),
               overflow: TextOverflow.ellipsis,
             ),

@@ -65,7 +65,7 @@ class _CoursesScreenState extends State<CoursesScreen> {
                 SliverToBoxAdapter(
                   child: EntranceAnimation(
                     child: Container(
-                      height: 240, 
+                      height: MediaQuery.of(context).size.height * 0.28 < 240 ? 240 : MediaQuery.of(context).size.height * 0.28, 
                       width: double.infinity,
                       decoration: BoxDecoration(
                         color: Colors.black,
@@ -271,6 +271,8 @@ class _CoursesScreenState extends State<CoursesScreen> {
               ),
               Text(
                 '${user?.name ?? "Tələbə"} 👋',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 style: AppTextStyles.headlineMedium.copyWith(
                   fontWeight: FontWeight.w800,
                   color: Colors.white,
@@ -306,7 +308,7 @@ class _CoursesScreenState extends State<CoursesScreen> {
                       fontWeight: FontWeight.w500,
                     ),
                     prefixIcon:
-                        const Icon(Icons.search_rounded, color: Colors.black54),
+                        const Icon(Icons.search, color: Colors.black54),
                     border: InputBorder.none,
                     enabledBorder: InputBorder.none,
                     focusedBorder: InputBorder.none,
