@@ -165,60 +165,14 @@ class _LandingScreenState extends State<LandingScreen> {
                       
                       // Floating Badge
                       EntranceAnimation(
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(100),
-                          child: BackdropFilter(
-                            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                              decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(100),
-                                border: Border.all(color: Colors.white.withOpacity(0.2)),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Container(
-                                    width: 8,
-                                    height: 8,
-                                    decoration: const BoxDecoration(
-                                      color: AppColors.skyBlue,
-                                      shape: BoxShape.circle,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 8),
-                                  const Text(
-                                    '500+ PREMİUM KURS MÖVCUDDUR',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w600,
-                                      letterSpacing: 1.0,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
+                        child: const RotatingBadge(),
                       ),
                       const SizedBox(height: 16),
 
                       // Headline
                       EntranceAnimation(
                         delay: const Duration(milliseconds: 200),
-                        child: Text(
-                          'Biliklə\nGələcəyini Qur',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.inter(
-                            color: Colors.white,
-                            fontSize: size.width < 360 ? 32 : 44,
-                            fontWeight: FontWeight.w900,
-                            height: 1.0,
-                            letterSpacing: -1.5,
-                          ),
-                        ),
+                        child: const TypewriterHeadline(),
                       ),
                       const SizedBox(height: 16),
 
@@ -362,6 +316,175 @@ class _LandingScreenState extends State<LandingScreen> {
           image: DecorationImage(
             image: NetworkImage(url),
             fit: BoxFit.cover,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class TypewriterHeadline extends StatefulWidget {
+  const TypewriterHeadline({super.key});
+
+  @override
+  State<TypewriterHeadline> createState() => _TypewriterHeadlineState();
+}
+
+class _TypewriterHeadlineState extends State<TypewriterHeadline> {
+  final List<String> _words = ["Gələcəyini Qur", "Karyeranı Qur", "Xəyallarını Qur"];
+  int _wordIndex = 0;
+  String _currentText = "";
+  bool _isDeleting = false;
+  
+  @override
+  void initState() {
+    super.initState();
+    _type();
+  }
+
+  void _type() {
+    final String fullText = _words[_wordIndex];
+    
+    setState(() {
+      if (_isDeleting) {
+        _currentText = fullText.substring(0, _currentText.length - 1);
+      } else {
+        _currentText = fullText.substring(0, _currentText.length + 1);
+      }
+    });
+
+    int typeSpeed = 100;
+
+    if (_isDeleting) {
+      typeSpeed = 50;
+    }
+
+    if (!_isDeleting && _currentText == fullText) {
+      _isDeleting = true;
+      typeSpeed = 2000; // Wait before deleting
+    } else if (_isDeleting && _currentText == "") {
+      _isDeleting = false;
+      _wordIndex = (_wordIndex + 1) % _words.length;
+      typeSpeed = 500;
+    }
+
+    Future.delayed(Duration(milliseconds: typeSpeed), () {
+      if (mounted) _type();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return RichText(
+      textAlign: TextAlign.center,
+      text: TextSpan(
+        style: GoogleFonts.inter(
+          color: Colors.white,
+          fontSize: size.width < 360 ? 32 : 44,
+          fontWeight: FontWeight.w900,
+          height: 1.0,
+          letterSpacing: -1.5,
+        ),
+        children: [
+          const TextSpan(text: 'Biliklə\n'),
+          TextSpan(
+            text: _currentText,
+            style: const TextStyle(color: AppColors.skyBlue),
+          ),
+          const TextSpan(
+            text: '|',
+            style: TextStyle(color: Colors.transparent), // Cursor placeholder
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class RotatingBadge extends StatefulWidget {
+  const RotatingBadge({super.key});
+
+  @override
+  State<RotatingBadge> createState() => _RotatingBadgeState();
+}
+
+class _RotatingBadgeState extends State<RotatingBadge> {
+  final List<String> _labels = [
+    'CANLI DƏRSLƏR',
+    'MÜKAFATLI İMTAHANLAR',
+    'VİDEO DƏRSLƏR',
+  ];
+  int _index = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _startRotation();
+  }
+
+  void _startRotation() {
+    Future.delayed(const Duration(seconds: 3), () {
+      if (mounted) {
+        setState(() {
+          _index = (_index + 1) % _labels.length;
+        });
+        _startRotation();
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(100),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(100),
+            border: Border.all(color: Colors.white.withOpacity(0.2)),
+          ),
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 500),
+            transitionBuilder: (Widget child, Animation<double> animation) {
+              return FadeTransition(
+                opacity: animation,
+                child: SlideTransition(
+                  position: Tween<Offset>(
+                    begin: const Offset(0.0, 0.5),
+                    end: Offset.zero,
+                  ).animate(animation),
+                  child: child,
+                ),
+              );
+            },
+            child: Row(
+              key: ValueKey<int>(_index),
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 8,
+                  height: 8,
+                  decoration: const BoxDecoration(
+                    color: AppColors.skyBlue,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  _labels[_index],
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 1.0,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
