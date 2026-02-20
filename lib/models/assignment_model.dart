@@ -9,18 +9,41 @@ class AssignmentModel {
   final double? grade;
   final String? feedback;
   final String? submittedFile;
-
   const AssignmentModel({
     required this.id,
     required this.title,
     required this.courseName,
-    this.description = '',
+    required this.description,
     required this.status,
     required this.deadline,
     this.grade,
     this.feedback,
     this.submittedFile,
   });
+
+  factory AssignmentModel.fromJson(Map<String, dynamic> json) {
+    final submission = (json['assignment_submissions'] as List?)?.isNotEmpty == true
+        ? json['assignment_submissions'][0]
+        : null;
+
+    return AssignmentModel(
+      id: json['id'] as String,
+      title: json['title'] as String,
+      courseName: json['course']?['title'] as String? ?? 'Naməlum Kurs',
+      description: json['description'] as String? ?? '',
+      status: _parseStatus(submission),
+      deadline: DateTime.parse(json['deadline'] as String),
+      grade: (submission?['grade'] as num?)?.toDouble(),
+      feedback: submission?['feedback'] as String?,
+      submittedFile: submission?['file_url'] as String?,
+    );
+  }
+
+  static AssignmentStatus _parseStatus(dynamic submission) {
+    if (submission == null) return AssignmentStatus.active;
+    if (submission['status'] == 'graded') return AssignmentStatus.graded;
+    return AssignmentStatus.submitted;
+  }
 
   bool get isOverdue =>
       status == AssignmentStatus.active &&

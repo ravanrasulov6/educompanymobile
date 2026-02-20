@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 import 'dart:ui';
 import '../../../providers/course_provider.dart';
+import '../../../providers/auth_provider.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../../../core/widgets/premium_button.dart';
@@ -24,172 +25,242 @@ class CourseDetailScreen extends StatelessWidget {
     );
 
     return Scaffold(
-      extendBody: true,
-      bottomNavigationBar: _buildGlassActionBar(context, course),
-      body: CustomScrollView(
-        physics: const BouncingScrollPhysics(),
-        slivers: [
-          // Parallax Header
-          SliverPersistentHeader(
-            delegate: _ParallaxHeaderDelegate(
-              course: course,
-              statusBarHeight: MediaQuery.of(context).padding.top,
-            ),
-            pinned: true,
-          ),
+      body: Stack(
+        children: [
+          CustomScrollView(
+            physics: const BouncingScrollPhysics(),
+            slivers: [
+              // Parallax Header
+              SliverPersistentHeader(
+                delegate: _ParallaxHeaderDelegate(
+                  course: course,
+                  statusBarHeight: MediaQuery.of(context).padding.top,
+                ),
+                pinned: true,
+              ),
 
-          // Course info
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Meta
-                  Row(
+              // Course info
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Icon(Icons.person_outline, size: 16),
-                      const SizedBox(width: 6),
-                      Text(course.instructor, style: AppTextStyles.bodySmall),
-                      const SizedBox(width: 16),
-                      const Icon(Icons.star, size: 16, color: AppColors.accent),
-                      const SizedBox(width: 4),
-                      Text(course.rating.toString(),
-                          style: AppTextStyles.bodySmall),
-                      const SizedBox(width: 16),
-                      const Icon(Icons.people_outline, size: 16),
-                      const SizedBox(width: 4),
-                      Text(AppStrings.studentsCount.replaceFirst('%s', course.studentsCount.toString()),
-                          style: AppTextStyles.bodySmall),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-
-                  // Description
-                  Text(course.description, style: AppTextStyles.bodyMedium),
-                  const SizedBox(height: 20),
-
-                  // Progress
-                  if (course.progress > 0)
-                    Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: AppColors.primary.withValues(alpha: 0.06),
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      child: Row(
+                      // Meta
+                      Row(
                         children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(AppStrings.completedPercentage.replaceFirst('%s', '${(course.progress * 100).round()}%'),
-                                    style: AppTextStyles.titleLarge),
-                                const SizedBox(height: 4),
-                                Text(
-                                    AppStrings.lessonsCount.replaceFirst('%s', '${course.completedLessons}/${course.totalLessons}'),
-                                    style: AppTextStyles.bodySmall),
-                              ],
-                            ),
-                          ),
-                          PremiumButton(
-                            label: 'Davam et',
-                            onPressed: () {
-                              HapticService.medium();
-                            },
-                            icon: Icons.play_arrow,
-                          ),
+                          const Icon(Icons.person_outline, size: 16),
+                          const SizedBox(width: 6),
+                          Text(course.instructor, style: AppTextStyles.bodySmall),
+                          const SizedBox(width: 16),
+                          const Icon(Icons.star, size: 16, color: AppColors.accent),
+                          const SizedBox(width: 4),
+                          Text(course.rating.toString(),
+                              style: AppTextStyles.bodySmall),
+                          const SizedBox(width: 16),
+                          const Icon(Icons.people_outline, size: 16),
+                          const SizedBox(width: 4),
+                          Text(AppStrings.studentsCount.replaceFirst('%s', course.studentsCount.toString()),
+                              style: AppTextStyles.bodySmall),
                         ],
                       ),
-                    ),
+                      const SizedBox(height: 16),
 
-                  const SizedBox(height: 24),
-                  Text(AppStrings.curriculum, style: AppTextStyles.headlineMedium),
-                  const SizedBox(height: 8),
+                      // Description
+                      Text(course.description, style: AppTextStyles.bodyMedium),
+                      const SizedBox(height: 20),
 
-                  // Notes feature button
-                  OutlinedButton.icon(
-                    onPressed: () {
-                      HapticService.light();
-                    },
-                    icon: const Icon(Icons.note_add_outlined, size: 18),
-                    label: const Text(AppStrings.myNotes),
+                      // Progress
+                      if (course.progress > 0)
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: AppColors.primary.withOpacity(0.06),
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(AppStrings.completedPercentage.replaceFirst('%s', '${(course.progress * 100).round()}%'),
+                                        style: AppTextStyles.titleLarge),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                        AppStrings.lessonsCount.replaceFirst('%s', '${course.completedLessons}/${course.totalLessons}'),
+                                        style: AppTextStyles.bodySmall),
+                                  ],
+                                ),
+                              ),
+                              PremiumButton(
+                                label: 'Davam et',
+                                onPressed: () {
+                                  HapticService.medium();
+                                },
+                                icon: Icons.play_arrow,
+                              ),
+                            ],
+                          ),
+                        ),
+
+                      const SizedBox(height: 24),
+                      Text(AppStrings.curriculum, style: AppTextStyles.headlineMedium),
+                      const SizedBox(height: 8),
+
+                      // Notes feature button
+                      OutlinedButton.icon(
+                        onPressed: () {
+                          HapticService.light();
+                        },
+                        icon: const Icon(Icons.note_add_outlined, size: 18),
+                        label: const Text(AppStrings.myNotes),
+                      ),
+                      const SizedBox(height: 12),
+                    ],
                   ),
-                  const SizedBox(height: 12),
-                ],
+                ),
               ),
-            ),
-          ),
 
-          // Sections + Lessons
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                final section = course.sections[index];
-                return _SectionTile(section: section);
-              },
-              childCount: course.sections.length,
-            ),
-          ),
+              // Sections + Lessons
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    final section = course.sections[index];
+                    return _SectionTile(section: section);
+                  },
+                  childCount: course.sections.length,
+                ),
+              ),
 
-          const SliverPadding(padding: EdgeInsets.only(bottom: 120)),
+              const SliverPadding(padding: EdgeInsets.only(bottom: 140)),
+            ],
+          ),
+          
+          // Floating Action Bar
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: _buildGlassActionBar(context, course),
+          ),
         ],
       ),
     );
   }
 
   Widget _buildGlassActionBar(BuildContext context, CourseModel course) {
-    return Container(
-      height: 100,
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(24),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            decoration: BoxDecoration(
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? Colors.black.withValues(alpha: 0.5)
-                  : Colors.white.withValues(alpha: 0.7),
-              borderRadius: BorderRadius.circular(24),
-              border: Border.all(
-                color: Colors.white.withValues(alpha: 0.2),
-                width: 1.5,
-              ),
-            ),
-            child: Row(
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Pulsuz',
-                      style: AppTextStyles.labelSmall.copyWith(color: AppColors.success, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      'Tam giriş',
-                      style: AppTextStyles.bodySmall.copyWith(fontWeight: FontWeight.bold),
-                    ),
-                  ],
+    final provider = context.watch<CourseProvider>();
+    final isEnrolled = provider.enrolledCourseIds.contains(course.id);
+    final isGuest = context.read<AuthProvider>().isGuest;
+
+    return SafeArea(
+      top: false,
+      child: Container(
+        margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(24),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              decoration: BoxDecoration(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.black.withOpacity(0.5)
+                    : Colors.white.withOpacity(0.7),
+                borderRadius: BorderRadius.circular(24),
+                border: Border.all(
+                  color: Colors.white.withOpacity(0.2),
+                  width: 1.5,
                 ),
-                const Spacer(),
-                ElevatedButton(
-                  onPressed: () {
-                    HapticService.heavy();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 20,
+                    offset: const Offset(0, 5),
+                  ),
+                ],
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          isEnrolled ? 'Abunəlik Aktivdir' : (course.price == 0 ? 'Pulsuz' : '${course.price} AZN'),
+                          style: AppTextStyles.labelSmall.copyWith(
+                            color: isEnrolled || course.price == 0 ? AppColors.success : AppColors.primary, 
+                            fontWeight: FontWeight.bold
+                          ),
+                        ),
+                        Text(
+                          isEnrolled ? 'Bütün dərslərə giriş' : 'Məhdudiyyətsiz giriş',
+                          style: AppTextStyles.bodySmall.copyWith(fontWeight: FontWeight.bold),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
                     ),
                   ),
-                  child: const Text('İndi qatıl', style: TextStyle(fontWeight: FontWeight.bold)),
-                ),
-              ],
+                  const SizedBox(width: 12),
+                  ElevatedButton(
+                    onPressed: isEnrolled 
+                      ? () {
+                          HapticService.medium();
+                          // Navigate to first lesson or player
+                        }
+                      : () async {
+                          if (isGuest) {
+                            context.push('/login');
+                            return;
+                          }
+                          
+                          HapticService.heavy();
+                          if (course.price == 0) {
+                            final success = await provider.enrollInCourse(course.id);
+                            if (success && context.mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Row(
+                                    children: [
+                                      const Icon(Icons.check_circle_rounded, color: Colors.white),
+                                      const SizedBox(width: 12),
+                                      const Text('Təbriklər! Kursa uğurla abunə oldunuz.'),
+                                    ],
+                                  ),
+                                  backgroundColor: AppColors.success,
+                                  behavior: SnackBarBehavior.floating,
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                                ),
+                              );
+                                context.go('/student/my-courses');
+                            }
+                          } else {
+                            // Navigate to payment screen
+                            context.push('/payment', extra: course);
+                          }
+                        },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: isEnrolled ? Colors.grey.withOpacity(0.1) : AppColors.primary,
+                      foregroundColor: isEnrolled ? Colors.grey : Colors.white,
+                      padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 14),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      elevation: isEnrolled ? 0 : 8,
+                      shadowColor: AppColors.primary.withOpacity(0.4),
+                    ),
+                    child: Text(
+                      isEnrolled ? 'Artıq Alınıb' : (course.price == 0 ? 'İndi qatıl' : 'Abunə ol'), 
+                      style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 13, letterSpacing: 0.5)
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

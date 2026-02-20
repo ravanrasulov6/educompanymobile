@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import '../models/schedule_model.dart';
 
 /// Manages schedule state
 class ScheduleProvider extends ChangeNotifier {
+  final _supabase = Supabase.instance.client;
   List<ScheduleModel> _events = [];
   DateTime _selectedDay = DateTime.now();
   bool _isLoading = false;
@@ -24,11 +26,23 @@ class ScheduleProvider extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
-    await Future.delayed(const Duration(milliseconds: 400));
-
-    _events = ScheduleModel.demoSchedule;
-    _isLoading = false;
-    notifyListeners();
+    try {
+      final response = await _supabase
+          .from('schedules')
+          .select('*, course:courses(title)');
+      
+      _events = (response as List)
+          .map((json) => ScheduleModel.fromJson(json as Map<String, dynamic>))
+          .toList();
+    } catch (e) {
+      debugPrint('Error loading schedule: $e');
+      if (_events.isEmpty) {
+        _events = ScheduleModel.demoSchedule;
+      }
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
   }
 
   void selectDay(DateTime day) {

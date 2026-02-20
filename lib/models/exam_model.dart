@@ -8,17 +8,41 @@ class ExamModel {
   final ExamStatus status;
   final double? score;
   final List<ExamQuestion> questions;
-
   const ExamModel({
     required this.id,
     required this.title,
     required this.courseName,
     required this.totalQuestions,
     required this.durationMinutes,
-    this.status = ExamStatus.available,
+    required this.status,
     this.score,
     this.questions = const [],
   });
+
+  factory ExamModel.fromJson(Map<String, dynamic> json) {
+    return ExamModel(
+      id: json['id'] as String,
+      title: json['title'] as String,
+      courseName: json['course']?['title'] as String? ?? 'Naməlum Kurs',
+      totalQuestions: (json['exam_questions'] as List?)?.length ?? 0,
+      durationMinutes: json['duration_minutes'] as int? ?? 30,
+      status: _parseStatus(json['exam_results']),
+      score: (json['exam_results'] as List?)?.isNotEmpty == true
+          ? (json['exam_results'][0]['score'] as num?)?.toDouble()
+          : null,
+      questions: (json['exam_questions'] as List?)
+              ?.map((q) => ExamQuestion.fromJson(q as Map<String, dynamic>))
+              .toList() ??
+          const [],
+    );
+  }
+
+  static ExamStatus _parseStatus(dynamic results) {
+    if (results is List && results.isNotEmpty) {
+      return ExamStatus.completed;
+    }
+    return ExamStatus.available;
+  }
 
   static final List<ExamModel> demoExams = [
     ExamModel(
@@ -58,13 +82,21 @@ class ExamQuestion {
   final String question;
   final List<String> options;
   final int correctIndex;
-
   const ExamQuestion({
     required this.id,
     required this.question,
     required this.options,
     required this.correctIndex,
   });
+
+  factory ExamQuestion.fromJson(Map<String, dynamic> json) {
+    return ExamQuestion(
+      id: json['id'] as String,
+      question: json['question'] as String,
+      options: List<String>.from(json['options'] ?? []),
+      correctIndex: json['correct_index'] as int? ?? 0,
+    );
+  }
 
   static const List<ExamQuestion> demoQuestions = [
     ExamQuestion(

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import '../models/assignment_model.dart';
 
 /// Manages assignment state
 class AssignmentProvider extends ChangeNotifier {
+  final _supabase = Supabase.instance.client;
   List<AssignmentModel> _assignments = [];
   bool _isLoading = false;
 
@@ -22,11 +24,26 @@ class AssignmentProvider extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
-    await Future.delayed(const Duration(milliseconds: 500));
+    try {
+      final userId = _supabase.auth.currentUser?.id;
+      final response = await _supabase.from('assignments').select('''
+            *,
+            courses(title),
+            assignment_submissions(*)
+          ''').order('deadline', ascending: true);
 
-    _assignments = AssignmentModel.demoAssignments;
-    _isLoading = false;
-    notifyListeners();
+      _assignments = (response as List)
+          .map((json) => AssignmentModel.fromJson(json as Map<String, dynamic>))
+          .toList();
+    } catch (e) {
+      debugPrint('Error loading assignments: $e');
+      if (_assignments.isEmpty) {
+        _assignments = AssignmentModel.demoAssignments;
+      }
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
   }
 
   void submitAssignment(String assignmentId, String filePath) {

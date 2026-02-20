@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import '../models/exam_model.dart';
 
 /// Manages exam state
 class ExamProvider extends ChangeNotifier {
+  final _supabase = Supabase.instance.client;
   List<ExamModel> _exams = [];
   ExamModel? _currentExam;
   int _currentQuestionIndex = 0;
@@ -29,11 +31,26 @@ class ExamProvider extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
-    await Future.delayed(const Duration(milliseconds: 500));
+    try {
+      final response = await _supabase.from('exams').select('''
+            *,
+            courses(title),
+            exam_questions(*),
+            exam_results(*)
+          ''');
 
-    _exams = ExamModel.demoExams;
-    _isLoading = false;
-    notifyListeners();
+      _exams = (response as List)
+          .map((json) => ExamModel.fromJson(json as Map<String, dynamic>))
+          .toList();
+    } catch (e) {
+      debugPrint('Error loading exams: $e');
+      if (_exams.isEmpty) {
+        _exams = ExamModel.demoExams;
+      }
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
   }
 
   void startExam(ExamModel exam) {

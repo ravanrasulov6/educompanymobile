@@ -211,26 +211,41 @@ class _LandingScreenState extends State<LandingScreen> {
                               ),
                               child: Column(
                                 children: [
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      HapticService.medium();
-                                      context.go('/signup');
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: AppColors.skyBlue,
-                                      foregroundColor: Colors.white,
-                                      minimumSize: const Size(double.infinity, 64),
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-                                      elevation: 0,
-                                    ),
-                                    child: const Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text('Təlimlərə Başla', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w800)),
-                                        SizedBox(width: 8),
-                                        Icon(Icons.arrow_forward_rounded, size: 24),
-                                      ],
-                                    ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            HapticService.medium();
+                                            context.go('/signup');
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: AppColors.skyBlue,
+                                            foregroundColor: Colors.white,
+                                            minimumSize: const Size(0, 64),
+                                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+                                            elevation: 0,
+                                          ),
+                                          child: const Text('Qeydiyyat', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 12),
+                                      Expanded(
+                                        child: OutlinedButton(
+                                          onPressed: () {
+                                            HapticService.medium();
+                                            context.go('/login');
+                                          },
+                                          style: OutlinedButton.styleFrom(
+                                            foregroundColor: Colors.white,
+                                            side: const BorderSide(color: Colors.white30),
+                                            minimumSize: const Size(0, 64),
+                                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+                                          ),
+                                          child: const Text('Daxil ol', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                   const SizedBox(height: 24),
                                   Row(

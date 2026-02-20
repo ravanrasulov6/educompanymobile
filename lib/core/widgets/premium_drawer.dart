@@ -111,13 +111,15 @@ class PremiumDrawer extends StatelessWidget {
   }
 
   Widget _buildHeader(BuildContext context, dynamic user) {
+    final isGuest = context.read<AuthProvider>().isGuest;
+
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            AppColors.primary.withValues(alpha: 0.15),
-            AppColors.primary.withValues(alpha: 0.05),
+            AppColors.primary.withOpacity(0.15),
+            AppColors.primary.withOpacity(0.05),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -137,13 +139,16 @@ class PremiumDrawer extends StatelessWidget {
             child: CircleAvatar(
               radius: 30,
               backgroundColor: Colors.white,
-              child: Text(
-                user?.name?.substring(0, 1).toUpperCase() ?? 'T',
-                style: AppTextStyles.headlineSmall.copyWith(
-                  color: AppColors.primary,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: isGuest
+                  ? const Icon(Icons.person_outline_rounded,
+                      color: AppColors.primary, size: 30)
+                  : Text(
+                      user?.name?.substring(0, 1).toUpperCase() ?? 'T',
+                      style: AppTextStyles.headlineSmall.copyWith(
+                        color: AppColors.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
             ),
           ),
           const SizedBox(width: 16),
@@ -152,7 +157,7 @@ class PremiumDrawer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  user?.name ?? 'Tələbə',
+                  isGuest ? 'Xoş Gəlmisiniz' : (user?.name ?? 'Tələbə'),
                   style: AppTextStyles.titleLarge.copyWith(
                     fontWeight: FontWeight.w800,
                   ),
@@ -160,28 +165,66 @@ class PremiumDrawer extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
-                  user?.email ?? 'student@educompany.az',
+                  isGuest ? 'Bütün imkanlardan yararlan' : (user?.email ?? 'student@educompany.az'),
                   style: AppTextStyles.bodySmall.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withOpacity(0.6),
                   ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-                const SizedBox(height: 8),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                  decoration: BoxDecoration(
-                    color: AppColors.success.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Text(
-                    'Aktiv Hesab',
-                    style: AppTextStyles.labelSmall.copyWith(
-                      color: AppColors.success,
-                      fontWeight: FontWeight.bold,
+                const SizedBox(height: 12),
+                if (isGuest)
+                  Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                        context.go('/login');
+                      },
+                      borderRadius: BorderRadius.circular(12),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 8),
+                        decoration: BoxDecoration(
+                          gradient: AppColors.primaryGradient,
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.primary.withOpacity(0.3),
+                              blurRadius: 8,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: Text(
+                          'Daxil ol',
+                          style: AppTextStyles.labelSmall.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                else
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: AppColors.success.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: Text(
+                      'Aktiv Hesab',
+                      style: AppTextStyles.labelSmall.copyWith(
+                        color: AppColors.success,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
               ],
             ),
           ),

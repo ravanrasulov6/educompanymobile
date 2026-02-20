@@ -18,6 +18,31 @@ class ScheduleModel {
     this.hasReminder = false,
   });
 
+  factory ScheduleModel.fromJson(Map<String, dynamic> json) {
+    return ScheduleModel(
+      id: json['id'] as String,
+      title: json['title'] as String,
+      courseName: json['course']?['title'] as String? ?? 'Naməlum Kurs',
+      dateTime: DateTime.parse(json['date_time'] as String),
+      durationMinutes: json['duration_minutes'] as int? ?? 60,
+      type: _parseType(json['type'] as String),
+      hasReminder: json['has_reminder'] as bool? ?? false,
+    );
+  }
+
+  static ScheduleType _parseType(String type) {
+    switch (type) {
+      case 'liveClass':
+        return ScheduleType.liveClass;
+      case 'assignment':
+        return ScheduleType.assignment;
+      case 'exam':
+        return ScheduleType.exam;
+      default:
+        return ScheduleType.liveClass;
+    }
+  }
+
   static List<ScheduleModel> get demoSchedule {
     final now = DateTime.now();
     return [

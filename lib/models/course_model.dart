@@ -13,6 +13,7 @@ class CourseModel {
   final int studentsCount;
   final bool isDemo;
   final bool isLive;
+  final double price;
   final List<CourseSection> sections;
 
   const CourseModel({
@@ -29,8 +30,28 @@ class CourseModel {
     this.studentsCount = 0,
     this.isDemo = false,
     this.isLive = false,
+    this.price = 0.0,
     this.sections = const [],
   });
+
+  factory CourseModel.fromJson(Map<String, dynamic> json) {
+    return CourseModel(
+      id: json['id'] as String,
+      title: json['title'] as String,
+      description: json['description'] as String? ?? '',
+      thumbnailUrl: json['thumbnail_url'] as String? ?? '',
+      instructor: (json['instructor'] is Map) ? json['instructor']['full_name'] as String? ?? 'Naməlum Müəllim' : 'Naməlum Müəllim',
+      category: (json['category'] is Map) ? json['category']['name'] as String? ?? 'Ümumi' : 'Ümumi',
+      rating: (json['rating'] as num?)?.toDouble() ?? 0.0,
+      studentsCount: json['students_count'] as int? ?? 0,
+      isLive: json['is_live'] as bool? ?? false,
+      price: (json['price'] as num?)?.toDouble() ?? 0.0,
+      sections: (json['course_sections'] as List?)
+              ?.map((s) => CourseSection.fromJson(s as Map<String, dynamic>))
+              .toList() ??
+          const [],
+    );
+  }
 
   /// Demo courses
   static final List<CourseModel> demoCourses = [
@@ -141,6 +162,16 @@ class CourseSection {
   final List<Lesson> lessons;
 
   const CourseSection({required this.title, this.lessons = const []});
+
+  factory CourseSection.fromJson(Map<String, dynamic> json) {
+    return CourseSection(
+      title: json['title'] as String,
+      lessons: (json['lessons'] as List?)
+              ?.map((l) => Lesson.fromJson(l as Map<String, dynamic>))
+              .toList() ??
+          const [],
+    );
+  }
 }
 
 /// Individual lesson
@@ -156,4 +187,14 @@ class Lesson {
     required this.duration,
     this.isCompleted = false,
   });
+
+  factory Lesson.fromJson(Map<String, dynamic> json) {
+    return Lesson(
+      id: json['id'] as String,
+      title: json['title'] as String,
+      duration: json['duration'] as String? ?? '0:00',
+      isCompleted: json['lesson_progress'] != null && 
+                  (json['lesson_progress'] as List).isNotEmpty,
+    );
+  }
 }

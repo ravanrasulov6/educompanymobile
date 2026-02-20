@@ -9,7 +9,10 @@ import '../features/auth/login_screen.dart';
 import '../features/auth/signup_screen.dart';
 import '../features/student/student_shell.dart';
 import '../features/student/courses/courses_screen.dart';
+import '../features/student/courses/categories_screen.dart';
 import '../features/student/courses/course_detail_screen.dart';
+import '../features/student/courses/all_courses_screen.dart';
+import '../features/student/courses/my_courses_screen.dart';
 import '../features/student/courses/live_class_detail_screen.dart';
 import '../features/student/live_classes/live_classes_screen.dart';
 import '../features/student/assignments/assignments_screen.dart';
@@ -20,6 +23,7 @@ import '../features/student/exams/exam_result_screen.dart';
 import '../features/student/profile/profile_screen.dart';
 import '../features/student/profile/payment_methods_screen.dart';
 import '../features/student/profile/settings_placeholder_screen.dart';
+import '../features/student/profile/streak_details_screen.dart';
 import '../features/teacher/teacher_shell.dart';
 import '../features/teacher/teacher_courses_screen.dart';
 import '../features/teacher/teacher_analytics_screen.dart';
@@ -99,6 +103,11 @@ class AppRouter {
             builder: (context, state) => const CoursesScreen(),
           ),
           GoRoute(
+            path: '/student/categories',
+            name: 'categories',
+            builder: (context, state) => const CategoriesScreen(),
+          ),
+          GoRoute(
             path: '/student/courses/:id',
             name: 'courseDetail',
             builder: (context, state) => CourseDetailScreen(
@@ -131,6 +140,21 @@ class AppRouter {
             path: '/student/exams',
             name: 'exams',
             builder: (context, state) => const ExamsScreen(),
+          ),
+          GoRoute(
+            path: '/student/my-courses',
+            name: 'myCourses',
+            builder: (context, state) => const MyCoursesScreen(),
+          ),
+          GoRoute(
+            path: '/student/streak-details',
+            name: 'streakDetails',
+            builder: (context, state) => const StreakDetailsScreen(),
+          ),
+          GoRoute(
+            path: '/student/all-courses',
+            name: 'allCourses',
+            builder: (context, state) => const AllCoursesScreen(),
           ),
           GoRoute(
             path: '/student/exams/:id/take',

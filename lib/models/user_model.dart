@@ -19,6 +19,28 @@ class UserModel {
     required this.createdAt,
   });
 
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
+      id: json['id'] as String,
+      name: json['full_name'] as String? ?? 'Naməlum',
+      email: json['email'] as String? ?? '',
+      role: _parseRole(json['role'] as String?),
+      avatarUrl: json['avatar_url'] as String?,
+      createdAt: json['created_at'] != null 
+          ? DateTime.parse(json['created_at'] as String)
+          : DateTime.now(),
+    );
+  }
+
+  static UserRole _parseRole(String? role) {
+    switch (role) {
+      case 'student': return UserRole.student;
+      case 'teacher': return UserRole.teacher;
+      case 'admin': return UserRole.admin;
+      default: return UserRole.student;
+    }
+  }
+
   UserModel copyWith({
     String? id,
     String? name,
