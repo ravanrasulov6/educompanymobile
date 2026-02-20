@@ -45,7 +45,7 @@ class _CoursesScreenState extends State<CoursesScreen> {
 
         return Scaffold(
           floatingActionButton: const Padding(
-            padding: EdgeInsets.only(bottom: 10),
+            padding: EdgeInsets.only(bottom: 90),
             child: PremiumExpandingFab(),
           ),
           body: RefreshIndicator(
@@ -201,7 +201,7 @@ class _CoursesScreenState extends State<CoursesScreen> {
                         children: [
                           Text('Video dərslərim',
                               style: AppTextStyles.headlineMedium),
-                          const Icon(Icons.play_circle_fill_rounded, 
+                          const Icon(Icons.play_circle_filled, 
                               color: AppColors.primary, size: 24),
                         ],
                       ),
@@ -235,7 +235,7 @@ class _CoursesScreenState extends State<CoursesScreen> {
                   ),
                 ],
 
-                const SliverPadding(padding: EdgeInsets.only(bottom: 100)),
+                const SliverPadding(padding: EdgeInsets.only(bottom: 140)),
               ],
             ),
           ),

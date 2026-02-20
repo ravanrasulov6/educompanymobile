@@ -162,28 +162,28 @@ class _StudentShellState extends State<StudentShell> {
                     onDestinationSelected: _onDestinationSelected,
                     destinations: const [
                       NavigationDestination(
-                        icon: Icon(Icons.home_outlined),
-                        selectedIcon: Icon(Icons.home_rounded),
+                        icon: Icon(Icons.home),
+                        selectedIcon: Icon(Icons.home),
                         label: AppStrings.navHome,
                       ),
                       NavigationDestination(
-                        icon: Icon(Icons.videocam_outlined),
-                        selectedIcon: Icon(Icons.videocam_rounded),
+                        icon: Icon(Icons.videocam),
+                        selectedIcon: Icon(Icons.videocam),
                         label: AppStrings.liveClasses,
                       ),
                       NavigationDestination(
-                        icon: Icon(Icons.assignment_outlined),
-                        selectedIcon: Icon(Icons.assignment_rounded),
+                        icon: Icon(Icons.assignment),
+                        selectedIcon: Icon(Icons.assignment),
                         label: AppStrings.assignments,
                       ),
                       NavigationDestination(
-                        icon: Icon(Icons.event_note_outlined),
-                        selectedIcon: Icon(Icons.event_note_rounded),
+                        icon: Icon(Icons.event_note),
+                        selectedIcon: Icon(Icons.event_note),
                         label: AppStrings.navSchedule,
                       ),
                       NavigationDestination(
-                        icon: Icon(Icons.quiz_outlined),
-                        selectedIcon: Icon(Icons.quiz_rounded),
+                        icon: Icon(Icons.quiz),
+                        selectedIcon: Icon(Icons.quiz),
                         label: AppStrings.exams,
                       ),
                     ],

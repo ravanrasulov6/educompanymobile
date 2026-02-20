@@ -52,7 +52,7 @@ class _AppContentState extends State<_AppContent> {
   void initState() {
     super.initState();
     _appRouter = AppRouter(context.read<AuthProvider>());
-    Future.delayed(const Duration(milliseconds: 2500), () {
+    Future.delayed(const Duration(milliseconds: 3500), () {
       if (mounted) {
         setState(() => _showSplash = false);
       }

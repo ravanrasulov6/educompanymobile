@@ -25,13 +25,21 @@ class _LandingScreenState extends State<LandingScreen> {
   @override
   void initState() {
     super.initState();
-    _videoController = VideoPlayerController.asset('assets/videos/landingvideo.mp4')
-      ..initialize().then((_) {
-        _videoController?.setVolume(0.0);
-        _videoController?.setLooping(true);
-        _videoController?.play();
+    _videoController = VideoPlayerController.asset(
+      'assets/videos/landingvideo.mp4',
+      videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true),
+    );
+    
+    _videoController!.initialize().then((_) {
+      if (mounted) {
+        _videoController!.setVolume(0.0);
+        _videoController!.setLooping(true);
+        _videoController!.play();
         setState(() {}); // Trigger a rebuild to show the video
-      });
+      }
+    }).catchError((error) {
+      debugPrint("VideoPlay Error: $error");
+    });
   }
 
   @override
@@ -306,13 +314,18 @@ class _LandingScreenState extends State<LandingScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 _buildAvatarGroup(),
-                                const Text(
-                                  'MƏZUN TƏRƏFİNDƏN TÖVSİYƏ EDİLİR',
-                                  style: TextStyle(
-                                    color: Color(0xFF64748B), // text-slate-500
-                                    fontSize: 10, // text-xs approx
-                                    fontWeight: FontWeight.w600,
-                                    letterSpacing: 1.0, // tracking-widest
+                                const SizedBox(width: 12),
+                                Expanded(
+                                  child: Text(
+                                    'MƏZUN TƏRƏFİNDƏN TÖVSİYƏ EDİLİR',
+                                    textAlign: TextAlign.right,
+                                    maxLines: 2,
+                                    style: TextStyle(
+                                      color: Color(0xFF64748B), // text-slate-500
+                                      fontSize: 10, // text-xs approx
+                                      fontWeight: FontWeight.w600,
+                                      letterSpacing: 1.0, // tracking-widest
+                                    ),
                                   ),
                                 ),
                               ],

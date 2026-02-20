@@ -95,7 +95,7 @@ class _PremiumExpandingFabState extends State<PremiumExpandingFab>
     final step = 90.0 / (count - 1);
     
     // Actions: AI, Support, Notes
-    final icons = [Icons.auto_awesome_rounded, Icons.headset_mic_rounded, Icons.edit_note_rounded];
+    final icons = [Icons.auto_awesome, Icons.headset_mic, Icons.edit_note];
     final labels = ['AI Köməkçi', 'Dəstək', 'Qeydlər'];
     
     for (var i = 0, angleInDegrees = 0.0; i < count; i++, angleInDegrees += step) {
@@ -139,7 +139,7 @@ class _PremiumExpandingFabState extends State<PremiumExpandingFab>
             backgroundColor: AppColors.primary,
             elevation: 8,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            child: const Icon(Icons.bolt_rounded, color: Colors.white, size: 28),
+            child: const Icon(Icons.bolt, color: Colors.white, size: 28),
           ),
         ),
       ),

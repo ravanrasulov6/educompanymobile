@@ -80,32 +80,29 @@ class _LiveClassDetailScreenState extends State<LiveClassDetailScreen> with Sing
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            decoration: BoxDecoration(
-              color: isDark ? Colors.black.withValues(alpha: 0.5) : Colors.white.withValues(alpha: 0.8),
-              shape: BoxShape.circle,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 380,
+            pinned: true,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            elevation: 0,
+            leading: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: isDark ? Colors.black.withValues(alpha: 0.6) : Colors.white.withValues(alpha: 0.9),
+                  shape: BoxShape.circle,
+                ),
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back, color: isDark ? Colors.white : Colors.black),
+                  onPressed: () => context.pop(),
+                ),
+              ),
             ),
-            child: IconButton(
-              icon: Icon(Icons.arrow_back_rounded, color: isDark ? Colors.white : Colors.black),
-              onPressed: () => context.pop(),
-            ),
-          ),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Hero Section
-            SizedBox(
-              height: 380,
-              width: double.infinity,
-              child: Stack(
+            flexibleSpace: FlexibleSpaceBar(
+              background: Stack(
                 fit: StackFit.expand,
                 children: [
                   Image.network(
@@ -204,12 +201,14 @@ class _LiveClassDetailScreenState extends State<LiveClassDetailScreen> with Sing
                 ],
               ),
             ),
-            
-            Padding(
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const SizedBox(height: 16),
                   // Next Session Action Card
                   Container(
                     width: double.infinity,
@@ -240,7 +239,7 @@ class _LiveClassDetailScreenState extends State<LiveClassDetailScreen> with Sing
                                 color: Colors.white.withValues(alpha: 0.2),
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              child: const Icon(Icons.timer_rounded, color: Colors.white, size: 24),
+                              child: const Icon(Icons.timer, color: Colors.white, size: 24),
                             ),
                             const SizedBox(width: 16),
                             Expanded(
@@ -282,7 +281,7 @@ class _LiveClassDetailScreenState extends State<LiveClassDetailScreen> with Sing
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Icon(Icons.live_tv_rounded, size: 20),
+                                const Icon(Icons.live_tv, size: 20),
                                 const SizedBox(width: 8),
                                 Text('İndi Qoşul', style: AppTextStyles.labelLarge.copyWith(fontWeight: FontWeight.w800)),
                               ],
@@ -364,7 +363,7 @@ class _LiveClassDetailScreenState extends State<LiveClassDetailScreen> with Sing
                     title: 'Dərs 1: Mövzu Müzakirəsi Slaydı',
                     type: 'PDF',
                     size: '2.4 MB',
-                    icon: Icons.picture_as_pdf_rounded,
+                    icon: Icons.picture_as_pdf,
                     color: Colors.redAccent,
                   ),
                   _buildMaterialCard(
@@ -372,15 +371,15 @@ class _LiveClassDetailScreenState extends State<LiveClassDetailScreen> with Sing
                     title: 'Ev tapşırığı N1',
                     type: 'DOCX',
                     size: '1.1 MB',
-                    icon: Icons.description_rounded,
+                    icon: Icons.description,
                     color: Colors.blueAccent,
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 120), // Added bottom padding to avoid nav overlap
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -418,7 +417,7 @@ class _LiveClassDetailScreenState extends State<LiveClassDetailScreen> with Sing
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.download_rounded),
+            icon: const Icon(Icons.download),
             color: AppColors.primary,
             onPressed: () {
               HapticService.light();
