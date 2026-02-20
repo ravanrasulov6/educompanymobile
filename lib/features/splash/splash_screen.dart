@@ -29,8 +29,6 @@ class SplashScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 EntranceAnimation(
-                  type: EntranceAnimationType.scale,
-                  duration: const Duration(milliseconds: 1000),
                   child: Image.asset(
                     'assets/images/logo_m.png',
                     width: 200,
