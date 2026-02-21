@@ -31,6 +31,7 @@ class AppColors {
   static const Color lightDivider = Color(0xFFE2E8F0);
   static const Color lightTextPrimary = Color(0xFF0F172A);
   static const Color lightTextSecondary = Color(0xFF64748B);
+  static const Color textSecondary = lightTextSecondary; // alias
   static const Color lightTextHint = Color(0xFF94A3B8);
 
   // ── Dark Mode Surfaces ─────────────────────────────────────────

@@ -148,8 +148,14 @@ class VideoLessonCard extends StatelessWidget {
                         children: [
                           Icon(isLive ? Icons.videocam_rounded : Icons.video_library_rounded, size: 14, color: isLive ? AppColors.error : AppColors.primary),
                           const SizedBox(width: 6),
-                          Text(isLive ? 'Canlı Dərs' : 'Video Dərs', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600)),
-                          const Spacer(),
+                          Expanded(
+                            child: Text(
+                              isLive ? 'Canlı Dərs' : 'Video Dərs',
+                              style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
                           Text(
                             'İndi izlə',
                             style: AppTextStyles.labelSmall.copyWith(

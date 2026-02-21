@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<html lang="az"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EduCompany - Dərslərim</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#490fbd",
+                        "background-light": "#f8f9fa",
+                        "background-dark": "#161022",
+                        "surface": "#ffffff",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Lexend', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen pb-32">
+<!-- Header Section -->
+<header class="sticky top-0 z-30 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-6 pt-12 pb-4">
+<div class="flex items-center justify-between mb-6">
+<h1 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Dərslərim</h1>
+<div class="relative">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-400 p-2 bg-white dark:bg-slate-800 rounded-full shadow-sm">notifications</span>
+<span class="absolute top-2 right-2 flex h-2 w-2 rounded-full bg-red-500"></span>
+</div>
+</div>
+<!-- Search Bar -->
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-slate-400 group-focus-within:text-primary transition-colors">search</span>
+</div>
+<input class="block w-full pl-12 pr-4 py-3.5 bg-white dark:bg-slate-800 border-none rounded-xl shadow-sm focus:ring-2 focus:ring-primary/20 text-sm font-medium placeholder-slate-400 transition-all" placeholder="Kurs axtar..." type="text"/>
+</div>
+</header>
+<!-- Category Filters -->
+<section class="px-6 mb-6">
+<h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">Kateqoriyalar</h3>
+<div class="flex gap-3 overflow-x-auto hide-scrollbar pb-2">
+<button class="shrink-0 px-6 py-2.5 rounded-full bg-primary text-white text-sm font-semibold shadow-lg shadow-primary/20">Hamısı</button>
+<button class="shrink-0 px-6 py-2.5 rounded-full bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-sm font-medium hover:bg-slate-50 transition-colors">Riyaziyyat</button>
+<button class="shrink-0 px-6 py-2.5 rounded-full bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-sm font-medium hover:bg-slate-50 transition-colors">Xarici dil</button>
+<button class="shrink-0 px-6 py-2.5 rounded-full bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-sm font-medium hover:bg-slate-50 transition-colors">Proqramlaşdırma</button>
+<button class="shrink-0 px-6 py-2.5 rounded-full bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-sm font-medium hover:bg-slate-50 transition-colors">Dizayn</button>
+</div>
+</section>
+<!-- Course List -->
+<main class="px-6 space-y-6">
+<!-- Course Card 1 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 border border-slate-100 dark:border-slate-800">
+<div class="relative h-48 w-full bg-slate-200 overflow-hidden">
+<img alt="Algebra course thumbnail" class="w-full h-full object-cover" data-alt="Abstract geometric shapes representing advanced mathematical algebra" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOAiPK4HPwBDn8GtmTtOsGr0rvfddI4XlektpC5i4-MMLOv34PZh1PKoy6bKA0bNIoJPub0ajyXXuVIKO7C5dLqFNtKBfmVCoZs5gnNz8qRzUPacks5xErl5h6KSkqEua3iyjNZv0VNo9Hq3WMpfT3SPy8Kts1ZoxR25ECXe05M4I_o1UP8xQQWMSr9OTuZ2WxEcMiGbyMPS8x42UQNOHp-dKJuUjfqASkaKrnNvdDT9rfOi-08_mkhcHxgA12NB6Av1NgeHlblkI"/>
+<div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider text-primary">Orta səviyyə</div>
+</div>
+<div class="p-5">
+<h2 class="text-lg font-bold text-slate-900 dark:text-white leading-tight mb-2">Riyaziyyat: Advanced Algebra</h2>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary text-sm">person</span>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium uppercase tracking-tight">Dr. Əliyev tərəfindən</p>
+</div>
+<!-- Progress Section -->
+<div class="space-y-2 mb-4">
+<div class="flex justify-between items-end text-xs font-semibold">
+<span class="text-primary">75% tamamlanıb</span>
+<span class="text-slate-400">12/16 Dərs</span>
+</div>
+<div class="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-500" style="width: 75%"></div>
+</div>
+</div>
+<div class="flex justify-end">
+<button class="px-5 py-2 bg-primary/10 dark:bg-primary/20 text-primary rounded-lg text-sm font-bold hover:bg-primary hover:text-white transition-all">
+                        Davam et
+                    </button>
+</div>
+</div>
+</div>
+<!-- Course Card 2 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 border border-slate-100 dark:border-slate-800">
+<div class="relative h-48 w-full bg-slate-200 overflow-hidden">
+<img alt="English language course thumbnail" class="w-full h-full object-cover" data-alt="Close up of classic literature books on shelf" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaEjq_qiaQi_eC9O2qtFRJyrOvKz68PA4CttL_Xd_rmMpQTsMkPqNiXWZqeh_MrFyeDlC4m0Wc7ZoVzDTM_9D2SXjTLUpy4Y_gZELdeAQRpsQ2VQ5Qel7jWvUPScgeDXkTLlxYMT9FbZLZZ79jrTJhAfJk80kiD-GmfS_po45kx0P47oZBi4F0fCkVwmwD2uKGBS2wZbAqGv79U8SOBllyr4zV9suwluzuXPgNhN7KChH8XoRMH4Bw05FWaqSn_ei20GIx92T16jI"/>
+<div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider text-primary">Yeni başlayanlar</div>
+</div>
+<div class="p-5">
+<h2 class="text-lg font-bold text-slate-900 dark:text-white leading-tight mb-2">İngilis dili: Business Communication</h2>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary text-sm">person</span>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium uppercase tracking-tight">Sarah Johnson</p>
+</div>
+<div class="space-y-2 mb-4">
+<div class="flex justify-between items-end text-xs font-semibold">
+<span class="text-primary">32% tamamlanıb</span>
+<span class="text-slate-400">8/25 Dərs</span>
+</div>
+<div class="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-500" style="width: 32%"></div>
+</div>
+</div>
+<div class="flex justify-end">
+<button class="px-5 py-2 bg-primary/10 dark:bg-primary/20 text-primary rounded-lg text-sm font-bold hover:bg-primary hover:text-white transition-all">
+                        Davam et
+                    </button>
+</div>
+</div>
+</div>
+<!-- Course Card 3 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 border border-slate-100 dark:border-slate-800">
+<div class="relative h-48 w-full bg-slate-200 overflow-hidden">
+<img alt="Programming course thumbnail" class="w-full h-full object-cover" data-alt="Modern laptop screen displaying colorful software code" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxnDxCN8lkc7LTk4QA2Aq428XeORcW6EhOcwVy7-JZtwrhcfjLCLGwH6srHMlvGiKk-1OCmmiYcMWtKtuJk3IB2lSOczX6yWI_axsT9UcQBP8R5ta4UadRU-F5lCt4TEzkwF1JD7P9jR7LO4DQmbeP-Kq2B6POIdxJMfaKGFdDlNZXmdQ5JPsOBNx_ccnIhgrsh_z32gwA0LkKUrhLzbrIHM2VLUPkUknGxP-EAupZe1KciSGcHvxsdYTC9p8e0Vo-6Bvd34DAaPI"/>
+<div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider text-primary">Peşəkar</div>
+</div>
+<div class="p-5">
+<h2 class="text-lg font-bold text-slate-900 dark:text-white leading-tight mb-2">Python: Data Science &amp; AI</h2>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary text-sm">person</span>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium uppercase tracking-tight">Elvin Məmmədov</p>
+</div>
+<div class="space-y-2 mb-4">
+<div class="flex justify-between items-end text-xs font-semibold">
+<span class="text-primary">15% tamamlanıb</span>
+<span class="text-slate-400">3/20 Dərs</span>
+</div>
+<div class="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-500" style="width: 15%"></div>
+</div>
+</div>
+<div class="flex justify-end">
+<button class="px-5 py-2 bg-primary/10 dark:bg-primary/20 text-primary rounded-lg text-sm font-bold hover:bg-primary hover:text-white transition-all">
+                        Davam et
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Bottom Navigation Bar -->
+<nav class="fixed bottom-6 left-6 right-6 z-50">
+<div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl px-6 py-3 flex items-center justify-between">
+<a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[26px]">home</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Ana səhifə</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined text-[26px] font-variation-fill">book_2</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Dərslərim</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[26px]">person</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Profil</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[26px]">bookmarks</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Saxlananlar</span>
+</a>
+</div>
+</nav>
+</body></html>

@@ -35,6 +35,25 @@ import '../features/admin/admin_users_screen.dart';
 import '../features/admin/admin_courses_screen.dart';
 import '../features/admin/admin_settings_screen.dart';
 
+// V2 Teacher screens
+import '../features/teacher/create_course_screen.dart';
+import '../features/teacher/manage_lessons_screen.dart';
+import '../features/teacher/teacher_qa_inbox_screen.dart';
+import '../features/teacher/manage_faqs_screen.dart';
+import '../features/teacher/manage_resources_screen.dart';
+import '../features/teacher/grade_assignments_screen.dart';
+
+// V2 Student screens
+import '../features/student/courses/lesson_qa_screen.dart';
+import '../features/student/courses/lesson_faq_screen.dart';
+import '../features/student/courses/course_resources_screen.dart';
+import '../features/student/courses/course_schedule_screen.dart';
+import 'package:educompany_mobile/features/student/courses/course_workspace_screen.dart';
+import 'package:educompany_mobile/features/student/courses/assignment_submission_screen.dart';
+import 'package:educompany_mobile/features/student/chat/inbox_screen.dart';
+import 'package:educompany_mobile/features/student/chat/chat_view_screen.dart';
+import 'package:educompany_mobile/features/student/courses/activity_history_screen.dart';
+
 /// App router configuration with role-based navigation
 class AppRouter {
   final AuthProvider authProvider;
@@ -192,6 +211,42 @@ class AppRouter {
               icon: Icons.notifications_active_rounded,
             ),
           ),
+          GoRoute(
+            path: '/student/assignments/:id/submit',
+            name: 'submitAssignment',
+            builder: (context, state) {
+              final id = state.pathParameters['id']!;
+              return AssignmentSubmissionScreen(assignmentId: id);
+            },
+          ),
+          GoRoute(
+            path: '/student/courses/:cid/workspace/:lid',
+            name: 'courseWorkspace',
+            builder: (context, state) => CourseWorkspaceScreen(
+              courseId: state.pathParameters['cid']!,
+              lessonId: state.pathParameters['lid']!,
+            ),
+          ),
+          GoRoute(
+            path: '/student/inbox',
+            name: 'inbox',
+            builder: (context, state) => const InboxScreen(),
+          ),
+          GoRoute(
+            path: '/student/chat/:id',
+            name: 'chatRoom',
+            builder: (context, state) => ChatViewScreen(conversationId: state.pathParameters['id']!),
+          ),
+          GoRoute(
+            path: '/student/streak',
+            name: 'streakDetail',
+            builder: (context, state) => const StreakDetailsScreen(),
+          ),
+          GoRoute(
+            path: '/student/activity-history',
+            name: 'activityHistory',
+            builder: (context, state) => const ActivityHistoryScreen(),
+          ),
         ],
       ),
 
@@ -219,7 +274,85 @@ class AppRouter {
             name: 'createExam',
             builder: (context, state) => const CreateExamScreen(),
           ),
+          GoRoute(
+            path: '/teacher/qa-inbox',
+            name: 'teacherQAInbox',
+            builder: (context, state) => const TeacherQAInboxScreen(),
+          ),
+          GoRoute(
+            path: '/teacher/grade-assignments',
+            name: 'gradeAssignments',
+            builder: (context, state) => const GradeAssignmentsScreen(),
+          ),
         ],
+      ),
+
+      // ── Teacher standalone routes (no shell) ──────────────
+      GoRoute(
+        path: '/teacher/create-course',
+        name: 'createCourse',
+        builder: (context, state) => const CreateCourseScreen(),
+      ),
+      GoRoute(
+        path: '/teacher/courses/:id/lessons',
+        name: 'manageLessons',
+        builder: (context, state) => ManageLessonsScreen(
+          courseId: state.pathParameters['id']!,
+        ),
+      ),
+      GoRoute(
+        path: '/teacher/courses/:id/resources',
+        name: 'manageResources',
+        builder: (context, state) => ManageResourcesScreen(
+          courseId: state.pathParameters['id']!,
+        ),
+      ),
+      GoRoute(
+        path: '/teacher/courses/:id/faqs',
+        name: 'manageFaqs',
+        builder: (context, state) => ManageFaqsScreen(
+          courseId: state.pathParameters['id']!,
+        ),
+      ),
+
+      // ── Student V2 standalone routes ──────────────────────
+      GoRoute(
+        path: '/student/courses/:id/schedule',
+        name: 'courseSchedule',
+        builder: (context, state) => CourseScheduleScreen(
+          courseId: state.pathParameters['id']!,
+        ),
+      ),
+      GoRoute(
+        path: '/student/courses/:id/resources',
+        name: 'courseResources',
+        builder: (context, state) => CourseResourcesScreen(
+          courseId: state.pathParameters['id']!,
+        ),
+      ),
+      GoRoute(
+        path: '/student/courses/:cid/lessons/:lid/qa',
+        name: 'lessonQA',
+        builder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>? ?? {};
+          return LessonQAScreen(
+            lessonId: state.pathParameters['lid']!,
+            lessonTitle: extra['lessonTitle'] ?? 'Dərs',
+            sectionTitle: extra['sectionTitle'] ?? '',
+            courseTitle: extra['courseTitle'],
+          );
+        },
+      ),
+      GoRoute(
+        path: '/student/courses/:id/faq',
+        name: 'lessonFaq',
+        builder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>? ?? {};
+          return LessonFaqScreen(
+            courseId: state.pathParameters['id']!,
+            sections: (extra['sections'] as List<Map<String, dynamic>>?) ?? [],
+          );
+        },
       ),
 
       // ── Admin Shell ─────────────────────────────────────────

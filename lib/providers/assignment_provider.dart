@@ -46,6 +46,29 @@ class AssignmentProvider extends ChangeNotifier {
     }
   }
 
+  /// Load assignments for a specific course
+  Future<void> loadAssignmentsByCourse(String courseId) async {
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      final response = await _supabase
+          .from('assignments')
+          .select('*, assignment_submissions(*)')
+          .eq('course_id', courseId)
+          .order('deadline', ascending: true);
+
+      _assignments = (response as List)
+          .map((json) => AssignmentModel.fromJson(json as Map<String, dynamic>))
+          .toList();
+    } catch (e) {
+      debugPrint('Error loading course assignments: $e');
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
   void submitAssignment(String assignmentId, String filePath) {
     final index = _assignments.indexWhere((a) => a.id == assignmentId);
     if (index != -1) {

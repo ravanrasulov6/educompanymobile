@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'package:go_router/go_router.dart';
 import '../../../providers/assignment_provider.dart';
 import '../../../models/assignment_model.dart';
 import '../../../core/theme/app_colors.dart';
@@ -37,14 +38,16 @@ class _AssignmentsScreenState extends State<AssignmentsScreen> {
           provider.submittedAssignments,
           provider.gradedAssignments,
         ];
-        return Column(
-          children: [
-            const SizedBox(height: 8),
-            _StatSummaryRow(
-              activeCount: provider.activeAssignments.length,
-              submittedCount: provider.submittedAssignments.length,
-              gradedCount: provider.gradedAssignments.length,
-            ),
+        return Container(
+          color: const Color(0xFFF8F9FA),
+          child: Column(
+            children: [
+              const SizedBox(height: 8),
+              _StatSummaryRow(
+                activeCount: provider.activeAssignments.length,
+                submittedCount: provider.submittedAssignments.length,
+                gradedCount: provider.gradedAssignments.length,
+              ),
             const SizedBox(height: 16),
             // ── Segmented Control ──
             Padding(
@@ -72,10 +75,11 @@ class _AssignmentsScreenState extends State<AssignmentsScreen> {
               ),
             ),
           ],
-        );
-      },
-    );
-  }
+        ),
+      );
+    },
+  );
+}
 }
 
 // ═══════════════════════════════════════════════════════════════════
@@ -99,15 +103,18 @@ class _PillSegmentedControl extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: isDark
-            ? Colors.white.withValues(alpha: 0.06)
-            : AppColors.lightBackground,
-        borderRadius: BorderRadius.circular(14),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: isDark
-              ? Colors.white.withValues(alpha: 0.08)
-              : Colors.black.withValues(alpha: 0.04),
+          color: const Color(0xFFE2E8F0),
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.03),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Row(
         children: List.generate(labels.length, (i) {
@@ -315,12 +322,10 @@ class _AssignmentCard extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: isDark ? AppColors.darkSurface : Colors.white,
-        borderRadius: BorderRadius.circular(22),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
         border: Border.all(
-          color: isDark
-              ? Colors.white.withValues(alpha: 0.06)
-              : Colors.black.withValues(alpha: 0.04),
+          color: const Color(0xFFE2E8F0),
         ),
         boxShadow: [
           BoxShadow(
@@ -368,8 +373,11 @@ class _AssignmentCard extends StatelessWidget {
                             children: [
                               Text(
                                 assignment.title,
-                                style: AppTextStyles.titleLarge.copyWith(
-                                  fontWeight: FontWeight.w700,
+                                style: const TextStyle(
+                                  color: Color(0xFF0F172A),
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 18,
+                                  height: 1.2,
                                 ),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -496,7 +504,21 @@ class _AssignmentCard extends StatelessWidget {
                       const SizedBox(height: 14),
                       _GradientSubmitButton(
                         label: AppStrings.submitAssignment,
-                        onPressed: () => HapticService.medium(),
+                        onPressed: () {
+                          HapticService.medium();
+                          context.push('/student/assignments/${assignment.id}/submit');
+                        },
+                      ),
+                    ],
+                    // Also allow viewing graded assignments
+                    if (assignment.status == AssignmentStatus.graded || assignment.status == AssignmentStatus.submitted) ...[
+                      const SizedBox(height: 14),
+                      _GradientSubmitButton(
+                        label: 'Nəticəyə Bax',
+                        onPressed: () {
+                          HapticService.medium();
+                          context.push('/student/assignments/${assignment.id}/submit');
+                        },
                       ),
                     ],
                   ],
@@ -665,11 +687,11 @@ class _GradientSubmitButtonState extends State<_GradientSubmitButton> {
             width: double.infinity,
             padding: const EdgeInsets.symmetric(vertical: 14),
             decoration: BoxDecoration(
-              gradient: AppColors.primaryGradient,
+              color: const Color(0xFF0F172A),
               borderRadius: BorderRadius.circular(14),
               boxShadow: [
                 BoxShadow(
-                  color: AppColors.primary.withValues(alpha: 0.25),
+                  color: const Color(0xFF0F172A).withOpacity(0.2),
                   blurRadius: 12,
                   offset: const Offset(0, 4),
                 ),

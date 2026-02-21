@@ -67,72 +67,64 @@ class _NewsCarouselState extends State<NewsCarousel> {
       children: [
         SizedBox(
           height: 160,
-          child: ScrollConfiguration(
-            behavior: ScrollConfiguration.of(context).copyWith(
-              dragDevices: {
-                PointerDeviceKind.touch,
-                PointerDeviceKind.mouse,
-                PointerDeviceKind.trackpad,
-              },
-            ),
-            child: PageView.builder(
-              controller: _pageController,
-              onPageChanged: (int page) {
-                setState(() {
-                  _currentPage = page;
-                });
-              },
-              itemCount: _news.length,
-              itemBuilder: (context, index) {
-                final item = _news[index];
-                return Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    image: DecorationImage(
-                      image: NetworkImage(item['image']!),
-                      fit: BoxFit.cover,
-                      colorFilter: ColorFilter.mode(
-                        Colors.black.withValues(alpha: 0.45),
-                        BlendMode.darken,
-                      ),
+          child: PageView.builder(
+            controller: _pageController,
+            onPageChanged: (int page) {
+              setState(() {
+                _currentPage = page;
+              });
+            },
+            itemCount: _news.length,
+            itemBuilder: (context, index) {
+              final item = _news[index];
+              return Container(
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  image: DecorationImage(
+                    image: NetworkImage(item['image']!),
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                      Colors.black.withValues(alpha: 0.45),
+                      BlendMode.darken,
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.1),
-                        blurRadius: 10,
-                        offset: const Offset(0, 4),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.1),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        item['title']!,
+                        style: AppTextStyles.headlineSmall.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        item['subtitle']!,
+                        style: AppTextStyles.bodySmall.copyWith(
+                          color: Colors.white.withValues(alpha: 0.9),
+                        ),
                       ),
                     ],
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          item['title']!,
-                          style: AppTextStyles.headlineSmall.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          item['subtitle']!,
-                          style: AppTextStyles.bodySmall.copyWith(
-                            color: Colors.white.withValues(alpha: 0.9),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
         ),
+        const SizedBox(height: 8),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(

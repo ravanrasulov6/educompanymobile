@@ -25,6 +25,7 @@ class _TeacherShellState extends State<TeacherShell> {
     '/teacher/analytics',
     '/teacher/create-assignment',
     '/teacher/create-exam',
+    '/teacher/qa-inbox',
   ];
 
   void _onDestinationSelected(int index) {
@@ -58,6 +59,7 @@ class _TeacherShellState extends State<TeacherShell> {
           {'icon': Icons.analytics_rounded, 'label': AppStrings.navAnalytics},
           {'icon': Icons.add_task_rounded, 'label': AppStrings.assignments},
           {'icon': Icons.quiz_rounded, 'label': AppStrings.exams},
+          {'icon': Icons.inbox_rounded, 'label': 'Sual Qutusu'},
         ],
       ),
       appBar: AppBar(
@@ -130,6 +132,11 @@ class _TeacherShellState extends State<TeacherShell> {
                 selectedIcon: Icon(Icons.quiz_rounded),
                 label: AppStrings.exams,
               ),
+              NavigationDestination(
+                icon: Icon(Icons.inbox_rounded),
+                selectedIcon: Icon(Icons.inbox_rounded),
+                label: 'Sual Qutusu',
+              ),
             ],
           ),
         ],
@@ -143,6 +150,7 @@ class _TeacherShellState extends State<TeacherShell> {
       case 1: return AppStrings.navAnalytics;
       case 2: return AppStrings.createAssignment;
       case 3: return AppStrings.createExam;
+      case 4: return 'Sual Qutusu';
       default: return AppStrings.appName;
     }
   }

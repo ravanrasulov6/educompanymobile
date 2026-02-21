@@ -12,6 +12,14 @@ import 'providers/course_provider.dart';
 import 'providers/assignment_provider.dart';
 import 'providers/exam_provider.dart';
 import 'providers/schedule_provider.dart';
+import 'providers/teacher_course_provider.dart';
+import 'providers/qa_provider.dart';
+import 'providers/faq_provider.dart';
+import 'providers/resource_provider.dart';
+import 'providers/lesson_schedule_provider.dart';
+import 'providers/student_provider.dart';
+import 'providers/chat_provider.dart';
+import 'providers/streak_provider.dart';
 import 'router/app_router.dart';
 
 void main() async {
@@ -39,6 +47,14 @@ class EduCompanyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AssignmentProvider()),
         ChangeNotifierProvider(create: (_) => ExamProvider()),
         ChangeNotifierProvider(create: (_) => ScheduleProvider()),
+        ChangeNotifierProvider(create: (_) => TeacherCourseProvider()),
+        ChangeNotifierProvider(create: (_) => QAProvider()),
+        ChangeNotifierProvider(create: (_) => FaqProvider()),
+        ChangeNotifierProvider(create: (_) => ResourceProvider()),
+        ChangeNotifierProvider(create: (_) => LessonScheduleProvider()),
+        ChangeNotifierProvider(create: (_) => StudentProvider()),
+        ChangeNotifierProvider(create: (_) => ChatProvider()),
+        ChangeNotifierProvider(create: (_) => StreakProvider()),
       ],
       child: const _AppContent(),
     );
@@ -76,7 +92,8 @@ class _AppContentState extends State<_AppContent> {
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
         darkTheme: AppTheme.dark,
-        themeMode: themeProvider.themeMode,
+        themeMode: ThemeMode.light,
+        scrollBehavior: AppScrollBehavior(),
         home: const SplashScreen(),
       );
     }
@@ -87,8 +104,9 @@ class _AppContentState extends State<_AppContent> {
 
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
-      themeMode: themeProvider.themeMode,
+      themeMode: ThemeMode.light,
       routerConfig: _appRouter.router,
+      scrollBehavior: AppScrollBehavior(),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

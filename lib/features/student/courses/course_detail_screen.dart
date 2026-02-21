@@ -10,6 +10,8 @@ import '../../../core/widgets/premium_button.dart';
 import '../../../core/services/haptic_service.dart';
 import '../../../models/course_model.dart';
 import '../../../core/constants/app_strings.dart';
+import 'widgets/acquiring_premium_button.dart';
+import 'widgets/insufficient_balance_sheet.dart';
 
 /// Course detail screen with sections and lessons
 class CourseDetailScreen extends StatelessWidget {
@@ -207,58 +209,55 @@ class CourseDetailScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 12),
-                  ElevatedButton(
-                    onPressed: isEnrolled 
-                      ? () {
-                          HapticService.medium();
-                          // Navigate to first lesson or player
-                        }
-                      : () async {
-                          if (isGuest) {
-                            context.push('/login');
-                            return;
-                          }
-                          
-                          HapticService.heavy();
-                          if (course.price == 0) {
-                            final success = await provider.enrollInCourse(course.id);
-                            if (success && context.mounted) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Row(
-                                    children: [
-                                      const Icon(Icons.check_circle_rounded, color: Colors.white),
-                                      const SizedBox(width: 12),
-                                      const Text('Təbriklər! Kursa uğurla abunə oldunuz.'),
-                                    ],
-                                  ),
-                                  backgroundColor: AppColors.success,
-                                  behavior: SnackBarBehavior.floating,
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                                ),
-                              );
-                                context.go('/student/my-courses');
-                            }
-                          } else {
-                            // Navigate to payment screen
-                            context.push('/payment', extra: course);
-                          }
-                        },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: isEnrolled ? Colors.grey.withOpacity(0.1) : AppColors.primary,
-                      foregroundColor: isEnrolled ? Colors.grey : Colors.white,
-                      padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 14),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
+                  if (isEnrolled)
+                    ElevatedButton(
+                      onPressed: () {
+                        HapticService.medium();
+                        // Navigate to Course Workspace
+                        context.push('/student/courses/${course.id}/workspace', extra: course.sections.first.lessons.first.id);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey.withOpacity(0.1),
+                        foregroundColor: Colors.grey,
+                        padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        elevation: 0,
                       ),
-                      elevation: isEnrolled ? 0 : 8,
-                      shadowColor: AppColors.primary.withOpacity(0.4),
+                      child: const Text('Artıq Alınıb', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 13, letterSpacing: 0.5)),
+                    )
+                  else
+                    AcquiringPremiumButton(
+                      label: course.price == 0 ? 'İndi qatıl' : 'Abunə ol',
+                      onPurchase: () async {
+                        if (isGuest) {
+                          context.push('/login');
+                          return false; // Not successful yet
+                        }
+
+                        // Simulate API latency & balance check
+                        await Future.delayed(const Duration(milliseconds: 1500));
+                        
+                        final user = context.read<AuthProvider>().user;
+                        if (user != null && course.price > 0) {
+                          double balance = user.balance ?? 0.0;
+                          if (balance < course.price) {
+                            if (context.mounted) {
+                              InsufficientBalanceSheet.show(context, requiredAmount: course.price, currentBalance: balance);
+                            }
+                            return false; // Error/Insufficient
+                          }
+                        }
+
+                        return await provider.enrollInCourse(course.id);
+                      },
+                      onSuccess: () {
+                        if (context.mounted) {
+                           context.go('/student/my-courses');
+                        }
+                      },
                     ),
-                    child: Text(
-                      isEnrolled ? 'Artıq Alınıb' : (course.price == 0 ? 'İndi qatıl' : 'Abunə ol'), 
-                      style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 13, letterSpacing: 0.5)
-                    ),
-                  ),
                 ],
               ),
             ),

@@ -14,6 +14,8 @@ class CourseModel {
   final bool isDemo;
   final bool isLive;
   final double price;
+  final bool isFree;
+  final String status;
   final List<CourseSection> sections;
 
   const CourseModel({
@@ -31,6 +33,8 @@ class CourseModel {
     this.isDemo = false,
     this.isLive = false,
     this.price = 0.0,
+    this.isFree = true,
+    this.status = 'draft',
     this.sections = const [],
   });
 
@@ -46,11 +50,40 @@ class CourseModel {
       studentsCount: json['students_count'] as int? ?? 0,
       isLive: json['is_live'] as bool? ?? false,
       price: (json['price'] as num?)?.toDouble() ?? 0.0,
+      isFree: json['is_free'] as bool? ?? true,
+      status: json['status'] as String? ?? 'draft',
       sections: (json['course_sections'] as List?)
               ?.map((s) => CourseSection.fromJson(s as Map<String, dynamic>))
               .toList() ??
           const [],
     );
+  }
+
+  double get calculatedProgress {
+    if (sections.isEmpty) return progress;
+    int total = 0;
+    int completed = 0;
+    for (var section in sections) {
+      total += section.lessons.length;
+      completed += section.lessons.where((l) => l.isCompleted).length;
+    }
+    return total == 0 ? 0.0 : completed / total;
+  }
+
+  int get completedLessonsCount {
+    int count = 0;
+    for (var section in sections) {
+      count += section.lessons.where((l) => l.isCompleted).length;
+    }
+    return count;
+  }
+
+  int get totalLessonsCount {
+    int count = 0;
+    for (var section in sections) {
+      count += section.lessons.length;
+    }
+    return count;
   }
 
   /// Demo courses

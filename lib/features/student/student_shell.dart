@@ -118,7 +118,7 @@ class _StudentShellState extends State<StudentShell> {
               onDestinationSelected: _onDestinationSelected,
               items: _drawerItems,
             ),
-      appBar: isSubPage
+      appBar: (isSubPage || GoRouterState.of(context).matchedLocation == '/student/my-courses')
           ? null
           : AppBar(
               leading: GestureDetector(

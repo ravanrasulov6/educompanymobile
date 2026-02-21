@@ -56,6 +56,12 @@ class AppTextStyles {
         height: 1.5,
       );
 
+  static TextStyle get titleSmall => _bodyStyle.copyWith(
+        fontSize: 13,
+        fontWeight: FontWeight.w600,
+        height: 1.4,
+      );
+
   // ── Body ───────────────────────────────────────────────────────
   static TextStyle get bodyLarge => _bodyStyle.copyWith(
         fontSize: 16,
