@@ -70,14 +70,13 @@ class AiQuestionService {
     var query = _sb
         .from('ai_questions')
         .select()
-        .eq('user_id', _userId)
-        .order('created_at', ascending: false);
+        .eq('user_id', _userId);
 
     if (questionType != null) {
       query = query.eq('question_type', questionType);
     }
 
-    final data = await query;
+    final data = await query.order('created_at', ascending: false);
     return List<Map<String, dynamic>>.from(data);
   }
 

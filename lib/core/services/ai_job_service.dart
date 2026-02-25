@@ -30,14 +30,13 @@ class AiJobService {
     var query = _sb
         .from('ai_jobs')
         .select()
-        .eq('user_id', _userId)
-        .order('created_at', ascending: false);
+        .eq('user_id', _userId);
 
     if (jobType != null) {
       query = query.eq('job_type', jobType);
     }
 
-    final data = await query;
+    final data = await query.order('created_at', ascending: false);
     return List<Map<String, dynamic>>.from(data);
   }
 

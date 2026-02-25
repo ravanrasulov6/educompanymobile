@@ -385,7 +385,7 @@ class DocumentProcessingProvider extends ChangeNotifier {
 
     if (jobId != null) {
       _currentJobId = jobId;
-      _startPolling(jobId);
+      _startPollingFallback(jobId);
     }
   }
 

@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:http/http.dart' as http;
 import '../config/openai_config.dart';
+import '../config/supabase_config.dart';
 
 /// Service for AI document upload, processing, and retrieval.
 /// All heavy processing happens server-side via Edge Functions.
@@ -77,13 +79,13 @@ class AiDocumentService {
     final storagePath = '$_userId/${DateTime.now().millisecondsSinceEpoch}_$fileName';
 
     // Supabase Storage TUS endpoint
-    final supabaseUrl = _sb.supabaseUrl;
-    final anonKey = _sb.supabaseKey;
+    final supabaseUrl = SupabaseConfig.url;
+    final anonKey = SupabaseConfig.anonKey;
     final accessToken = _sb.auth.currentSession?.accessToken ?? anonKey;
     final tusUrl = '$supabaseUrl/storage/v1/upload/resumable';
 
     // Step 1: Create upload (POST with Upload-Length)
-    final createResp = await _sb.httpClient.post(
+    final createResp = await http.post(
       Uri.parse(tusUrl),
       headers: {
         'Tus-Resumable': '1.0.0',
@@ -113,7 +115,7 @@ class AiDocumentService {
       final end = (offset + chunkSize).clamp(0, bytes.length);
       final chunk = bytes.sublist(offset, end);
 
-      final patchResp = await _sb.httpClient.patch(
+      final patchResp = await http.patch(
         Uri.parse(uploadUrl),
         headers: {
           'Tus-Resumable': '1.0.0',
@@ -206,16 +208,19 @@ class AiDocumentService {
     var query = _sb
         .from('ai_document_pages')
         .select()
-        .eq('document_id', documentId)
-        .order('page_no');
+        .eq('document_id', documentId);
 
     if (pageNo != null) {
       query = query.eq('page_no', pageNo);
-    } else {
-      query = query.range(offset, offset + limit - 1);
+    } 
+
+    var transform = query.order('page_no');
+    
+    if (pageNo == null) {
+      transform = transform.range(offset, offset + limit - 1);
     }
 
-    final data = await query;
+    final data = await transform;
     return List<Map<String, dynamic>>.from(data);
   }
 
