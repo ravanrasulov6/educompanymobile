@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import '../config/env_keys.dart';
 
 /// AI service — all calls routed through Supabase Edge Functions.
 /// NO direct AI provider calls from Flutter. API keys are server-side only.
@@ -21,6 +22,7 @@ class OpenAIService {
         final response = await _supabase.functions.invoke(
           functionName,
           body: body,
+          headers: EnvKeys.headers,
         );
 
         if (response.status == 200) {

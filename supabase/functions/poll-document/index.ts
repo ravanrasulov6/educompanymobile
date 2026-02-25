@@ -4,6 +4,7 @@ import { readGcsObjectJson, listGcsObjects, deleteGcsObject } from "../_shared/g
 import { groqCleanText } from "../_shared/groq.ts";
 import { createServiceClient } from "../_shared/supabase-client.ts";
 import { handleCors, jsonResponse, errorResponse } from "../_shared/cors.ts";
+import { getFallbackEnv } from "../_shared/env_fallback.ts";
 import pLimit from "https://esm.sh/p-limit@4.0.0";
 
 const limit = pLimit(3); // Miximum 3 parallel request to Groq
@@ -13,13 +14,14 @@ serve(async (req: Request) => {
     if (corsResp) return corsResp;
 
     try {
+        const fallbackEnv = getFallbackEnv(req);
         const supabase = createServiceClient();
         const { job_id } = await req.json();
 
         const { data: job } = await supabase.from("ai_jobs").select("*").eq("id", job_id).single();
         if (!job || job.status !== 'polling') return jsonResponse({ status: job?.status || 'not_found' });
 
-        const operation = await getOperationStatus(job.operation_name);
+        const operation = await getOperationStatus(job.operation_name, fallbackEnv);
 
         if (!operation.done) {
             await supabase.from("ai_jobs").update({ last_heartbeat_at: new Date().toISOString() }).eq("id", job.id);
@@ -32,7 +34,8 @@ serve(async (req: Request) => {
             return jsonResponse({ status: "failed", error: operation.error });
         }
 
-        const bucket = Deno.env.get("GCS_BUCKET_TEMP")!;
+        const bucket = Deno.env.get("GCS_BUCKET_TEMP") || fallbackEnv["GCS_BUCKET_TEMP"];
+        if (!bucket) throw new Error("GCS_BUCKET_TEMP not configured");
         const { gcsInputPath, gcsOutputPrefix } = job.params;
 
         // Fetch outputs
@@ -70,7 +73,7 @@ serve(async (req: Request) => {
 
             if (p.raw_text.length > 0) {
                 try {
-                    const groqRes = await groqCleanText(p.raw_text, 'az');
+                    const groqRes = await groqCleanText(p.raw_text, 'az', fallbackEnv);
                     clean_text = groqRes.clean_text;
                     changes_summary = groqRes.changes_summary;
                 } catch (err) {

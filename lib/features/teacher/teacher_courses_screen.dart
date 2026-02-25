@@ -72,6 +72,15 @@ class _TeacherCoursesScreenState extends State<TeacherCoursesScreen> {
                       onTap: () => context.push('/teacher/create-course'),
                     ),
                   ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _buildActionButton(
+                      icon: Icons.document_scanner,
+                      label: 'AI Sənədlər',
+                      color: AppColors.secondary,
+                      onTap: () => context.push('/teacher/ai-hub'),
+                    ),
+                  ),
                 ],
               ),
             ),

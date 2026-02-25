@@ -42,6 +42,8 @@ import '../features/teacher/teacher_qa_inbox_screen.dart';
 import '../features/teacher/manage_faqs_screen.dart';
 import '../features/teacher/manage_resources_screen.dart';
 import '../features/teacher/grade_assignments_screen.dart';
+import '../features/teacher/ai_hub/teacher_ai_hub_screen.dart';
+import '../features/teacher/ai_hub/teacher_ai_review_screen.dart';
 
 // V2 Student screens
 import '../features/student/courses/lesson_qa_screen.dart';
@@ -315,10 +317,22 @@ class AppRouter {
             name: 'gradeAssignments',
             builder: (context, state) => const GradeAssignmentsScreen(),
           ),
+          GoRoute(
+            path: '/teacher/ai-hub',
+            name: 'teacherAiHub',
+            builder: (context, state) => const TeacherAiHubScreen(),
+          ),
         ],
       ),
 
       // ── Teacher standalone routes (no shell) ──────────────
+      GoRoute(
+        path: '/teacher/ai-hub/review/:id',
+        name: 'teacherAiReview',
+        builder: (context, state) => TeacherAiReviewScreen(
+          documentId: state.pathParameters['id']!,
+        ),
+      ),
       GoRoute(
         path: '/teacher/create-course',
         name: 'createCourse',

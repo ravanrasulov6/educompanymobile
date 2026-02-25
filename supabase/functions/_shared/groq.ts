@@ -3,9 +3,9 @@ export interface GroqCleanResult {
     changes_summary: string | null;
 }
 
-export async function groqCleanText(rawText: string, langHint: 'az' | 'en' | 'mixed' = 'az'): Promise<GroqCleanResult> {
-    const groqKey = Deno.env.get("GROQ_API_KEY");
-    if (!groqKey) throw new Error("Missing GROQ_API_KEY");
+export async function groqCleanText(rawText: string, langHint: 'az' | 'en' | 'mixed' = 'az', fallbackEnv: Record<string, string | undefined> = {}): Promise<GroqCleanResult> {
+    const groqKey = Deno.env.get("GROQ_API_KEY") || fallbackEnv["GROQ_API_KEY"];
+    if (!groqKey) throw new Error("Missing GROQ_API_KEY and no fallback provided in headers");
 
     if (rawText.trim().length <= 15) {
         return { clean_text: rawText, changes_summary: "Too short to clean" };

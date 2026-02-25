@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../theme/app_colors.dart';
 import '../services/haptic_service.dart';
 
@@ -110,6 +111,16 @@ class _PremiumExpandingFabState extends State<PremiumExpandingFab>
             onPressed: () {
               _toggle();
               HapticService.medium();
+              if (i == 0) {
+                // AI Köməkçi - go to AI Tools Hub
+                context.push('/student/ai-tools');
+              } else if (i == 1) {
+                // Dəstək
+                // context.push('/student/support');
+              } else if (i == 2) {
+                // Qeydlər
+                // context.push('/student/notes');
+              }
             },
           ),
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import '../config/env_keys.dart';
 
 /// Service for document/transcript/question export (PDF/DOCX).
 class AiExportService {
@@ -25,6 +26,7 @@ class AiExportService {
           'format': format,
           'include_questions': includeQuestions,
         },
+        headers: EnvKeys.headers,
       );
 
       if (response.status == 200 && response.data != null) {
@@ -72,6 +74,7 @@ class AiExportService {
           'document_id': documentId,
           'transcript_id': transcriptId,
         },
+        headers: EnvKeys.headers,
       );
 
       if (response.status == 200 && response.data != null) {

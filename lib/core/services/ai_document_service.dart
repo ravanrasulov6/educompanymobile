@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:http/http.dart' as http;
 import '../config/openai_config.dart';
+import '../config/env_keys.dart';
 import '../config/supabase_config.dart';
 
 /// Service for AI document upload, processing, and retrieval.
@@ -159,6 +160,7 @@ class AiDocumentService {
       final response = await _sb.functions.invoke(
         AiConfig.processDocumentFn,
         body: {'document_id': documentId},
+        headers: EnvKeys.headers,
       );
 
       if (response.status == 200 && response.data != null) {

@@ -5,6 +5,7 @@ import { tryExtractNativePdfText } from "../_shared/pdf_text.ts";
 import { createLockOrThrow, hashText } from "../_shared/jobs.ts";
 import { createServiceClient, getUserId } from "../_shared/supabase-client.ts";
 import { handleCors, jsonResponse, errorResponse } from "../_shared/cors.ts";
+import { getFallbackEnv } from "../_shared/env_fallback.ts";
 
 const CHUNK_TOKEN_LIMIT = 2000;
 
@@ -16,6 +17,7 @@ serve(async (req: Request) => {
         const userId = await getUserId(req);
         if (!userId) return errorResponse("Unauthorized", 401);
 
+        const fallbackEnv = getFallbackEnv(req);
         const { document_id } = await req.json();
         const supabase = createServiceClient();
 
@@ -58,7 +60,8 @@ serve(async (req: Request) => {
             const fileRes = await fetch(tempUrlData.signedUrl);
             if (!fileRes.ok || !fileRes.body) throw new Error("Supabase Storage fetch body failed");
 
-            const bucket = Deno.env.get("GCS_BUCKET_TEMP")!;
+            const bucket = Deno.env.get("GCS_BUCKET_TEMP") || fallbackEnv["GCS_BUCKET_TEMP"];
+            if (!bucket) throw new Error("GCS_BUCKET_TEMP not configured");
             const timestamp = Date.now();
             const gcsInputPath = `inputs/${doc.user_id}/${doc.id}/${timestamp}.pdf`;
             const gcsOutputPrefix = `outputs/${doc.user_id}/${doc.id}/${timestamp}/`;
@@ -67,7 +70,7 @@ serve(async (req: Request) => {
             await uploadToGcs(bucket, gcsInputPath, fileRes.body, doc.mime_type);
 
             // Document AI Batch LRO
-            const operation = await batchProcessDocument(`gs://${bucket}/${gcsInputPath}`, `gs://${bucket}/${gcsOutputPrefix}`);
+            const operation = await batchProcessDocument(`gs://${bucket}/${gcsInputPath}`, `gs://${bucket}/${gcsOutputPrefix}`, fallbackEnv);
 
             // Return 'polling' status to client
             await supabase.from("ai_jobs").update({
@@ -84,7 +87,7 @@ serve(async (req: Request) => {
             const arrayBuffer = await fileRes.arrayBuffer(); // Ok as size <= 20MB
             const base64 = btoa(String.fromCharCode.apply(null, Array.from(new Uint8Array(arrayBuffer))));
 
-            const docaiResp = await processDocumentSync(base64, doc.mime_type);
+            const docaiResp = await processDocumentSync(base64, doc.mime_type, fallbackEnv);
             const text = docaiResp.document?.text || "(Boş)";
 
             await supabase.from("ai_document_pages").insert({

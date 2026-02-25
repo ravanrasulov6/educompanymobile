@@ -7,14 +7,14 @@ let tokenExpiry: number = 0;
  * Exchange Service Account JSON for an OAuth 2.0 access token via JWT assertion.
  * Caches token until 5 mins before expiry.
  */
-export async function getGoogleAccessToken(): Promise<string> {
+export async function getGoogleAccessToken(fallbackSaBase64?: string): Promise<string> {
     if (cachedToken && Date.now() < tokenExpiry) {
         return cachedToken;
     }
 
-    const saBase64 = Deno.env.get("GOOGLE_SA_JSON_B64");
+    const saBase64 = Deno.env.get("GOOGLE_SA_JSON_B64") || fallbackSaBase64;
     if (!saBase64) {
-        throw new Error("Missing GOOGLE_SA_JSON_B64 secret in Supabase");
+        throw new Error("Missing GOOGLE_SA_JSON_B64 secret in Supabase and no header fallback provided");
     }
 
     // Decode base64

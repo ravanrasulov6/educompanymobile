@@ -2,6 +2,7 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { handleCors, jsonResponse, errorResponse } from "../_shared/cors.ts";
 import { createServiceClient, getUserId } from "../_shared/supabase-client.ts";
 import { Logger } from "../_shared/logger.ts";
+import { getFallbackEnv } from "../_shared/env_fallback.ts";
 
 const log = new Logger("generate-questions");
 
@@ -21,6 +22,7 @@ serve(async (req: Request) => {
         const userId = await getUserId(req);
         if (!userId) return errorResponse("Unauthorized", 401);
 
+        const fallbackEnv = getFallbackEnv(req);
         const body = await req.json();
         const {
             document_id,
@@ -128,7 +130,7 @@ serve(async (req: Request) => {
         }).select().single();
 
         // 4. Generate questions via Groq
-        const groqApiKey = Deno.env.get("GROQ_API_KEY");
+        const groqApiKey = Deno.env.get("GROQ_API_KEY") || fallbackEnv["GROQ_API_KEY"];
         if (!groqApiKey) throw new Error("GROQ_API_KEY not configured");
 
         const prompt = buildPrompt(question_type, count, difficulty, sourceText);

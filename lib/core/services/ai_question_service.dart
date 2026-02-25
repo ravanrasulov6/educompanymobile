@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import '../config/env_keys.dart';
 
 /// Service for AI question generation and retrieval.
 class AiQuestionService {
@@ -31,6 +32,7 @@ class AiQuestionService {
           'page_start': pageStart,
           'page_end': pageEnd,
         },
+        headers: EnvKeys.headers,
       );
 
       if (response.status == 200 && response.data != null) {

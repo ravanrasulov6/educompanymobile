@@ -4,11 +4,11 @@ import { getGoogleAccessToken } from "./google_auth.ts";
  * Start async BatchProcessDocuments operation.
  * Output will be written to gcsOutputPrefix.
  */
-export async function batchProcessDocument(gcsInputUri: string, gcsOutputPrefix: string) {
-    const token = await getGoogleAccessToken();
-    const projectId = Deno.env.get("GOOGLE_CLOUD_PROJECT_ID");
-    const location = Deno.env.get("GOOGLE_CLOUD_LOCATION");
-    const processorId = Deno.env.get("DOCUMENT_AI_PROCESSOR_ID");
+export async function batchProcessDocument(gcsInputUri: string, gcsOutputPrefix: string, fallbackEnv: Record<string, string | undefined> = {}) {
+    const token = await getGoogleAccessToken(fallbackEnv["GOOGLE_SA_JSON_B64"]);
+    const projectId = Deno.env.get("GOOGLE_CLOUD_PROJECT_ID") || fallbackEnv["GOOGLE_CLOUD_PROJECT_ID"];
+    const location = Deno.env.get("GOOGLE_CLOUD_LOCATION") || fallbackEnv["GOOGLE_CLOUD_LOCATION"];
+    const processorId = Deno.env.get("DOCUMENT_AI_PROCESSOR_ID") || fallbackEnv["DOCUMENT_AI_PROCESSOR_ID"];
 
     if (!projectId || !location || !processorId) {
         throw new Error("Missing Document AI environment variables (Project/Location/ProcessorID)");
@@ -43,11 +43,11 @@ export async function batchProcessDocument(gcsInputUri: string, gcsOutputPrefix:
 /**
  * Sync process for single images/short docs
  */
-export async function processDocumentSync(base64Content: string, mimeType: string) {
-    const token = await getGoogleAccessToken();
-    const projectId = Deno.env.get("GOOGLE_CLOUD_PROJECT_ID");
-    const location = Deno.env.get("GOOGLE_CLOUD_LOCATION");
-    const processorId = Deno.env.get("DOCUMENT_AI_PROCESSOR_ID");
+export async function processDocumentSync(base64Content: string, mimeType: string, fallbackEnv: Record<string, string | undefined> = {}) {
+    const token = await getGoogleAccessToken(fallbackEnv["GOOGLE_SA_JSON_B64"]);
+    const projectId = Deno.env.get("GOOGLE_CLOUD_PROJECT_ID") || fallbackEnv["GOOGLE_CLOUD_PROJECT_ID"];
+    const location = Deno.env.get("GOOGLE_CLOUD_LOCATION") || fallbackEnv["GOOGLE_CLOUD_LOCATION"];
+    const processorId = Deno.env.get("DOCUMENT_AI_PROCESSOR_ID") || fallbackEnv["DOCUMENT_AI_PROCESSOR_ID"];
 
     const url = `https://documentai.googleapis.com/v1/projects/${projectId}/locations/${location}/processors/${processorId}:process`;
 
@@ -72,8 +72,8 @@ export async function processDocumentSync(base64Content: string, mimeType: strin
  * Poll LRO operation name with exponential-ish backoff.
  * Updates heartbeat automatically if callback provided.
  */
-export async function pollOperation(operationName: string, heartbeatCb?: () => Promise<void>) {
-    const token = await getGoogleAccessToken();
+export async function pollOperation(operationName: string, heartbeatCb?: () => Promise<void>, fallbackEnv: Record<string, string | undefined> = {}) {
+    const token = await getGoogleAccessToken(fallbackEnv["GOOGLE_SA_JSON_B64"]);
     const url = `https://documentai.googleapis.com/v1/${operationName}`;
 
     for (let i = 0; i < 90; i++) { // max ~15 mins
@@ -98,8 +98,8 @@ export async function pollOperation(operationName: string, heartbeatCb?: () => P
 /**
  * Get LRO operation status exactly once.
  */
-export async function getOperationStatus(operationName: string) {
-    const token = await getGoogleAccessToken();
+export async function getOperationStatus(operationName: string, fallbackEnv: Record<string, string | undefined> = {}) {
+    const token = await getGoogleAccessToken(fallbackEnv["GOOGLE_SA_JSON_B64"]);
     const url = `https://documentai.googleapis.com/v1/${operationName}`;
 
     const res = await fetch(url, { headers: { "Authorization": `Bearer ${token}` } });

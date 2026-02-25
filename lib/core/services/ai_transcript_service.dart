@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import '../config/env_keys.dart';
 
 /// Service for audio upload, recording management, and transcript retrieval.
 class AiTranscriptService {
@@ -58,6 +59,7 @@ class AiTranscriptService {
       final response = await _sb.functions.invoke(
         'speech-to-text',
         body: {'transcript_id': transcriptId},
+        headers: EnvKeys.headers,
       );
 
       if (response.status == 200 && response.data != null) {
