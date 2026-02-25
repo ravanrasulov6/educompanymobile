@@ -53,6 +53,10 @@ import 'package:educompany_mobile/features/student/courses/assignment_submission
 import 'package:educompany_mobile/features/student/chat/inbox_screen.dart';
 import 'package:educompany_mobile/features/student/chat/chat_view_screen.dart';
 import 'package:educompany_mobile/features/student/courses/activity_history_screen.dart';
+import 'package:educompany_mobile/features/student/ai_tools/ai_tools_hub_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:educompany_mobile/providers/document_processing_provider.dart';
+import 'package:educompany_mobile/providers/transcript_provider.dart';
 
 /// App router configuration with role-based navigation
 class AppRouter {
@@ -246,6 +250,33 @@ class AppRouter {
             path: '/student/activity-history',
             name: 'activityHistory',
             builder: (context, state) => const ActivityHistoryScreen(),
+          ),
+
+          // ── AI Tools ───────────────────────────────────────
+          GoRoute(
+            path: '/student/ai-tools',
+            name: 'aiTools',
+            builder: (context, state) => const AiToolsHubScreen(),
+          ),
+          GoRoute(
+            path: '/student/ai-tools/document/:id',
+            name: 'aiDocumentResult',
+            builder: (context, state) => ChangeNotifierProvider(
+              create: (_) => DocumentProcessingProvider(),
+              child: DocumentResultScreen(
+                documentId: state.pathParameters['id']!,
+              ),
+            ),
+          ),
+          GoRoute(
+            path: '/student/ai-tools/transcript/:id',
+            name: 'aiTranscriptResult',
+            builder: (context, state) => ChangeNotifierProvider(
+              create: (_) => TranscriptProvider(),
+              child: TranscriptResultScreen(
+                transcriptId: state.pathParameters['id']!,
+              ),
+            ),
           ),
         ],
       ),

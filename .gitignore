@@ -43,3 +43,12 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# ── Security: Never commit secrets or API keys ──
+**/config/secrets*.dart
+**/config/*_secret*.dart
+.env
+.env.*
+*.env
+supabase/.env
+supabase/.env.local

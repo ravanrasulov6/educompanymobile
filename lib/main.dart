@@ -20,6 +20,8 @@ import 'providers/lesson_schedule_provider.dart';
 import 'providers/student_provider.dart';
 import 'providers/chat_provider.dart';
 import 'providers/streak_provider.dart';
+import 'providers/document_processing_provider.dart';
+import 'providers/transcript_provider.dart';
 import 'router/app_router.dart';
 
 void main() async {
@@ -55,6 +57,8 @@ class EduCompanyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => StudentProvider()),
         ChangeNotifierProvider(create: (_) => ChatProvider()),
         ChangeNotifierProvider(create: (_) => StreakProvider()),
+        ChangeNotifierProvider(create: (_) => DocumentProcessingProvider()),
+        ChangeNotifierProvider(create: (_) => TranscriptProvider()),
       ],
       child: const _AppContent(),
     );

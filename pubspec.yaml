@@ -31,6 +31,9 @@ dependencies:
   mime: ^1.0.5
   flutter_markdown: ^0.7.4
   syncfusion_flutter_pdf: ^32.2.5
+  # camera: ^0.10.5+9
+  image: ^4.1.4
+  pdf: ^3.11.0
 
 dev_dependencies:
   flutter_test:

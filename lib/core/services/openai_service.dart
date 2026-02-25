@@ -1,81 +1,46 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import '../config/openai_config.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-/// AI service using Groq API (OpenAI-compatible format)
-/// Used for FAQ generation, student Q&A, and course descriptions
+/// AI service — all calls routed through Supabase Edge Functions.
+/// NO direct AI provider calls from Flutter. API keys are server-side only.
 class OpenAIService {
   OpenAIService._();
   static final OpenAIService instance = OpenAIService._();
 
-  /// Groq API URL — use CORS proxy on web
-  String get _apiUrl {
-    if (kIsWeb) {
-      return 'https://corsproxy.io/?${Uri.encodeComponent(GeminiConfig.chatUrl)}';
-    }
-    return GeminiConfig.chatUrl;
-  }
+  SupabaseClient get _supabase => Supabase.instance.client;
 
-  /// Call Groq API (OpenAI-compatible)
-  Future<String?> _callAI({
-    required String systemPrompt,
-    required String userPrompt,
-    String? base64Image,
-    String? imageMime,
-    int maxTokens = 1000,
-    double temperature = 0.7,
+  /// Generic Edge Function caller with retry
+  Future<Map<String, dynamic>?> _callEdgeFunction({
+    required String functionName,
+    required Map<String, dynamic> body,
+    int maxRetries = 2,
   }) async {
-    const maxRetries = 2;
-
-    String finalModel = base64Image != null ? 'llama-3.2-90b-vision-preview' : GeminiConfig.model;
-
-    dynamic userContent;
-    if (base64Image != null) {
-      userContent = [
-        {'type': 'text', 'text': userPrompt},
-        {
-          'type': 'image_url',
-          'image_url': {'url': 'data:$imageMime;base64,$base64Image'}
-        }
-      ];
-    } else {
-      userContent = userPrompt;
-    }
-
     for (int attempt = 0; attempt < maxRetries; attempt++) {
       try {
-        final response = await http.post(
-          Uri.parse(_apiUrl),
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ${GeminiConfig.apiKey}',
-          },
-          body: jsonEncode({
-            'model': finalModel,
-            'messages': [
-              {'role': 'system', 'content': systemPrompt},
-              {'role': 'user', 'content': userContent},
-            ],
-            'max_tokens': maxTokens,
-            'temperature': temperature,
-          }),
+        final response = await _supabase.functions.invoke(
+          functionName,
+          body: body,
         );
 
-        if (response.statusCode == 200) {
-          final data = jsonDecode(response.body);
-          return data['choices'][0]['message']['content'] as String;
-        } else if (response.statusCode == 429) {
-          debugPrint('Groq rate limited (attempt ${attempt + 1})');
+        if (response.status == 200) {
+          if (response.data is Map<String, dynamic>) {
+            return response.data as Map<String, dynamic>;
+          }
+          if (response.data is String) {
+            return jsonDecode(response.data as String) as Map<String, dynamic>;
+          }
+          return {'data': response.data};
+        } else if (response.status == 429) {
+          debugPrint('[$functionName] Rate limited (attempt ${attempt + 1})');
           await Future.delayed(Duration(seconds: (attempt + 1) * 3));
           continue;
         } else {
-          debugPrint('Groq error: ${response.statusCode} ${response.body}');
+          debugPrint('[$functionName] Error: ${response.status}');
           return null;
         }
       } catch (e) {
-        debugPrint('Groq exception: $e');
+        debugPrint('[$functionName] Exception: $e');
         if (attempt < maxRetries - 1) {
           await Future.delayed(const Duration(seconds: 2));
           continue;
@@ -86,28 +51,25 @@ class OpenAIService {
     return null;
   }
 
-  /// Generate FAQs
+  /// Generate FAQs (backward compatible)
   Future<List<Map<String, String>>> generateFaqs({
     required String sectionTitle,
     required List<String> lessonTitles,
     int count = 15,
   }) async {
-    final content = await _callAI(
-      systemPrompt:
-          'Sən təhsil platforması üçün FAQ yaradıcısısan. Yalnız Azərbaycan dilində. Yalnız JSON array qaytar.',
-      userPrompt: '''
-$count ədəd FAQ yarat.
-Bölmə: $sectionTitle
-Dərslər: ${lessonTitles.join(', ')}
-Format: [{"question":"...","answer":"...","category":"general|technical|practical"}]
-''',
-      maxTokens: GeminiConfig.faqMaxTokens,
+    final result = await _callEdgeFunction(
+      functionName: 'ai-chat',
+      body: {
+        'action': 'generate_faqs',
+        'section_title': sectionTitle,
+        'lesson_titles': lessonTitles,
+        'count': count,
+      },
     );
 
-    if (content != null) {
+    if (result != null && result['faqs'] != null) {
       try {
-        final jsonStr = _extractJson(content);
-        final parsed = jsonDecode(jsonStr) as List;
+        final parsed = (result['faqs'] as List);
         return parsed
             .map((item) => <String, String>{
                   'question': item['question'] as String,
@@ -116,53 +78,54 @@ Format: [{"question":"...","answer":"...","category":"general|technical|practica
                 })
             .toList();
       } catch (e) {
-        debugPrint('JSON parse error: $e');
+        debugPrint('FAQ parse error: $e');
       }
     }
     return [];
   }
 
-  /// Answer student question
+  /// Answer student question (backward compatible)
   Future<String> answerQuestion({
     required String lessonTitle,
     required String sectionTitle,
     required String question,
     String? courseTitle,
   }) async {
-    final content = await _callAI(
-      systemPrompt: 'Sən təhsil köməkçisisən. Azərbaycan dilində cavab ver.',
-      userPrompt: '''
-Kurs: ${courseTitle ?? 'Naməlum'}, Bölmə: $sectionTitle, Dərs: $lessonTitle
-Sual: $question
-2-5 cümlə cavab ver.
-''',
-      maxTokens: GeminiConfig.qaMaxTokens,
-      temperature: 0.5,
+    final result = await _callEdgeFunction(
+      functionName: 'ai-chat',
+      body: {
+        'action': 'answer_question',
+        'lesson_title': lessonTitle,
+        'section_title': sectionTitle,
+        'question': question,
+        'course_title': courseTitle,
+      },
     );
-    return content ?? 'Bağışlayın, hazırda cavab verə bilmirəm.';
+
+    return result?['answer'] as String? ??
+        'Bağışlayın, hazırda cavab verə bilmirəm.';
   }
 
-  /// Generate course description
+  /// Generate course description (backward compatible)
   Future<String> generateCourseDescription({
     required String courseTitle,
     String? category,
     List<String>? sectionTitles,
   }) async {
-    final content = await _callAI(
-      systemPrompt:
-          'Sən kurs təsviri yaradıcısısan. Azərbaycan dilində yaz. Yalnız təsviri qaytar.',
-      userPrompt: '''
-Kurs: $courseTitle
-${category != null ? 'Kateqoriya: $category' : ''}
-${sectionTitles != null && sectionTitles.isNotEmpty ? 'Bölmələr: ${sectionTitles.join(", ")}' : ''}
-3-5 cümlə peşəkar təsvir yaz.
-''',
-      maxTokens: 300,
+    final result = await _callEdgeFunction(
+      functionName: 'ai-chat',
+      body: {
+        'action': 'generate_description',
+        'course_title': courseTitle,
+        'category': category,
+        'section_titles': sectionTitles,
+      },
     );
-    return content ?? '';
+
+    return result?['description'] as String? ?? '';
   }
 
-  /// Generate Exam Questions
+  /// Generate Exam Questions (backward compatible)
   Future<List<Map<String, dynamic>>> generateExamQuestions({
     required String topicOrText,
     int count = 5,
@@ -171,87 +134,57 @@ ${sectionTitles != null && sectionTitles.isNotEmpty ? 'Bölmələr: ${sectionTit
     String? base64Image,
     String? imageMime,
   }) async {
-    final typeText = examType != null ? 'İmtahan tipi: $examType.' : '';
-    final penaltyText = penaltyRule != null ? 'Silinmə məntiqi: $penaltyRule.' : '';
-    
-    final content = await _callAI(
-      systemPrompt:
-          'Sən imtahan sualları yaradıcısısan. Verilən mövzu və ya mətnə uyğun suallar yarat. Yalnız Azərbaycan dilində. Sualları tamamilə Markdown formatında (qalın, əyri, qrafik linkləri, tablolar dəstəyi ilə) formalaşdır. Çoxdan seçməli (4 variantlı) suallar yaradaraq yalnız təmiz JSON array qaytar. $typeText $penaltyText',
-      userPrompt: '''
-Aşağıdakı mövzu/mətn əsasında $count ədəd test sualı yarat.
-Səviyyəni seçilmiş imtahan tipinə və silinmə məntiqinə uyğunlaşdır. Mövzu tələb edərsə markdown vasitəsilə kiçik cədvəl və ya nümunə kod/riyazi düstur əlavə et. 
-Mövzu/Mətn: $topicOrText
-Format dəqiq bu cür olmalıdır (başqa heç nə yazma):
-[
-  {
-    "question": "Sual mətni **Qalın formatda** ola bilər...",
-    "options": ["A variantı", "B variantı", "C variantı", "D variantı"],
-    "correctIndex": 0 // düzgün cavabın indeksi (0, 1, 2 və ya 3)
-  }
-]
-''',
-      base64Image: base64Image,
-      imageMime: imageMime,
-      maxTokens: 2500,
+    final result = await _callEdgeFunction(
+      functionName: 'ai-chat',
+      body: {
+        'action': 'generate_exam_questions',
+        'topic_or_text': topicOrText,
+        'count': count,
+        'exam_type': examType,
+        'penalty_rule': penaltyRule,
+        'base64_image': base64Image,
+        'image_mime': imageMime,
+      },
     );
 
-    if (content != null) {
+    if (result != null && result['questions'] != null) {
       try {
-        final jsonStr = _extractJson(content);
-        final parsed = jsonDecode(jsonStr) as List;
-        return parsed.map((item) => <String, dynamic>{
-          'question': item['question'],
-          'options': List<String>.from(item['options'] as List),
-          'correctIndex': item['correctIndex'],
-        }).toList();
+        final parsed = (result['questions'] as List);
+        return parsed
+            .map((item) => <String, dynamic>{
+                  'question': item['question'],
+                  'options': List<String>.from(item['options'] as List),
+                  'correctIndex': item['correctIndex'],
+                })
+            .toList();
       } catch (e) {
-        debugPrint('JSON parse error (Exam): $e');
+        debugPrint('Exam question parse error: $e');
       }
     }
     return [];
   }
 
-  /// Grade Assignment Submission
+  /// Grade Assignment Submission (backward compatible)
   Future<Map<String, dynamic>> gradeAssignment({
     required String assignmentTitle,
     required String assignmentDescription,
     required String studentAnswer,
   }) async {
-    final content = await _callAI(
-      systemPrompt:
-          'Sən təcrübəli müəllimsən. Tələbənin tapşırığa verdiyi cavabı yoxlayıb dərəcələndirəcəksən. Yalnız JSON format qaytar.',
-      userPrompt: '''
-Tapşırıq başlığı: $assignmentTitle
-Tapşırıq təsviri: $assignmentDescription
-Tələbənin cavabı: $studentAnswer
-
-Tələbənin cavabını yoxla. 0-dan 100-ə qədər bal ver və Azərbaycan dilində konstruktiv feedback (rəy) yaz.
-Format dəqiq bu cür olmalıdır (başqa heç nə yazma):
-{
-  "score": 85,
-  "feedback": "Sənin cavabın yaxşıdır, lakin..."
-}
-''',
-      maxTokens: 800,
+    final result = await _callEdgeFunction(
+      functionName: 'ai-chat',
+      body: {
+        'action': 'grade_assignment',
+        'assignment_title': assignmentTitle,
+        'assignment_description': assignmentDescription,
+        'student_answer': studentAnswer,
+      },
     );
 
-    if (content != null) {
-      try {
-        final jsonStr = _extractJson(content);
-        final parsed = jsonDecode(jsonStr) as Map<String, dynamic>;
-        return parsed;
-      } catch (e) {
-        debugPrint('JSON parse error (Grading): $e');
-      }
+    if (result != null &&
+        result['score'] != null &&
+        result['feedback'] != null) {
+      return result;
     }
     return {'score': 0, 'feedback': 'Sistem xətası: Yoxlama uğursuz oldu.'};
-  }
-
-  String _extractJson(String content) {
-    var cleaned = content.trim();
-    if (cleaned.startsWith('```json')) cleaned = cleaned.substring(7);
-    else if (cleaned.startsWith('```')) cleaned = cleaned.substring(3);
-    if (cleaned.endsWith('```')) cleaned = cleaned.substring(0, cleaned.length - 3);
-    return cleaned.trim();
   }
 }
